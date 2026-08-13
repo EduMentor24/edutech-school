@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 
-export type AdminSubject = { id: string; name: string; description: string | null; icon: string | null; isActive: boolean; displayOrder: number; isTestData: boolean; createdAt: string; updatedAt: string };
+export type AdminSubject = { id: string; name: string; description: string | null; icon: string | null; isActive: boolean; displayOrder: number; isTestData: boolean; createdAt: string; updatedAt: string; associationCount: number; publishedAssociationCount: number; levels: string[]; series: string[]; chapterCount: number; lessonCount: number };
 export type AdminTarget = { levelId: string; seriesId: string; levelName: string; seriesName: string; levelOrder: number; seriesOrder: number };
 export type AdminOffering = { id: string; subjectId: string; levelId: string; seriesId: string; levelName: string; seriesName: string; isPublished: boolean; displayOrder: number; isTestData: boolean };
 export type AdminSubjectInput = { name: string; description: string; icon: string; isActive: boolean; displayOrder: number };
@@ -8,10 +8,10 @@ export type AdminSubjectInput = { name: string; description: string; icon: strin
 type Relation<T> = T | T[] | null;
 function one<T>(value: Relation<T>): T | null { return Array.isArray(value) ? value[0] ?? null : value; }
 function message(error: unknown) { return typeof error === "object" && error && "message" in error && typeof error.message === "string" ? error.message : "Une erreur Supabase est survenue."; }
-function subjectFrom(row: any): AdminSubject { return { id: row.id, name: row.name, description: row.description ?? null, icon: row.icon ?? null, isActive: row.is_active, displayOrder: row.display_order, isTestData: row.is_test_data, createdAt: row.created_at, updatedAt: row.updated_at }; }
+function subjectFrom(row: any): AdminSubject { const offerings = Array.isArray(row.course_subject_offerings) ? row.course_subject_offerings : []; const chapters = offerings.flatMap((offering: any) => Array.isArray(offering.chapters) ? offering.chapters : []); const lessons = chapters.flatMap((chapter: any) => Array.isArray(chapter.lessons) ? chapter.lessons : []); const names = (value: "level" | "series"): string[] => Array.from(new Set(offerings.reduce((result: string[], offering: any) => { const relation = one<{ name: string }>(offering[value]); if (relation?.name) result.push(relation.name); return result; }, []))); return { id: row.id, name: row.name, description: row.description ?? null, icon: row.icon ?? null, isActive: row.is_active, displayOrder: row.display_order, isTestData: row.is_test_data, createdAt: row.created_at, updatedAt: row.updated_at, associationCount: offerings.length, publishedAssociationCount: offerings.filter((offering: any) => offering.is_published).length, levels: names("level"), series: names("series"), chapterCount: chapters.length, lessonCount: lessons.length }; }
 
 export async function getAdminSubjects(): Promise<AdminSubject[]> {
-  const { data, error } = await supabase.from("subjects").select("id,name,description,icon,is_active,display_order,is_test_data,created_at,updated_at").order("display_order", { ascending: true }).order("name", { ascending: true });
+  const { data, error } = await supabase.from("subjects").select("id,name,description,icon,is_active,display_order,is_test_data,created_at,updated_at,course_subject_offerings(id,is_published,level:levels(name),series:series(name),chapters(id,lessons(id)))").order("display_order", { ascending: true }).order("name", { ascending: true });
   if (error) throw new Error(message(error));
   return (data ?? []).map(subjectFrom);
 }

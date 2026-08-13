@@ -75,3 +75,10 @@
 - [x] Préserver le parcours de test Terminale A1 Philosophie sans créer de contenu pédagogique inventé ni le supprimer.
 - [x] Tester uniquement avec les comptes réels disponibles les droits admin, les restrictions student, les parcours existants et les actions de gestion.
 - [x] Vérifier TypeScript, lint, tests et export Android, puis fournir le rapport détaillé obligatoire et attendre validation.
+- [x] Auditer les sources DPFC disponibles, le catalogue Supabase et la visibilité actuelle par niveau, série et matière.
+- [x] Définir uniquement les associations Niveau/Série/Matière confirmées par les documents officiels, et documenter les associations non activées.
+- [x] Configurer les associations de catalogue vérifiées sans créer de chapitre, leçon, exercice ou quiz fictif.
+- [x] Afficher les matières actives même sans chapitre, avec un état explicite « aucun cours disponible » sans contenu inventé.
+- [x] Enrichir Administration → Matières avec les associations, les niveaux, les séries et les compteurs réels de chapitres et de leçons.
+- [x] Préserver Philosophie Terminale A1, maintenir la matière de test administration invisible, et tester sans faux profil Première A2.
+- [x] Revalider RLS, le compte Terminale A1, TypeScript, lint, tests et export Android ; produire le rapport exact avant la prochaine étape.

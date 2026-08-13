@@ -1,7 +1,7 @@
 import { StudentProfile } from "@/lib/auth/supabase-auth-provider";
 import { supabase } from "@/lib/supabase/client";
 
-export type CourseSubject = { offeringId: string; subjectId: string; name: string; description: string | null };
+export type CourseSubject = { offeringId: string; subjectId: string; name: string; description: string | null; activeChapterCount: number };
 export type CourseOffering = { id: string; subjectName: string; subjectDescription: string | null };
 export type CourseChapter = { id: string; title: string; description: string | null; displayOrder: number };
 export type CourseLesson = { id: string; chapterId: string; title: string; description: string | null; content: string | null; displayOrder: number };
@@ -15,9 +15,9 @@ export async function getCoursesForProfile(profile: StudentProfile): Promise<Cou
   if (levelError) throw new Error(messageFrom(levelError)); if (!level) return [];
   const { data: series, error: seriesError } = await supabase.from("series").select("id").eq("name", target.series).maybeSingle();
   if (seriesError) throw new Error(messageFrom(seriesError)); if (!series) return [];
-  const { data, error } = await supabase.from("course_subject_offerings").select("id, subject:subjects!inner(id,name,description,is_active)").eq("level_id", level.id).eq("series_id", series.id).eq("is_published", true).eq("subject.is_active", true).order("display_order", { ascending: true });
+  const { data, error } = await supabase.from("course_subject_offerings").select("id, subject:subjects!inner(id,name,description,is_active), chapters(id)").eq("level_id", level.id).eq("series_id", series.id).eq("is_published", true).eq("subject.is_active", true).order("display_order", { ascending: true });
   if (error) throw new Error(messageFrom(error));
-  return (data ?? []).flatMap((item) => { const subject = Array.isArray(item.subject) ? item.subject[0] : item.subject; return subject ? [{ offeringId: item.id, subjectId: subject.id, name: subject.name, description: subject.description }] : []; });
+  return (data ?? []).flatMap((item: any) => { const subject = Array.isArray(item.subject) ? item.subject[0] : item.subject; const chapters = Array.isArray(item.chapters) ? item.chapters : []; return subject ? [{ offeringId: item.id, subjectId: subject.id, name: subject.name, description: subject.description, activeChapterCount: chapters.length }] : []; });
 }
 
 export async function getCourseOffering(offeringId: string): Promise<CourseOffering | null> {

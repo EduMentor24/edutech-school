@@ -11,6 +11,8 @@ describe("moteur de cours progressif", () => {
     expect(service).toContain('eq("is_published", true)');
     expect(service).toContain('eq("subject.is_active", true)');
     expect(service).toContain('eq("is_active", true)');
+    expect(service).toContain('chapters(id)');
+    expect(service).toContain("activeChapterCount");
     expect(service).toContain('order("display_order", { ascending: true })');
     expect(service).toContain('getChaptersForOffering');
     expect(service).toContain('getLessonsForChapter');
@@ -21,6 +23,8 @@ describe("moteur de cours progressif", () => {
     expect(courses).toContain("Aucun cours disponible pour votre niveau et votre série pour le moment.");
     expect(courses).toContain("CourseLoading");
     expect(courses).toContain("CourseError");
+    expect(courses).toContain("Matière disponible, contenu à venir");
+    expect(courses).toContain("Aucun cours disponible pour votre niveau et votre série pour le moment.");
   });
 
   it("prévoit la lecture et la navigation entre les leçons du même chapitre", () => {

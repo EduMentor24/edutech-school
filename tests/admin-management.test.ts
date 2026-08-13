@@ -10,6 +10,7 @@ describe("administration pédagogique sécurisée", () => {
   const subjectEditor = readFileSync("app/administration/subjects/[subjectId].tsx", "utf8");
   const chapterEditor = readFileSync("app/administration/chapters/[chapterId].tsx", "utf8");
   const lessonEditor = readFileSync("app/administration/lessons/[lessonId].tsx", "utf8");
+  const adminSubjects = readFileSync("app/administration/subjects.tsx", "utf8");
 
   it("réserve toutes les pages d’administration au rôle Supabase réel", () => {
     [dashboard, subjects, chapters, lessons, subjectEditor, chapterEditor, lessonEditor].forEach((screen) => {
@@ -45,5 +46,13 @@ describe("administration pédagogique sécurisée", () => {
     expect(lessonEditor).toContain('label="Contenu"');
     expect(lessonEditor).toContain("Aucune génération automatique");
     expect(lessonEditor).toContain("Leçon active");
+  });
+
+  it("présente les associations et compteurs réels aux administrateurs", () => {
+    expect(service).toContain("publishedAssociationCount");
+    expect(service).toContain("chapterCount");
+    expect(service).toContain("lessonCount");
+    expect(adminSubjects).toContain("Aucune association publiée");
+    expect(adminSubjects).toContain("Aucun contenu pédagogique disponible");
   });
 });
