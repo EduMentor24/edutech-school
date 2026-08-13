@@ -90,3 +90,11 @@
 - [x] Vérifier dans Administration la structure, les ordres, les compteurs et l’état inactif avec le compte administrateur réel.
 - [x] Exécuter le CRUD de validation sur une donnée explicitement de test, nettoyer cette donnée et confirmer l’invisibilité élève sous RLS.
 - [x] Vérifier TypeScript, lint, tests, export Android et produire le rapport de comparaison obligatoire avant d’attendre validation.
+- [x] Vérifier dans Supabase le titre et le chapitre de la première leçon officielle Philosophie Terminale A1, sans toucher aux dix autres leçons.
+- [x] Auditer le lecteur de leçon, l’éditeur administrateur et les sources DPFC officielles pertinentes avant toute rédaction.
+- [x] Rechercher puis distinguer les cadres officiels, les références vérifiables et les explications pédagogiques complémentaires autorisées.
+- [x] Rédiger une seule leçon pilote en Markdown pédagogique premium, avec sections, notions, synthèse et sources sans citation inventée.
+- [x] Adapter uniquement le rendu Markdown mobile ou l’édition existante si les titres, listes, tableaux, citations ou encadrés ne s’affichent pas correctement.
+- [x] Enregistrer seulement la première leçon officielle en brouillon/inactive, sans publier ni modifier les dix autres leçons officielles.
+- [x] Vérifier avec le compte administrateur réel l’affichage, la modification, la sauvegarde et le rechargement de la leçon pilote.
+- [x] Revalider sous RLS l’invisibilité élève de la leçon inactive, les régressions, TypeScript, lint, tests et export Android ; produire le rapport final avant arrêt.

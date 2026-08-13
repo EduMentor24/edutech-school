@@ -43,8 +43,8 @@ describe("administration pédagogique sécurisée", () => {
     expect(chapterEditor).toContain("saveAdminChapter");
     expect(chapterEditor).toContain("Rattaché à");
     expect(chapterEditor).toContain("Ordre d’affichage");
-    expect(lessonEditor).toContain('label="Contenu"');
-    expect(lessonEditor).toContain("Aucune génération automatique");
+    expect(lessonEditor).toContain('label="Contenu Markdown"');
+    expect(lessonEditor).toContain("sans ajout automatique de texte");
     expect(lessonEditor).toContain("Leçon active");
   });
 
