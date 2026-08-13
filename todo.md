@@ -132,3 +132,9 @@
 - [x] Préserver strictement Mathématiques, Philosophie, la leçon pilote, les associations existantes et les données de test.
 - [x] Contrôler l’administration, les compteurs, les titres, les ordres, les doublons et la non-visibilité élève sous RLS (7 chapitres et 23 leçons inactifs, vides et sans doublon ; politiques RLS recontrôlées).
 - [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final de la commande 6.5 et enregistrer une version contrôlée.
+- [x] Auditer les offres Histoire-Géographie Terminale A1 et A2, leurs associations, chapitres, leçons et données à préserver.
+- [x] Mapper exactement la source administrateur dans la hiérarchie actuelle chapitres-leçons, sans créer de table ni modifier d’autre niveau ou série.
+- [x] Créer sans doublon la structure Histoire-Géographie fournie pour Terminale A1 et A2, sans contenu, en brouillon et inactive (14 chapitres et 40 leçons ajoutés).
+- [x] Préserver strictement Mathématiques, Philosophie, les autres matières, la leçon pilote, les associations existantes et les données de test.
+- [x] Vérifier les 20 leçons par série, la répartition méthodologie/histoire/géographie, les compteurs, les doublons et la non-visibilité élève sous RLS (A1 et A2 : 2/9/9, zéro actif, zéro contenu, zéro doublon).
+- [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final de la commande 6.7 et enregistrer une version contrôlée.

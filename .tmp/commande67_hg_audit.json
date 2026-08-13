@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT lv.name AS level, sr.name AS series, s.name AS subject, o.id AS offering_id, o.subject_id, o.level_id, o.series_id, o.is_published, count(DISTINCT c.id) AS chapter_count, count(l.id) AS lesson_count, count(l.id) FILTER (WHERE l.is_active IS TRUE) AS active_lesson_count, count(l.id) FILTER (WHERE coalesce(l.content,'')<>'') AS contentful_lesson_count FROM public.course_subject_offerings o JOIN public.levels lv ON lv.id=o.level_id JOIN public.series sr ON sr.id=o.series_id JOIN public.subjects s ON s.id=o.subject_id LEFT JOIN public.chapters c ON c.subject_offering_id=o.id LEFT JOIN public.lessons l ON l.chapter_id=c.id WHERE lv.name='Terminale' AND sr.name IN ('A1','A2') AND s.name='Histoire-Géographie' GROUP BY lv.name,sr.name,s.name,o.id,o.subject_id,o.level_id,o.series_id,o.is_published ORDER BY sr.name;"
+}
