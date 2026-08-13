@@ -1,0 +1,7 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useRouter } from "expo-router";
+import { useMemo } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useEduTheme } from "@/lib/edutech/theme-context";
+export function PageHeader({ title, subtitle, back = false }: { title: string; subtitle?: string; back?: boolean }) { const router = useRouter(); const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]); return <View style={styles.wrapper}>{back && <Pressable accessibilityRole="button" accessibilityLabel="Retour" onPress={() => router.back()} style={({ pressed }) => [styles.back, pressed && styles.pressed]}><MaterialIcons name="arrow-back" size={22} color={colors.text} /></Pressable>}<View style={styles.textWrap}><Text style={styles.title}>{title}</Text>{subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}</View></View>; }
+const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => StyleSheet.create({ wrapper: { flexDirection: "row", alignItems: "flex-start", gap: 12, marginBottom: 22 }, back: { width: 42, height: 42, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, alignItems: "center", justifyContent: "center" }, textWrap: { flex: 1, paddingTop: 2 }, title: { color: colors.text, fontSize: 25, lineHeight: 31, fontWeight: "800", letterSpacing: -0.4 }, subtitle: { color: colors.muted, fontSize: 14, lineHeight: 20, marginTop: 3 }, pressed: { opacity: 0.65 } });

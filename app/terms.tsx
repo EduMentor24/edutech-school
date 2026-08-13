@@ -1,0 +1,2 @@
+import { InfoScreen } from "@/components/edutech/info-screen";
+export default function TermsScreen() { return <InfoScreen title="Conditions d’utilisation" subtitle="Cadre d’usage de la plateforme." body="Les conditions d’utilisation détaillées seront ajoutées avant l’ouverture du service aux utilisateurs. Cette fondation ne crée ni compte ni activité pédagogique réelle et ne remplace aucune information officielle de l’établissement." />; }

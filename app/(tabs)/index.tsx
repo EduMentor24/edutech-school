@@ -1,48 +1,11 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
-
-import { ScreenContainer } from "@/components/screen-container";
-
-/**
- * Home Screen - NativeWind Example
- *
- * This template uses NativeWind (Tailwind CSS for React Native).
- * You can use familiar Tailwind classes directly in className props.
- *
- * Key patterns:
- * - Use `className` instead of `style` for most styling
- * - Theme colors: use tokens directly (bg-background, text-foreground, bg-primary, etc.); no dark: prefix needed
- * - Responsive: standard Tailwind breakpoints work on web
- * - Custom colors defined in tailwind.config.js
- */
-export default function HomeScreen() {
-  return (
-    <ScreenContainer className="p-6">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 gap-8">
-          {/* Hero Section */}
-          <View className="items-center gap-2">
-            <Text className="text-4xl font-bold text-foreground">Welcome</Text>
-            <Text className="text-base text-muted text-center">
-              Edit app/(tabs)/index.tsx to get started
-            </Text>
-          </View>
-
-          {/* Example Card */}
-          <View className="w-full max-w-sm self-center bg-surface rounded-2xl p-6 shadow-sm border border-border">
-            <Text className="text-lg font-semibold text-foreground mb-2">NativeWind Ready</Text>
-            <Text className="text-sm text-muted leading-relaxed">
-              Use Tailwind CSS classes directly in your React Native components.
-            </Text>
-          </View>
-
-          {/* Example Button */}
-          <View className="items-center">
-            <TouchableOpacity className="bg-primary px-6 py-3 rounded-full active:opacity-80">
-              <Text className="text-background font-semibold">Get Started</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </ScreenContainer>
-  );
-}
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useRouter } from "expo-router";
+import { useMemo } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { AppScreen } from "@/components/edutech/app-screen";
+import { BrandMark } from "@/components/edutech/brand-mark";
+import { EmptyState } from "@/components/edutech/empty-state";
+import { useEduTheme } from "@/lib/edutech/theme-context";
+const shortcuts = [{ label: "Cours", icon: "menu-book", route: "/(tabs)/courses" }, { label: "Quiz", icon: "quiz", route: "/(tabs)/quizzes" }, { label: "Exercices", icon: "edit-note", route: "/(tabs)/exercises" }, { label: "Mentor IA", icon: "psychology", route: "/mentor" }, { label: "Bulletin", icon: "assessment", route: "/bulletin" }] as const;
+export default function HomeScreen() { const router = useRouter(); const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]); return <AppScreen withPadding={false}><ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}><View style={styles.header}><BrandMark compact /><View style={styles.welcome}><Text style={styles.eyebrow}>ESPACE ÉLÈVE</Text><Text style={styles.title}>Bonjour, bienvenue</Text><Text style={styles.subtitle}>Votre espace d’apprentissage est prêt.</Text></View></View><View style={styles.body}><Text style={styles.sectionTitle}>Accès rapide</Text><View style={styles.shortcuts}>{shortcuts.map((item) => <Pressable key={item.label} accessibilityRole="button" accessibilityLabel={item.label} onPress={() => router.push(item.route)} style={({ pressed }) => [styles.shortcut, pressed && styles.pressed]}><View style={styles.shortcutIcon}><MaterialIcons name={item.icon} size={23} color={colors.primary} /></View><Text style={styles.shortcutText}>{item.label}</Text></Pressable>)}</View><Text style={styles.sectionTitle}>Continuer mon apprentissage</Text><EmptyState icon="play-circle-outline" title="Aucun apprentissage en cours" description="Vos cours commencés apparaîtront ici lorsque le contenu sera disponible." /><Text style={styles.sectionTitle}>Ma progression</Text><View style={styles.infoCard}><MaterialIcons name="insights" size={23} color={colors.primary} /><View style={styles.cardCopy}><Text style={styles.cardTitle}>Progression à venir</Text><Text style={styles.cardText}>Les indicateurs se construiront à partir de vos activités réelles.</Text></View></View><Text style={styles.sectionTitle}>Activités récentes</Text><EmptyState icon="history" title="Aucune activité récente" description="Les activités réalisées seront affichées ici, sans données inventées." /></View></ScrollView></AppScreen>; }
+const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => StyleSheet.create({ scroll: { paddingBottom: 28 }, header: { backgroundColor: colors.primarySoft, paddingHorizontal: 20, paddingTop: 23, paddingBottom: 25, flexDirection: "row", alignItems: "flex-start", gap: 12 }, welcome: { flex: 1 }, eyebrow: { color: colors.primary, fontSize: 10, lineHeight: 14, fontWeight: "800", letterSpacing: 1.2 }, title: { color: colors.text, fontSize: 22, lineHeight: 28, fontWeight: "800", marginTop: 2 }, subtitle: { color: colors.muted, fontSize: 13, lineHeight: 18, marginTop: 2 }, body: { paddingHorizontal: 20, paddingTop: 22, gap: 14 }, sectionTitle: { color: colors.text, fontSize: 17, lineHeight: 23, fontWeight: "800", marginTop: 5 }, shortcuts: { flexDirection: "row", flexWrap: "wrap", gap: 10 }, shortcut: { width: "31.7%", minHeight: 94, borderRadius: 17, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface, padding: 11, justifyContent: "space-between" }, shortcutIcon: { width: 35, height: 35, borderRadius: 12, alignItems: "center", justifyContent: "center", backgroundColor: colors.primarySoft }, shortcutText: { color: colors.text, fontSize: 11, lineHeight: 15, fontWeight: "800" }, infoCard: { flexDirection: "row", gap: 13, alignItems: "flex-start", padding: 16, backgroundColor: colors.surface, borderColor: colors.border, borderWidth: 1, borderRadius: 18 }, cardCopy: { flex: 1 }, cardTitle: { color: colors.text, fontSize: 15, lineHeight: 20, fontWeight: "800" }, cardText: { color: colors.muted, fontSize: 13, lineHeight: 18, marginTop: 3 }, pressed: { opacity: 0.7, transform: [{ scale: 0.98 }] } });
