@@ -124,3 +124,11 @@
 - [x] Préserver sans modification Mathématiques, Philosophie, la leçon pilote, les associations existantes et les données de test.
 - [x] Contrôler dans Administration les compteurs, titres, ordres, brouillons et absence de doublons, puis confirmer la non-visibilité élève sous RLS (aucun titre, ordre, brouillon ou doublon nouveau ; politiques et filtres actifs contrôlés).
 - [x] Exécuter TypeScript, lint, tests et export Android, produire le rapport final matière par matière et enregistrer une version contrôlée.
+- [x] Auditer les offres Terminale A1, leurs structures existantes, les données à préserver et les matières réellement associées pour la commande 6.5.
+- [x] Vérifier les sources DPFC officielles 2025-2026 « Terminale A », « Tle A » ou équivalentes, et écarter les sources seulement génériques « Terminale » sans correspondance A établie.
+- [x] Extraire sans reformulation les compétences, thèmes, chapitres, leçons et ordres applicables à Terminale A1 selon les sources Terminale A vérifiées.
+- [x] Documenter les matières toujours insuffisamment spécifiques ou sans progression Terminale exploitable.
+- [x] Créer sans doublon uniquement les structures Terminale A1 ainsi vérifiées, sans contenu, en brouillon et inactives (7 chapitres et 23 leçons ajoutés pour Anglais, Français et SVT).
+- [x] Préserver strictement Mathématiques, Philosophie, la leçon pilote, les associations existantes et les données de test.
+- [x] Contrôler l’administration, les compteurs, les titres, les ordres, les doublons et la non-visibilité élève sous RLS (7 chapitres et 23 leçons inactifs, vides et sans doublon ; politiques RLS recontrôlées).
+- [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final de la commande 6.5 et enregistrer une version contrôlée.

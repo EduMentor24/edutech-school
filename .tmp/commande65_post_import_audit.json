@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT s.name AS subject, c.title AS chapter_title, c.description AS chapter_description, c.display_order AS chapter_order, c.is_active AS chapter_is_active, count(l.id) AS lesson_count, count(l.id) FILTER (WHERE l.is_active IS TRUE) AS active_lesson_count, count(l.id) FILTER (WHERE coalesce(l.content,'')<>'') AS contentful_lesson_count, array_agg(l.title ORDER BY l.display_order) FILTER (WHERE l.id IS NOT NULL) AS lesson_titles FROM public.course_subject_offerings o JOIN public.levels lv ON lv.id=o.level_id JOIN public.series sr ON sr.id=o.series_id JOIN public.subjects s ON s.id=o.subject_id LEFT JOIN public.chapters c ON c.subject_offering_id=o.id LEFT JOIN public.lessons l ON l.chapter_id=c.id WHERE lv.name='Terminale' AND sr.name='A1' GROUP BY s.name,c.id,c.title,c.description,c.display_order,c.is_active ORDER BY s.name,c.display_order NULLS FIRST;"
+}

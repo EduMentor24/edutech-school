@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT s.name AS subject, o.id AS offering_id, o.subject_id, o.level_id, o.series_id, o.is_published, count(c.id) AS chapters FROM public.course_subject_offerings o JOIN public.subjects s ON s.id=o.subject_id JOIN public.levels lv ON lv.id=o.level_id JOIN public.series sr ON sr.id=o.series_id LEFT JOIN public.chapters c ON c.subject_offering_id=o.id WHERE lv.name='Terminale' AND sr.name='A1' AND s.name IN ('Anglais','Français','Sciences de la Vie et de la Terre') GROUP BY s.name,o.id,o.subject_id,o.level_id,o.series_id,o.is_published ORDER BY s.name;"
+}
