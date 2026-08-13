@@ -116,3 +116,11 @@
 - [x] Créer uniquement les structures officielles vérifiées des autres matières A1, en brouillon/inactif et sans contenu pédagogique (aucun import requis faute de source A1 explicite).
 - [x] Vérifier dans Administration les compteurs, titres, ordres et statuts des autres matières Terminale A1 (aucun titre, ordre ou statut nouveau ; compteurs à zéro pour les dix matières non structurées).
 - [x] Vérifier sous RLS que les brouillons A1 restent invisibles au profil élève Terminale A1 et produire le rapport final après validations techniques (aucun nouveau brouillon créé ; politiques et filtres de lecture contrôlés).
+- [x] Auditer les matières réellement associées à Terminale A1, leurs offres, chapitres, leçons et données à préserver pour la commande 6.4.
+- [x] Vérifier les progressions DPFC 2025-2026 applicables comme référence 2026-2027, matière par matière, sans assimiler Terminale A à Terminale A1 sans preuve explicite.
+- [x] Extraire les compétences, thèmes, chapitres, leçons et ordres officiels réellement exploitables pour Terminale A1, sans reformulation ni contenu pédagogique (aucune source A1 explicite n’a fourni de structure à extraire).
+- [x] Documenter et laisser sans import toute matière dont la progression n’établit pas clairement la structure Terminale A1.
+- [x] Créer sans doublon uniquement les structures Terminale A1 vérifiées, avec leçons vides, brouillon et inactives (aucune insertion autorisée faute de source A1 explicite).
+- [x] Préserver sans modification Mathématiques, Philosophie, la leçon pilote, les associations existantes et les données de test.
+- [x] Contrôler dans Administration les compteurs, titres, ordres, brouillons et absence de doublons, puis confirmer la non-visibilité élève sous RLS (aucun titre, ordre, brouillon ou doublon nouveau ; politiques et filtres actifs contrôlés).
+- [x] Exécuter TypeScript, lint, tests et export Android, produire le rapport final matière par matière et enregistrer une version contrôlée.
