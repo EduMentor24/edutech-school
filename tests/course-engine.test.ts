@@ -9,6 +9,7 @@ describe("moteur de cours progressif", () => {
   it("cible les requêtes de matières selon le niveau et la série du profil", () => {
     expect(service).toContain('eq("level_id", level.id).eq("series_id", series.id)');
     expect(service).toContain('eq("is_published", true)');
+    expect(service).toContain('order("display_order", { ascending: true })');
     expect(service).toContain('getChaptersForOffering');
     expect(service).toContain('getLessonsForChapter');
   });
@@ -27,4 +28,3 @@ describe("moteur de cours progressif", () => {
     expect(reader).toContain("Leçon suivante");
   });
 });
-

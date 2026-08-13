@@ -54,3 +54,12 @@
 - [x] Tester le profil Terminale A1, les droits admin/student, RLS, TypeScript, lint, tests et export Android.
 - [x] Confirmer visuellement avec le compte étudiant Terminale A1 l’ouverture successive de Cours, Philosophie, Chapitre de test et Leçon de test.
 - [ ] Test Première A2 non exécuté : aucun profil réel disponible, aucune création ni modification artificielle autorisée.
+- [x] Recenser les sources DPFC 2025-2026 réellement accessibles et documenter leur portée par matière et série.
+- [x] Auditer les tables `levels`, `series`, `subjects`, `level_series` et `course_subject_offerings` sans créer de doublon.
+- [x] Garantir les huit associations niveau-série Première/Terminale × A1/A2/C/D.
+- [x] Ajouter au catalogue les matières demandées, sans les activer sans preuve officielle suffisante.
+- [x] Configurer seulement les associations niveau-série-matière explicitement vérifiées pour Mathématiques, Physique-Chimie, SVT et les matières communes.
+- [x] Conserver séparément Anglais, Espagnol, Allemand, Informatique/TICE, Arts plastiques, Éducation musicale, EDHC et EPS, avec activation prudente.
+- [x] Préserver strictement le contenu de test Terminale A1 Philosophie, sans créer de chapitre ou de leçon réel.
+- [x] Vérifier le filtrage du profil Terminale A1, la logique Première A2 sans compte, RLS, rôle admin, TypeScript, lint, tests et export Android.
+- [x] Produire le rapport exact des matières, associations actives, associations non activées, sources, tests et limites de vérification.
