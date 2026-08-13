@@ -57,8 +57,8 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
     if (!user) { setProfile(null); setProfileError(null); return; }
     setIsProfileLoading(true); setProfileError(null);
     const { data, error } = await supabase.from("profiles").select(PROFILE_FIELDS).eq("id", user.id).maybeSingle();
-    if (error) { setProfile(null); setProfileError("Impossible de charger votre profil. Réessayez dans quelques instants."); }
-    else if (!data) { setProfile(null); setProfileError("Votre profil est en cours de création. Réessayez dans quelques instants."); }
+    if (error) { setProfile(null); setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(error)}`); }
+    else if (!data) { setProfile(null); setProfileError(null); }
     else { setProfile(data as StudentProfile); }
     setIsProfileLoading(false);
   }, [user]);

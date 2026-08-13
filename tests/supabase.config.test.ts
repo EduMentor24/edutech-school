@@ -44,7 +44,10 @@ describe("configuration Supabase", () => {
         Authorization: `Bearer ${publishableKey!}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: "validation-invalide@invalid.example" }),
+      body: JSON.stringify({
+        email: "validation-invalide@invalid.example",
+        redirect_to: "manusedutechschool://auth/reset-password",
+      }),
     });
 
     expect(response.ok).toBe(true);

@@ -28,3 +28,13 @@
 - [x] Préserver la navigation, le thème, l’accueil, les paramètres et les écrans de disponibilité de l’étape 1.
 - [ ] Ajouter les URL de redirection `manusedutechschool://auth/login` et `manusedutechschool://auth/reset-password` dans Supabase Auth, puis tester la confirmation d’e-mail et la récupération depuis un appareil réel.
 - [ ] Tester les flux réels Auth, profils, politiques RLS, routes privées, TypeScript, lint, tests et bundle Android.
+- [x] Vérifier ou configurer les redirections Supabase `manusedutechschool://auth/login` et `manusedutechschool://auth/reset-password`.
+- [x] Obtenir un accès administrateur Supabase ou appliquer manuellement les redirections Auth documentées.
+- [ ] Tester une inscription réelle avec une boîte e-mail de validation et confirmer la création de son profil associé.
+- [ ] Tester sur Android la connexion, la fermeture/réouverture avec session, la déconnexion, le mauvais mot de passe, l’édition de profil et le retour profond de récupération.
+- [ ] Vérifier l’absence de clés `service_role` et `sb_secret_` dans le code mobile.
+- [ ] Revalider RLS, les routes privées, la navigation existante, TypeScript, lint, les tests et l’export Android après finalisation.
+- [x] Diagnostiquer la session Supabase connectée, le profil lié et les colonnes réellement disponibles dans `public.profiles`.
+- [x] Corriger strictement la récupération ou l’affichage du profil connecté sans contourner RLS ni créer de profil fictif.
+- [x] Vérifier visuellement dans la session déjà ouverte les états de chargement, erreur, profil vide et profil disponible.
+- [x] Revalider TypeScript, lint, tests et export Android après la correction du profil.
