@@ -63,3 +63,15 @@
 - [x] Préserver strictement le contenu de test Terminale A1 Philosophie, sans créer de chapitre ou de leçon réel.
 - [x] Vérifier le filtrage du profil Terminale A1, la logique Première A2 sans compte, RLS, rôle admin, TypeScript, lint, tests et export Android.
 - [x] Produire le rapport exact des matières, associations actives, associations non activées, sources, tests et limites de vérification.
+- [x] Auditer le schéma pédagogique existant, les relations, les contraintes et les politiques RLS avant toute évolution administrative.
+- [x] Vérifier que le compte administrateur principal conserve son rôle réel `admin` sans utiliser l’e-mail comme autorisation frontend.
+- [x] Concevoir l’espace Administration mobile-first, ses filtres, ses états et son parcours sécurisé sans modifier les modules hors périmètre.
+- [x] Ajouter ou adapter les champs techniques strictement nécessaires à la gestion administrative sans dupliquer les tables existantes.
+- [x] Mettre en œuvre les politiques RLS qui réservent toutes les écritures des matières, associations, chapitres et leçons au rôle admin.
+- [x] Construire la gestion des matières avec recherche, création, modification, ordre, publication et suppression sécurisée.
+- [x] Construire la gestion réelle des associations niveau-série-matière avec activation et désactivation persistées dans Supabase.
+- [x] Construire la gestion des chapitres avec association à une offre de matière, ordre, publication et suppression sécurisée.
+- [x] Construire l’éditeur simple des leçons avec titre, description, contenu, ordre, publication et suppression sécurisée.
+- [x] Préserver le parcours de test Terminale A1 Philosophie sans créer de contenu pédagogique inventé ni le supprimer.
+- [x] Tester uniquement avec les comptes réels disponibles les droits admin, les restrictions student, les parcours existants et les actions de gestion.
+- [x] Vérifier TypeScript, lint, tests et export Android, puis fournir le rapport détaillé obligatoire et attendre validation.
