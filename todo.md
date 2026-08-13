@@ -82,3 +82,11 @@
 - [x] Enrichir Administration → Matières avec les associations, les niveaux, les séries et les compteurs réels de chapitres et de leçons.
 - [x] Préserver Philosophie Terminale A1, maintenir la matière de test administration invisible, et tester sans faux profil Première A2.
 - [x] Revalider RLS, le compte Terminale A1, TypeScript, lint, tests et export Android ; produire le rapport exact avant la prochaine étape.
+- [x] Lire intégralement la progression DPFC 2025-2026 « Philosophie — Terminales A1-A2 » et auditer le schéma réel avant toute insertion.
+- [x] Extraire sans reformulation les compétences, leçons, ordre, volumes horaires, périodes et mentions spéciales réellement présents dans la source.
+- [x] Documenter les éléments non déterminés ou non représentables, sans les transformer en contenu pédagogique inventé.
+- [x] Ajouter seulement les métadonnées de traçabilité minimales nécessaires, en préservant le rôle d’administration et les politiques RLS existantes.
+- [x] Créer la structure officielle Philosophie Terminale A1 exclusivement en brouillon/inactive, sans supprimer ni mélanger le contenu de test.
+- [x] Vérifier dans Administration la structure, les ordres, les compteurs et l’état inactif avec le compte administrateur réel.
+- [x] Exécuter le CRUD de validation sur une donnée explicitement de test, nettoyer cette donnée et confirmer l’invisibilité élève sous RLS.
+- [x] Vérifier TypeScript, lint, tests, export Android et produire le rapport de comparaison obligatoire avant d’attendre validation.
