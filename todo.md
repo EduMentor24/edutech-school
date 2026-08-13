@@ -98,3 +98,13 @@
 - [x] Enregistrer seulement la première leçon officielle en brouillon/inactive, sans publier ni modifier les dix autres leçons officielles.
 - [x] Vérifier avec le compte administrateur réel l’affichage, la modification, la sauvegarde et le rechargement de la leçon pilote.
 - [x] Revalider sous RLS l’invisibilité élève de la leçon inactive, les régressions, TypeScript, lint, tests et export Android ; produire le rapport final avant arrêt.
+- [x] Auditer les associations et contenus réels de Terminale A1, A2, C et D, sans modifier les associations existantes ni les contenus validés.
+- [x] Recenser les documents officiels DPFC disponibles pour les matières effectivement associées à chaque série de Terminale.
+- [x] Extraire sans reformulation les compétences, thèmes, titres, ordres et mentions spéciales explicitement établis par les sources.
+- [x] Documenter les matières ou structures non déterminées par une source DPFC, sans les créer ni les déduire par analogie.
+- [x] Préserver strictement la leçon pilote de dissertation, les dix autres leçons de Philosophie Terminale A1 et les contenus de test existants.
+- [x] Créer uniquement les structures officielles Terminale A1 et A2 en brouillon/inactif, sans contenu pédagogique.
+- [x] Créer uniquement les structures officielles Terminale C et D en brouillon/inactif, sans contenu pédagogique.
+- [x] Vérifier séparément dans Administration les matières, chapitres, titres, ordres, statuts et compteurs des quatre séries de Terminale.
+- [x] Vérifier sous RLS que les nouvelles structures inactives restent invisibles aux élèves et que les associations existantes demeurent intactes.
+- [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport Terminale et arrêter avant toute structuration Première.
