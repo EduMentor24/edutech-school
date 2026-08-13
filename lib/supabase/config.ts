@@ -1,2 +1,6 @@
-/** Point d’entrée pour la prochaine intégration Supabase, volontairement sans clé ni URL fictive. */
-export const supabaseConfig = { isConfigured: false, url: undefined as string | undefined, anonKey: undefined as string | undefined };
+/** Configuration publique injectée à la compilation ; aucune clé de service n’est utilisée côté mobile. */
+export const supabaseConfig = {
+  isConfigured: Boolean(process.env.EXPO_PUBLIC_SUPABASE_URL && process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
+  url: process.env.EXPO_PUBLIC_SUPABASE_URL,
+};
+

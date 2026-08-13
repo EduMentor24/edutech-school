@@ -15,3 +15,16 @@
 - [x] Ajouter les tests des services locaux et de la structure de navigation.
 - [x] Vérifier les routes, boutons, écrans d’authentification, accueil, profil, paramètres et compilation TypeScript.
 - [x] Vérifier l’interface en format mobile portrait et enregistrer une version stable.
+- [x] Vérifier la disponibilité des variables Supabase sécurisées et ne pas simuler l’intégration si elles sont absentes.
+- [x] Installer et configurer le client Supabase Auth avec persistance de session adaptée à Expo.
+- [x] Créer une table de profils élèves reliée par l’identifiant Supabase Auth, avec dates de création et de modification.
+- [x] Créer un mécanisme sécurisé de création automatique de profil lors de l’inscription sans données fictives.
+- [x] Activer RLS et créer les politiques permettant uniquement la lecture et la modification de son propre profil.
+- [x] Connecter l’inscription réelle avec prénom, nom, e-mail, mot de passe, niveau scolaire et série conditionnelle.
+- [x] Connecter la connexion, déconnexion, réinitialisation de mot de passe et la gestion des erreurs Supabase Auth.
+- [x] Restaurer automatiquement la session au démarrage sans flash d’écran inutile.
+- [x] Protéger les routes privées contre l’accès par URL ou navigation interne sans session valide.
+- [x] Connecter l’écran Profil aux données Supabase réelles et permettre sa modification validée avec états de chargement, erreur et succès.
+- [x] Préserver la navigation, le thème, l’accueil, les paramètres et les écrans de disponibilité de l’étape 1.
+- [ ] Ajouter les URL de redirection `manusedutechschool://auth/login` et `manusedutechschool://auth/reset-password` dans Supabase Auth, puis tester la confirmation d’e-mail et la récupération depuis un appareil réel.
+- [ ] Tester les flux réels Auth, profils, politiques RLS, routes privées, TypeScript, lint, tests et bundle Android.
