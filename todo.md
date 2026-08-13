@@ -38,3 +38,7 @@
 - [x] Corriger strictement la récupération ou l’affichage du profil connecté sans contourner RLS ni créer de profil fictif.
 - [x] Vérifier visuellement dans la session déjà ouverte les états de chargement, erreur, profil vide et profil disponible.
 - [x] Revalider TypeScript, lint, tests et export Android après la correction du profil.
+- [x] Corriger l’écart entre la colonne Supabase `school_level` et les références restaurées à `level` dans l’application.
+- [x] Réappliquer après le correctif de profil les adaptations de rôles, inscription structurée et garde Administration perdues lors de la réinitialisation du sandbox.
+- [x] Revalider le profil connecté, les rôles, RLS, TypeScript, lint, tests et l’export Android après restauration contrôlée.
+- [x] Confirmer dans la prévisualisation que le profil administrateur réel et le lien Administration s’affichent sans erreur après le réalignement du schéma.

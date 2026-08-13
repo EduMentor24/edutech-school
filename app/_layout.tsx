@@ -22,14 +22,15 @@ const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
 export const unstable_settings = { anchor: "(tabs)" };
 
 function RootNavigator() {
-  const { isReady, isAuthenticated, isPasswordRecovery } = useSupabaseAuth();
+  const { isReady, isAuthenticated, isPasswordRecovery, isAdmin } = useSupabaseAuth();
   if (!isReady) return <AuthLoadingScreen />;
   return <Stack screenOptions={{ headerShown: false, animation: "fade" }}>
     <Stack.Screen name="index" />
     <Stack.Protected guard={!isAuthenticated || isPasswordRecovery}><Stack.Screen name="auth" /></Stack.Protected>
     <Stack.Protected guard={isAuthenticated && !isPasswordRecovery}>
-      <Stack.Screen name="(tabs)" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="settings" /><Stack.Screen name="administration" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
+      <Stack.Screen name="(tabs)" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="settings" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
     </Stack.Protected>
+    <Stack.Protected guard={isAuthenticated && !isPasswordRecovery && isAdmin}><Stack.Screen name="administration" /></Stack.Protected>
     <Stack.Screen name="oauth/callback" />
   </Stack>;
 }

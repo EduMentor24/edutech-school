@@ -12,14 +12,15 @@ export type StudentProfile = {
   last_name: string | null;
   full_name: string;
   avatar_url: string | null;
-  level: string | null;
+  role: "admin" | "student";
+  school_level: "Première" | "Terminale" | null;
   series: string | null;
   created_at: string;
   updated_at: string;
 };
 
-export type RegistrationInput = { firstName: string; lastName: string; email: string; password: string; level: string; series?: string };
-export type ProfileInput = { firstName: string; lastName: string; level: string; series?: string; avatarUrl?: string };
+export type RegistrationInput = { firstName: string; lastName: string; email: string; password: string; schoolLevel: string; series: string };
+export type ProfileInput = { firstName: string; lastName: string; avatarUrl?: string };
 type AuthResult = { error: string | null; needsEmailConfirmation?: boolean };
 type AuthContextValue = {
   session: Session | null;
@@ -30,6 +31,7 @@ type AuthContextValue = {
   profileError: string | null;
   isPasswordRecovery: boolean;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signUp: (input: RegistrationInput) => Promise<AuthResult>;
   signOut: () => Promise<AuthResult>;
@@ -39,10 +41,12 @@ type AuthContextValue = {
   refreshProfile: () => Promise<void>;
 };
 
-const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,level,series,created_at,updated_at";
+const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,role,school_level,series,created_at,updated_at";
+const SCHOOL_LEVELS = ["Première", "Terminale"];
+const SCHOOL_SERIES = ["A1", "A2", "C", "D"];
 const SupabaseAuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-function messageFrom(error: unknown) { return error instanceof Error ? error.message : "Une erreur inattendue est survenue."; }
+function messageFrom(error: unknown) { if (error instanceof Error) return error.message; if (typeof error === "object" && error && "message" in error && typeof error.message === "string") return error.message; return "Une erreur inattendue est survenue."; }
 
 export function SupabaseAuthProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
@@ -107,10 +111,11 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   const signUp = useCallback(async (input: RegistrationInput): Promise<AuthResult> => {
-    const firstName = input.firstName.trim(); const lastName = input.lastName.trim(); const level = input.level.trim(); const series = input.series?.trim() || undefined;
+    const firstName = input.firstName.trim(); const lastName = input.lastName.trim(); const schoolLevel = input.schoolLevel.trim(); const series = input.series.trim();
+    if (!SCHOOL_LEVELS.includes(schoolLevel) || !SCHOOL_SERIES.includes(series)) return { error: "Choisissez un niveau scolaire et une série valides." };
     const { data, error } = await supabase.auth.signUp({
       email: input.email.trim(), password: input.password,
-      options: { emailRedirectTo: Linking.createURL("/auth/login"), data: { first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`.trim(), level, ...(series ? { series } : {}) } },
+      options: { emailRedirectTo: Linking.createURL("/auth/login"), data: { first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`.trim(), school_level: schoolLevel, series } },
     });
     return { error: error ? messageFrom(error) : null, needsEmailConfirmation: !error && !data.session };
   }, []);
@@ -133,14 +138,14 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
 
   const updateProfile = useCallback(async (input: ProfileInput): Promise<AuthResult> => {
     if (!user) return { error: "Votre session a expiré. Connectez-vous à nouveau." };
-    const firstName = input.firstName.trim(); const lastName = input.lastName.trim(); const level = input.level.trim();
-    if (!firstName || !lastName || !level) return { error: "Le prénom, le nom et le niveau scolaire sont obligatoires." };
-    const { data, error } = await supabase.from("profiles").update({ first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`.trim(), level, series: input.series?.trim() || null, avatar_url: input.avatarUrl?.trim() || null }).eq("id", user.id).select(PROFILE_FIELDS).single();
+    const firstName = input.firstName.trim(); const lastName = input.lastName.trim();
+    if (!firstName || !lastName) return { error: "Le prénom et le nom sont obligatoires." };
+    const { data, error } = await supabase.from("profiles").update({ first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`.trim(), avatar_url: input.avatarUrl?.trim() || null }).eq("id", user.id).select(PROFILE_FIELDS).single();
     if (!error && data) setProfile(data as StudentProfile);
     return { error: error ? messageFrom(error) : null };
   }, [user]);
 
-  const value = useMemo<AuthContextValue>(() => ({ session, user, profile, isReady, isProfileLoading, profileError, isPasswordRecovery, isAuthenticated: Boolean(user), signIn, signUp, signOut, sendPasswordReset, updatePassword, updateProfile, refreshProfile }), [session, user, profile, isReady, isProfileLoading, profileError, isPasswordRecovery, signIn, signUp, signOut, sendPasswordReset, updatePassword, updateProfile, refreshProfile]);
+  const value = useMemo<AuthContextValue>(() => ({ session, user, profile, isReady, isProfileLoading, profileError, isPasswordRecovery, isAuthenticated: Boolean(user), isAdmin: profile?.role === "admin", signIn, signUp, signOut, sendPasswordReset, updatePassword, updateProfile, refreshProfile }), [session, user, profile, isReady, isProfileLoading, profileError, isPasswordRecovery, signIn, signUp, signOut, updatePassword, updateProfile, refreshProfile]);
   return <SupabaseAuthContext.Provider value={value}>{children}</SupabaseAuthContext.Provider>;
 }
 
