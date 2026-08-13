@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT s.name AS subject, o.is_published, o.is_test_data, count(DISTINCT c.id) AS chapters, count(l.id) AS lessons, count(l.id) FILTER (WHERE coalesce(l.content,'')<>'') AS contentful_lessons FROM public.course_subject_offerings o JOIN public.levels lv ON lv.id=o.level_id JOIN public.series sr ON sr.id=o.series_id JOIN public.subjects s ON s.id=o.subject_id LEFT JOIN public.chapters c ON c.subject_offering_id=o.id LEFT JOIN public.lessons l ON l.chapter_id=c.id WHERE lv.name='Terminale' AND sr.name='A1' GROUP BY s.name,o.is_published,o.is_test_data ORDER BY s.name;"
+}

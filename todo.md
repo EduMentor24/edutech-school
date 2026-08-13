@@ -108,3 +108,11 @@
 - [x] Vérifier séparément dans Administration les matières, chapitres, titres, ordres, statuts et compteurs des quatre séries de Terminale.
 - [x] Vérifier sous RLS que les nouvelles structures inactives restent invisibles aux élèves et que les associations existantes demeurent intactes.
 - [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport Terminale et arrêter avant toute structuration Première.
+- [x] Auditer les matières réellement associées à Terminale A1, leurs structures existantes et les données à préserver sans toucher à Mathématiques ni Philosophie.
+- [x] Rechercher les sources DPFC officielles suffisamment précises pour chaque autre matière Terminale A1 associée.
+- [x] Extraire sans reformulation les compétences, thèmes, chapitres, leçons et ordres explicitement fournis par les sources applicables à A1 (aucune source A1 explicite n’a fourni de structure à extraire).
+- [x] Documenter les matières sans source Terminale A1 suffisamment ventilée, sans créer de structure par analogie.
+- [x] Préserver la leçon pilote, les structures Mathématiques et Philosophie A1, les associations existantes et les contenus de test.
+- [x] Créer uniquement les structures officielles vérifiées des autres matières A1, en brouillon/inactif et sans contenu pédagogique (aucun import requis faute de source A1 explicite).
+- [x] Vérifier dans Administration les compteurs, titres, ordres et statuts des autres matières Terminale A1 (aucun titre, ordre ou statut nouveau ; compteurs à zéro pour les dix matières non structurées).
+- [x] Vérifier sous RLS que les brouillons A1 restent invisibles au profil élève Terminale A1 et produire le rapport final après validations techniques (aucun nouveau brouillon créé ; politiques et filtres de lecture contrôlés).
