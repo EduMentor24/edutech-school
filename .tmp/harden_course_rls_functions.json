@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "harden_course_rls_functions",
+  "query": "REVOKE ALL ON FUNCTION public.can_access_course_target(uuid, uuid) FROM PUBLIC, anon;\nGRANT EXECUTE ON FUNCTION public.can_access_course_target(uuid, uuid) TO authenticated;\nREVOKE ALL ON FUNCTION public.is_edutech_admin() FROM PUBLIC, anon;\nGRANT EXECUTE ON FUNCTION public.is_edutech_admin() TO authenticated;\nNOTIFY pgrst, 'reload schema';"
+}

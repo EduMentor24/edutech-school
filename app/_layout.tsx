@@ -28,7 +28,7 @@ function RootNavigator() {
     <Stack.Screen name="index" />
     <Stack.Protected guard={!isAuthenticated || isPasswordRecovery}><Stack.Screen name="auth" /></Stack.Protected>
     <Stack.Protected guard={isAuthenticated && !isPasswordRecovery}>
-      <Stack.Screen name="(tabs)" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="settings" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
+      <Stack.Screen name="(tabs)" /><Stack.Screen name="course" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="settings" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
     </Stack.Protected>
     <Stack.Protected guard={isAuthenticated && !isPasswordRecovery && isAdmin}><Stack.Screen name="administration" /></Stack.Protected>
     <Stack.Screen name="oauth/callback" />

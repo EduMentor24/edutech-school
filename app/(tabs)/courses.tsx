@@ -1,2 +1,21 @@
-import { ComingSoonScreen } from "@/components/edutech/coming-soon-screen";
-export default function CoursesScreen() { return <ComingSoonScreen title="Cours" subtitle="Vos matières et leçons seront organisées ici." icon="menu-book" description="Le catalogue de cours sera ajouté dans une prochaine étape, avec des données scolaires réelles." />; }
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { AppScreen } from "@/components/edutech/app-screen";
+import { CourseEmpty, CourseError, CourseLoading, CourseRowIcon } from "@/components/edutech/course-feedback";
+import { PageHeader } from "@/components/edutech/page-header";
+import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
+import { CourseSubject, getCoursesForProfile } from "@/lib/courses/course-service";
+import { useEduTheme } from "@/lib/edutech/theme-context";
+
+export default function CoursesScreen() {
+  const router = useRouter(); const { colors } = useEduTheme(); const { profile, isProfileLoading } = useSupabaseAuth(); const [items, setItems] = useState<CourseSubject[]>([]); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null); const styles = useMemo(() => createStyles(colors), [colors]);
+  const load = useCallback(async () => { if (!profile) { setLoading(isProfileLoading); return; } setLoading(true); setError(null); try { setItems(await getCoursesForProfile(profile)); } catch (cause) { setItems([]); setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [profile, isProfileLoading]);
+  useFocusEffect(useCallback(() => { void load(); }, [load]));
+  if (loading) return <AppScreen><CourseLoading label="Chargement de vos matières" /></AppScreen>;
+  if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;
+  if (!profile?.school_level || !profile.series) return <AppScreen><CourseEmpty title="Profil scolaire incomplet" description="Renseignez votre niveau scolaire et votre série pour recevoir les cours qui vous sont destinés." actionLabel="Voir mon profil" onAction={() => router.push("/(tabs)/profile")} /></AppScreen>;
+  return <AppScreen withPadding={false}><FlatList data={items} keyExtractor={(item) => item.offeringId} contentContainerStyle={styles.content} ListHeaderComponent={<View><View style={styles.header}><PageHeader title="Mes cours" subtitle="Les matières adaptées à votre parcours scolaire." /><View style={styles.target}><MaterialIcons name="school" size={19} color={colors.primary} /><Text style={styles.targetText}>{profile.school_level} · {profile.series}</Text></View><Text style={styles.section}>Matières disponibles</Text></View></View>} renderItem={({ item, index }) => <Pressable accessibilityRole="button" onPress={() => router.push(`/course/${item.offeringId}`)} style={({ pressed }) => [styles.card, pressed && styles.pressed]}><CourseRowIcon index={index} /><View style={styles.cardCopy}><Text style={styles.cardTitle}>{item.name}</Text><Text style={styles.cardDescription}>{item.description || "Consulter les chapitres disponibles."}</Text></View><MaterialIcons name="chevron-right" size={23} color={colors.muted} /></Pressable>} ListEmptyComponent={<CourseEmpty title="Aucun cours disponible" description="Aucun cours disponible pour votre niveau et votre série pour le moment." />} /> </AppScreen>;
+}
+const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => StyleSheet.create({ content: { flexGrow: 1, paddingHorizontal: 20, paddingTop: 20, paddingBottom: 28, gap: 10 }, header: { marginBottom: 6 }, target: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 7, backgroundColor: colors.primarySoft, borderRadius: 99, paddingHorizontal: 12, paddingVertical: 8, marginTop: 6 }, targetText: { color: colors.primary, fontSize: 13, fontWeight: "800" }, section: { color: colors.text, fontSize: 16, lineHeight: 22, fontWeight: "800", marginTop: 26, marginBottom: 10 }, card: { minHeight: 76, padding: 14, flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 18, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface }, pressed: { opacity: 0.72 }, cardCopy: { flex: 1 }, cardTitle: { color: colors.text, fontSize: 16, lineHeight: 21, fontWeight: "800" }, cardDescription: { color: colors.muted, fontSize: 12, lineHeight: 17, marginTop: 3 } });

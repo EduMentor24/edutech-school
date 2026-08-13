@@ -42,3 +42,15 @@
 - [x] Réappliquer après le correctif de profil les adaptations de rôles, inscription structurée et garde Administration perdues lors de la réinitialisation du sandbox.
 - [x] Revalider le profil connecté, les rôles, RLS, TypeScript, lint, tests et l’export Android après restauration contrôlée.
 - [x] Confirmer dans la prévisualisation que le profil administrateur réel et le lien Administration s’affichent sans erreur après le réalignement du schéma.
+- [x] Lire intégralement l’étape 3 et limiter le périmètre au premier moteur de cours réel.
+- [x] Auditer les tables pédagogiques existantes et concevoir la hiérarchie relationnelle levels → series → subjects → chapters → lessons.
+- [x] Créer ou adapter les tables pédagogiques avec relations, contraintes d’ordre, horodatages et architecture évolutive pour médias ultérieurs.
+- [x] Mettre en place les relations réelles niveau-série et les filtres de contenu selon `profiles.school_level` et `profiles.series`.
+- [x] Mettre en place RLS : lecture ciblée pour l’élève, aucune écriture élève et opérations de contenu réservées au rôle admin.
+- [x] Créer uniquement un jeu de données explicitement de test Terminale A1 → Philosophie → chapitre de test → leçon de test, facilement supprimable.
+- [x] Remplacer l’état indisponible de Cours par les matières Supabase filtrées avec états chargement, vide et erreur.
+- [x] Créer les écrans Matière, Chapitre et Lecteur de leçon avec chargement progressif depuis Supabase et navigation précédent/suivant.
+- [x] Préserver strictement Auth, profil, rôles, administration, navigation existante et tous les autres modules pédagogiques.
+- [x] Tester le profil Terminale A1, les droits admin/student, RLS, TypeScript, lint, tests et export Android.
+- [x] Confirmer visuellement avec le compte étudiant Terminale A1 l’ouverture successive de Cours, Philosophie, Chapitre de test et Leçon de test.
+- [ ] Test Première A2 non exécuté : aucun profil réel disponible, aucune création ni modification artificielle autorisée.
