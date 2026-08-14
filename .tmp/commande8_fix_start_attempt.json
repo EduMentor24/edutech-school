@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "fix_start_exercise_attempt_ambiguous_exercise_id",
+  "query": "CREATE OR REPLACE FUNCTION public.start_exercise_attempt(p_exercise_id uuid) RETURNS TABLE(attempt_id uuid, exercise_id uuid, status text, started_at timestamptz) LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ BEGIN IF auth.uid() IS NULL OR NOT public.can_access_exercise_for_current_student(p_exercise_id) THEN RAISE EXCEPTION 'Cet exercice n’est pas disponible pour votre profil scolaire.'; END IF; IF NOT EXISTS (SELECT 1 FROM public.exercise_questions AS q WHERE q.exercise_id = p_exercise_id) THEN RAISE EXCEPTION 'Cet exercice ne comporte pas encore de question.'; END IF; RETURN QUERY INSERT INTO public.exercise_attempts AS ea (user_id, exercise_id) VALUES (auth.uid(), p_exercise_id) RETURNING ea.id, ea.exercise_id, ea.status, ea.started_at; END; $$; REVOKE ALL ON FUNCTION public.start_exercise_attempt(uuid) FROM PUBLIC; REVOKE ALL ON FUNCTION public.start_exercise_attempt(uuid) FROM anon; GRANT EXECUTE ON FUNCTION public.start_exercise_attempt(uuid) TO authenticated;"
+}

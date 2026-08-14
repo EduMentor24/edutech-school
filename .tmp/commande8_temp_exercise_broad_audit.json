@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT e.id AS exercise_id,e.title,e.is_published,e.is_active,e.created_at,(SELECT count(*) FROM public.exercise_questions q WHERE q.exercise_id=e.id) AS question_count,(SELECT count(*) FROM public.exercise_attempts a WHERE a.exercise_id=e.id) AS attempt_count FROM public.exercises e WHERE lower(e.title) LIKE '%temporaire%' OR (e.created_at >= now() - interval '2 hours' AND e.is_test_data = false) ORDER BY e.created_at DESC LIMIT 20;"
+}

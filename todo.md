@@ -146,3 +146,15 @@
 - [x] Ajouter les fondations de statistiques administratives globales nécessaires aux évolutions futures, sans tableau de bord complexe ni données fictives.
 - [x] Vérifier RLS, l’isolation des utilisateurs, l’exclusion des brouillons/inactifs, les données existantes et les parcours réels disponibles ; nettoyer toute donnée temporaire éventuelle.
 - [x] Ajouter les tests de progression, exécuter TypeScript, lint, tests et export Android, rédiger le rapport final et enregistrer une version contrôlée après validation utilisateur du parcours élève réel.
+- [x] Auditer les tables, politiques RLS, écrans et services existants liés aux exercices, questions, tentatives, résultats et progression, sans modifier les données actuelles.
+- [x] Concevoir et documenter la hiérarchie exercice-leçon, les types extensibles, le modèle de correction, les tentatives multiples et la séparation avec la progression des leçons.
+- [x] Créer uniquement les tables, champs, contraintes, fonctions et politiques RLS strictement nécessaires au module Exercices, sans doublon ni donnée pédagogique fictive.
+- [x] Implémenter les services Supabase de catalogue filtré, filtres dynamiques, tentatives, soumission, correction automatique admissible, résultats et historique personnel.
+- [x] Construire les écrans élève Exercices, Exercice, Résultat et Historique avec chargement, vide, erreur, filtres réels et rendu Markdown cohérent.
+- [x] Ajouter depuis une leçon publiée l’accès aux exercices associés et l’état explicite lorsqu’aucun exercice n’est disponible, sans modifier la progression de leçon.
+- [x] Construire l’administration des exercices : sélection du rattachement, brouillon, prévisualisation, questions, correction, publication, activation, ordre et suppression confirmée.
+- [x] Vérifier RLS, isolation élève, invisibilité des brouillons, conservation des données existantes, performances et absence de données de test persistantes.
+- [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final et enregistrer une version contrôlée après validation utilisateur avec le compte élève réel.
+- [x] Corriger le décalage de nommage `isActive`/`is_active` qui bloque la publication depuis l’administration Exercices, puis revalider le changement de statut réel.
+- [x] Corriger l’ambiguïté SQL `exercise_id` dans la procédure de démarrage d’exercice, puis revalider la création d’une tentative élève réelle.
+- [x] Corriger l’ambiguïté SQL `status` dans la procédure de soumission, puis revalider le résultat et l’historique élève réels.

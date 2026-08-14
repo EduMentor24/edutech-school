@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT e.id AS exercise_id,e.title,e.is_published,e.is_active,e.lesson_id,(SELECT count(*) FROM public.exercise_questions q WHERE q.exercise_id=e.id) AS question_count,(SELECT count(*) FROM public.exercise_attempts a WHERE a.exercise_id=e.id) AS attempt_count,(SELECT count(*) FROM public.exercise_submissions s WHERE s.exercise_id=e.id) AS legacy_submission_count FROM public.exercises e WHERE e.title='TEST TEMPORAIRE — Exercices' ORDER BY e.created_at DESC LIMIT 10;"
+}

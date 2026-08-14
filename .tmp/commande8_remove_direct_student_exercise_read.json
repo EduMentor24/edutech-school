@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "restrict_direct_exercise_columns_to_secure_functions",
+  "query": "DROP POLICY IF EXISTS exercises_student_available_read ON public.exercises;"
+}

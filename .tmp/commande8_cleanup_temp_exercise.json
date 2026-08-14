@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "WITH target AS (SELECT id FROM public.exercises WHERE id='a3a82911-2ee9-4cc2-b72c-f3ccd28d3893'::uuid AND title='Test temporaire') DELETE FROM public.exercise_attempts a USING target t WHERE a.exercise_id=t.id; WITH target AS (SELECT id FROM public.exercises WHERE id='a3a82911-2ee9-4cc2-b72c-f3ccd28d3893'::uuid AND title='Test temporaire') DELETE FROM public.exercise_questions q USING target t WHERE q.exercise_id=t.id; DELETE FROM public.exercises WHERE id='a3a82911-2ee9-4cc2-b72c-f3ccd28d3893'::uuid AND title='Test temporaire';"
+}
