@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "WITH removed_favorite AS (DELETE FROM public.favorites WHERE user_id='ebfc2750-f413-40d8-928b-9c714b1cdd32'::uuid AND content_type='lesson' AND content_id='b98e46f9-bc2f-4ceb-a9b8-5211f7103921'::uuid RETURNING id), removed_progress AS (DELETE FROM public.user_progress WHERE id='dc58e6c2-9ca3-4ee1-9082-e0666f837610'::uuid AND user_id='ebfc2750-f413-40d8-928b-9c714b1cdd32'::uuid AND lesson_id='b98e46f9-bc2f-4ceb-a9b8-5211f7103921'::uuid RETURNING id) SELECT (SELECT count(*) FROM removed_progress) AS removed_progress_rows, (SELECT count(*) FROM removed_favorite) AS removed_favorite_rows;"
+}

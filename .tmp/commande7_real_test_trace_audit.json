@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT up.id AS progress_id, up.user_id, up.lesson_id, l.title AS lesson_title, up.status, up.completed, up.progress_percentage, up.started_at, up.last_viewed_at, up.completed_at, EXISTS (SELECT 1 FROM public.favorites f WHERE f.user_id=up.user_id AND f.content_type='lesson' AND f.content_id=up.lesson_id) AS is_favorite FROM public.user_progress up JOIN public.lessons l ON l.id=up.lesson_id ORDER BY up.updated_at DESC LIMIT 10;"
+}

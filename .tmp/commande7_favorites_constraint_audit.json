@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT conname AS constraint_name, pg_get_constraintdef(oid) AS definition FROM pg_constraint WHERE conrelid='public.favorites'::regclass AND contype='c' LIMIT 10;"
+}

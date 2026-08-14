@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "grant_progress_availability_policy_function",
+  "query": "GRANT EXECUTE ON FUNCTION public.can_track_lesson_for_current_student(uuid) TO authenticated;"
+}

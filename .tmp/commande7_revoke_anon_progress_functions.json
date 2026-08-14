@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "revoke_anon_progress_function_access",
+  "query": "REVOKE ALL ON FUNCTION public.can_track_lesson_for_current_student(uuid) FROM PUBLIC, anon; REVOKE ALL ON FUNCTION public.record_lesson_view(uuid) FROM PUBLIC, anon; REVOKE ALL ON FUNCTION public.complete_lesson_for_current_student(uuid) FROM PUBLIC, anon; REVOKE ALL ON FUNCTION public.get_my_course_progress() FROM PUBLIC, anon; REVOKE ALL ON FUNCTION public.get_admin_progress_overview() FROM PUBLIC, anon; GRANT EXECUTE ON FUNCTION public.can_track_lesson_for_current_student(uuid) TO authenticated; GRANT EXECUTE ON FUNCTION public.record_lesson_view(uuid) TO authenticated; GRANT EXECUTE ON FUNCTION public.complete_lesson_for_current_student(uuid) TO authenticated; GRANT EXECUTE ON FUNCTION public.get_my_course_progress() TO authenticated; GRANT EXECUTE ON FUNCTION public.get_admin_progress_overview() TO authenticated;"
+}

@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT p.proname AS function_name, has_function_privilege('anon', p.oid, 'EXECUTE') AS anon_execute, has_function_privilege('authenticated', p.oid, 'EXECUTE') AS authenticated_execute FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND p.proname IN ('can_track_lesson_for_current_student','record_lesson_view','complete_lesson_for_current_student','get_my_course_progress','get_admin_progress_overview') ORDER BY p.proname LIMIT 10;"
+}

@@ -138,3 +138,11 @@
 - [x] Préserver strictement Mathématiques, Philosophie, les autres matières, la leçon pilote, les associations existantes et les données de test.
 - [x] Vérifier les 20 leçons par série, la répartition méthodologie/histoire/géographie, les compteurs, les doublons et la non-visibilité élève sous RLS (A1 et A2 : 2/9/9, zéro actif, zéro contenu, zéro doublon).
 - [x] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final de la commande 6.7 et enregistrer une version contrôlée.
+- [x] Auditer les tables, les politiques RLS, les services de cours, les écrans élève et les données publiées réellement disponibles pour la progression.
+- [x] Concevoir et documenter le modèle de progression unique élève-leçon, les calculs à partir des leçons actives et les règles de reprise du parcours.
+- [x] Créer les tables ou champs strictement nécessaires au suivi individuel, aux favoris et à l’historique uniquement s’ils n’existent pas, avec RLS propriétaire et lecture administrative (extension contrôlée de `user_progress` et intégration des favoris existants).
+- [x] Implémenter les services Supabase de consultation, démarrage, reprise, complétion et calcul groupé de progression, sans requête par leçon.
+- [x] Intégrer la progression réelle, les états vides, l’action Continuer/Commencer et la complétion dans les écrans Cours, Chapitre et Leçon sans modifier les programmes.
+- [x] Ajouter les fondations de statistiques administratives globales nécessaires aux évolutions futures, sans tableau de bord complexe ni données fictives.
+- [x] Vérifier RLS, l’isolation des utilisateurs, l’exclusion des brouillons/inactifs, les données existantes et les parcours réels disponibles ; nettoyer toute donnée temporaire éventuelle.
+- [x] Ajouter les tests de progression, exécuter TypeScript, lint, tests et export Android, rédiger le rapport final et enregistrer une version contrôlée après validation utilisateur du parcours élève réel.
