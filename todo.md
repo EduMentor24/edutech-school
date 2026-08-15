@@ -158,3 +158,16 @@
 - [x] Corriger le décalage de nommage `isActive`/`is_active` qui bloque la publication depuis l’administration Exercices, puis revalider le changement de statut réel.
 - [x] Corriger l’ambiguïté SQL `exercise_id` dans la procédure de démarrage d’exercice, puis revalider la création d’une tentative élève réelle.
 - [x] Corriger l’ambiguïté SQL `status` dans la procédure de soumission, puis revalider le résultat et l’historique élève réels.
+- [x] Auditer les parcours Exercices et Quiz, leurs tables, politiques RLS, services, écrans et données existantes sans les modifier.
+- [x] Ajouter un feedback visuel immédiat correct/incorrect aux exercices uniquement après correction disponible, sans exposer de réponse avant soumission.
+- [x] Concevoir et documenter la hiérarchie Quiz, les questions, les tentatives, le chronomètre, le meilleur score et la séparation avec la progression des leçons.
+- [x] Créer les tables, contraintes, fonctions et politiques RLS strictement nécessaires au module Quiz, sans doublon ni contenu pédagogique fictif.
+- [x] Implémenter les services sécurisés de catalogue filtré, démarrage, chronomètre, soumission, correction automatique admissible, résultats, meilleur score et historique.
+- [x] Construire les écrans Quiz, détail, déroulement, résultat, corrigé et historique avec états réels, filtres dynamiques et Markdown mobile.
+- [x] Ajouter les quiz associés aux leçons publiées et le signalement « Aucun quiz disponible pour le moment », sans modifier la complétion des leçons.
+- [x] Construire l’administration Quiz : rattachement, brouillon, questions, réponses, correction, ordre, prévisualisation, publication, activation et suppression confirmée.
+- [x] Ajouter la synthèse administrative Quiz nécessaire aux évolutions futures, sans données fictives ni tableau de bord complexe.
+- [x] Vérifier RLS, isolation des utilisateurs, invisibilité des brouillons, absence de données de test persistantes, performances et conservation des données existantes.
+- [ ] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final et enregistrer une version contrôlée après validation utilisateur avec les comptes réels.
+- [ ] Corriger le refus RLS de création de brouillon Quiz rencontré par le compte administrateur réel, puis revalider la création sans contourner RLS.
+- [ ] Corriger la confirmation de soumission Quiz afin qu’elle exécute réellement la soumission dans la prévisualisation web comme sur mobile natif.

@@ -1,6 +1,7 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Animated, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/edutech/app-screen";
 import { CourseEmpty, CourseError, CourseLoading } from "@/components/edutech/course-feedback";
@@ -9,7 +10,78 @@ import { PageHeader } from "@/components/edutech/page-header";
 import { ExerciseAttemptResult, getExerciseAttemptResult, resultLabel } from "@/lib/exercises/exercise-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
 
-export default function ExerciseResultScreen() { const { attemptId } = useLocalSearchParams<{ attemptId: string }>(); const router = useRouter(); const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]); const [result, setResult] = useState<ExerciseAttemptResult | null>(null); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null); const load = useCallback(async () => { if (!attemptId) return; setLoading(true); setError(null); try { setResult(await getExerciseAttemptResult(attemptId)); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [attemptId]); useEffect(() => { void load(); }, [load]); if (loading) return <AppScreen><CourseLoading label="Chargement du résultat" /></AppScreen>; if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>; if (!result) return <AppScreen><CourseEmpty title="Résultat indisponible" description="Ce résultat n’est pas accessible avec votre session actuelle." /></AppScreen>; return <AppScreen withPadding={false}><ScrollView contentContainerStyle={styles.content}><View style={styles.inner}><PageHeader title="Résultat" subtitle={result.title} back /><View style={styles.score}><Text style={styles.scoreLabel}>{resultLabel(result.status, result.percentage ?? null)}</Text>{result.score !== null && result.score !== undefined ? <Text style={styles.scoreValue}>{result.score} / {result.totalQuestions}</Text> : <Text style={styles.review}>Correction à consulter</Text>} {result.percentage !== null && result.percentage !== undefined ? <Text style={styles.percentage}>{Math.round(result.percentage)} %</Text> : null}</View><View style={styles.metrics}><Metric label="Bonnes réponses" value={result.correctAnswers ?? 0} /><Metric label="Mauvaises réponses" value={result.incorrectAnswers ?? 0} /><Metric label="Questions" value={result.totalQuestions ?? 0} /></View>{result.correctionMarkdown ? <View style={styles.correction}><Text style={styles.correctionTitle}>Correction</Text><LessonMarkdown content={result.correctionMarkdown} /></View> : null}{result.questions.map((question, index) => question.explanationMarkdown ? <View key={question.id} style={styles.explanation}><Text style={styles.explanationTitle}>Question {index + 1} — Remarque pédagogique</Text><LessonMarkdown content={question.explanationMarkdown} /></View> : null)}<Pressable accessibilityRole="button" onPress={() => router.replace("/(tabs)/exercises")} style={({ pressed }) => [styles.button, pressed && styles.pressed]}><Text style={styles.buttonLabel}>Retour aux exercices</Text></Pressable></View></ScrollView></AppScreen>; }
+export default function ExerciseResultScreen() {
+  const { attemptId } = useLocalSearchParams<{ attemptId: string }>();
+  const router = useRouter();
+  const { colors } = useEduTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+  const [result, setResult] = useState<ExerciseAttemptResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const feedbackOpacity = useRef(new Animated.Value(0)).current;
+
+  const load = useCallback(async () => {
+    if (!attemptId) return;
+    setLoading(true);
+    setError(null);
+    feedbackOpacity.setValue(0);
+    try {
+      setResult(await getExerciseAttemptResult(attemptId));
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue.");
+    } finally {
+      setLoading(false);
+    }
+  }, [attemptId, feedbackOpacity]);
+
+  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    if (!result) return;
+    Animated.timing(feedbackOpacity, { toValue: 1, duration: 220, useNativeDriver: true }).start();
+  }, [feedbackOpacity, result]);
+
+  if (loading) return <AppScreen><CourseLoading label="Chargement du résultat" /></AppScreen>;
+  if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;
+  if (!result) return <AppScreen><CourseEmpty title="Résultat indisponible" description="Ce résultat n’est pas accessible avec votre session actuelle." /></AppScreen>;
+
+  return (
+    <AppScreen withPadding={false}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.inner}>
+          <PageHeader title="Résultat" subtitle={result.title} back />
+          <View style={styles.score}>
+            <Text style={styles.scoreLabel}>{resultLabel(result.status, result.percentage ?? null)}</Text>
+            {result.score !== null && result.score !== undefined ? <Text style={styles.scoreValue}>{result.score} / {result.totalQuestions}</Text> : <Text style={styles.review}>Correction à consulter</Text>}
+            {result.percentage !== null && result.percentage !== undefined ? <Text style={styles.percentage}>{Math.round(result.percentage)} %</Text> : null}
+          </View>
+          <View style={styles.metrics}>
+            <Metric label="Bonnes réponses" value={result.correctAnswers ?? 0} />
+            <Metric label="Mauvaises réponses" value={result.incorrectAnswers ?? 0} />
+            <Metric label="Questions" value={result.totalQuestions ?? 0} />
+          </View>
+          {result.correctionMarkdown ? <View style={styles.correction}><Text style={styles.correctionTitle}>Correction</Text><LessonMarkdown content={result.correctionMarkdown} /></View> : null}
+          {result.questions.map((question, index) => (
+            <Animated.View key={question.id} style={[styles.feedbackWrap, { opacity: feedbackOpacity, transform: [{ translateY: feedbackOpacity.interpolate({ inputRange: [0, 1], outputRange: [8, 0] }) }] }]}>
+              {question.isCorrect !== null ? <AnswerFeedback isCorrect={question.isCorrect} index={index} answer={question.answer} /> : null}
+              {question.explanationMarkdown ? <View style={styles.explanation}><Text style={styles.explanationTitle}>Question {index + 1} — Remarque pédagogique</Text><LessonMarkdown content={question.explanationMarkdown} /></View> : null}
+            </Animated.View>
+          ))}
+          <Pressable accessibilityRole="button" onPress={() => router.replace("/(tabs)/exercises")} style={({ pressed }) => [styles.button, pressed && styles.pressed]}><Text style={styles.buttonLabel}>Retour aux exercices</Text></Pressable>
+        </View>
+      </ScrollView>
+    </AppScreen>
+  );
+}
+
+function AnswerFeedback({ isCorrect, index, answer }: { isCorrect: boolean; index: number; answer: unknown }) {
+  const { colors } = useEduTheme();
+  const label = isCorrect ? "Réponse correcte" : "Réponse incorrecte";
+  const answerLabel = Array.isArray(answer) ? answer.map(String).join(", ") : answer ? String(answer) : "Aucune réponse";
+  return <View style={[feedbackStyles.card, { backgroundColor: isCorrect ? `${colors.success}1A` : `${colors.error}1A`, borderColor: isCorrect ? colors.success : colors.error }]}><MaterialIcons name={isCorrect ? "check-circle" : "cancel"} size={22} color={isCorrect ? colors.success : colors.error} /><View style={feedbackStyles.copy}><Text style={[feedbackStyles.title, { color: isCorrect ? colors.success : colors.error }]}>Question {index + 1} — {label}</Text><Text style={[feedbackStyles.answer, { color: colors.text }]}>Votre réponse : {answerLabel}</Text></View></View>;
+}
+
 function Metric({ label, value }: { label: string; value: number }) { const { colors } = useEduTheme(); return <View style={metricStyles.box}><Text style={[metricStyles.value, { color: colors.primary }]}>{value}</Text><Text style={[metricStyles.label, { color: colors.muted }]}>{label}</Text></View>; }
+
 const metricStyles = StyleSheet.create({ box: { flex: 1, minWidth: 82, gap: 3 }, value: { fontSize: 20, fontWeight: "900" }, label: { fontSize: 10, lineHeight: 14, fontWeight: "800" } });
-const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => StyleSheet.create({ content: { paddingTop: 18, paddingBottom: 30 }, inner: { paddingHorizontal: 20 }, score: { alignItems: "center", padding: 22, borderRadius: 20, backgroundColor: colors.primarySoft, marginTop: 18 }, scoreLabel: { color: colors.primary, fontSize: 13, fontWeight: "900" }, scoreValue: { color: colors.text, fontSize: 30, lineHeight: 38, fontWeight: "900", marginTop: 6 }, percentage: { color: colors.primary, fontSize: 20, fontWeight: "900", marginTop: 2 }, review: { color: colors.warning, fontSize: 17, fontWeight: "900", marginTop: 7 }, metrics: { flexDirection: "row", gap: 12, marginTop: 16, padding: 14, borderRadius: 17, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }, correction: { gap: 13, padding: 17, borderRadius: 18, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, marginTop: 18 }, correctionTitle: { color: colors.primary, fontSize: 17, fontWeight: "900" }, explanation: { gap: 10, padding: 16, borderRadius: 17, backgroundColor: colors.surfaceMuted, marginTop: 14 }, explanationTitle: { color: colors.text, fontSize: 13, fontWeight: "900" }, button: { minHeight: 48, marginTop: 20, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.primary }, buttonLabel: { color: colors.surface, fontSize: 14, fontWeight: "900" }, pressed: { opacity: 0.72 } });
+const feedbackStyles = StyleSheet.create({ card: { flexDirection: "row", gap: 11, alignItems: "flex-start", padding: 14, borderWidth: 1, borderRadius: 16 }, copy: { flex: 1, gap: 3 }, title: { fontSize: 13, fontWeight: "900" }, answer: { fontSize: 12, lineHeight: 17, fontWeight: "700" } });
+const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => StyleSheet.create({ content: { paddingTop: 18, paddingBottom: 30 }, inner: { paddingHorizontal: 20 }, score: { alignItems: "center", padding: 22, borderRadius: 20, backgroundColor: colors.primarySoft, marginTop: 18 }, scoreLabel: { color: colors.primary, fontSize: 13, fontWeight: "900" }, scoreValue: { color: colors.text, fontSize: 30, lineHeight: 38, fontWeight: "900", marginTop: 6 }, percentage: { color: colors.primary, fontSize: 20, fontWeight: "900", marginTop: 2 }, review: { color: colors.warning, fontSize: 17, fontWeight: "900", marginTop: 7 }, metrics: { flexDirection: "row", gap: 12, marginTop: 16, padding: 14, borderRadius: 17, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border }, correction: { gap: 13, padding: 17, borderRadius: 18, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, marginTop: 18 }, correctionTitle: { color: colors.primary, fontSize: 17, fontWeight: "900" }, feedbackWrap: { gap: 12, marginTop: 14 }, explanation: { gap: 10, padding: 16, borderRadius: 17, backgroundColor: colors.surfaceMuted }, explanationTitle: { color: colors.text, fontSize: 13, fontWeight: "900" }, button: { minHeight: 48, marginTop: 20, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.primary }, buttonLabel: { color: colors.surface, fontSize: 14, fontWeight: "900" }, pressed: { opacity: 0.72 } });
