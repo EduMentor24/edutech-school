@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "enforce_verified_coefficient_sources",
+  "query": "ALTER TABLE public.edutech_coefficients DROP CONSTRAINT IF EXISTS edutech_coefficients_level_series_subject_assessment_type_t_key; ALTER TABLE public.edutech_coefficients DROP CONSTRAINT IF EXISTS edutech_coefficients_verified_source_check; ALTER TABLE public.edutech_coefficients ADD CONSTRAINT edutech_coefficients_verified_source_check CHECK (NOT is_verified OR (coefficient IS NOT NULL AND coefficient > 0 AND subject_offering_id IS NOT NULL AND nullif(btrim(coalesce(source_name,'')),'') IS NOT NULL AND nullif(btrim(coalesce(source_document,'')),'') IS NOT NULL AND nullif(btrim(coalesce(source_reference,'')),'') IS NOT NULL AND nullif(btrim(coalesce(source_version,'')),'') IS NOT NULL)); CREATE UNIQUE INDEX IF NOT EXISTS edutech_coefficients_offering_unique_idx ON public.edutech_coefficients(subject_offering_id) WHERE subject_offering_id IS NOT NULL;"
+}

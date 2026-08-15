@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "fix_bulletin_grade_rls_profile_target",
+  "query": "DROP POLICY IF EXISTS edutech_grades_insert_own ON public.edutech_grades; DROP POLICY IF EXISTS edutech_grades_update_own ON public.edutech_grades; CREATE POLICY edutech_grades_insert_own ON public.edutech_grades FOR INSERT WITH CHECK (student_id = auth.uid() AND EXISTS (SELECT 1 FROM public.profiles p JOIN public.levels l ON l.name = p.school_level JOIN public.series s ON s.name = p.series JOIN public.course_subject_offerings o ON o.id = edutech_grades.subject_offering_id WHERE p.id = auth.uid() AND o.level_id = l.id AND o.series_id = s.id) OR public.is_admin()); CREATE POLICY edutech_grades_update_own ON public.edutech_grades FOR UPDATE USING (student_id = auth.uid() OR public.is_admin()) WITH CHECK ((student_id = auth.uid() AND EXISTS (SELECT 1 FROM public.profiles p JOIN public.levels l ON l.name = p.school_level JOIN public.series s ON s.name = p.series JOIN public.course_subject_offerings o ON o.id = edutech_grades.subject_offering_id WHERE p.id = auth.uid() AND o.level_id = l.id AND o.series_id = s.id)) OR public.is_admin());"
+}
