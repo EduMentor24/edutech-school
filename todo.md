@@ -171,3 +171,12 @@
 - [ ] Exécuter TypeScript, lint, tests et export Android ; produire le rapport final et enregistrer une version contrôlée après validation utilisateur avec les comptes réels.
 - [ ] Corriger le refus RLS de création de brouillon Quiz rencontré par le compte administrateur réel, puis revalider la création sans contourner RLS.
 - [ ] Corriger la confirmation de soumission Quiz afin qu’elle exécute réellement la soumission dans la prévisualisation web comme sur mobile natif.
+- [ ] Auditer le Bulletin existant, le catalogue Niveau–Série–Matière et les sources officielles DPFC de coefficients.
+- [ ] Concevoir le modèle de notes personnelles, années scolaires, trimestres, coefficients vérifiés et règles de calcul.
+- [ ] Créer les tables, contraintes, fonctions et politiques RLS du carnet personnel de notes.
+- [ ] Implémenter les services sécurisés, le CRUD élève et les calculs de moyenne par matière et par trimestre.
+- [ ] Améliorer directement le Bulletin existant avec sélection année/trimestre, synthèse, détail de matière et formulaire de note.
+- [ ] Ajouter une célébration animée de score parfait dans le résultat de Quiz, sans modifier les notes du Bulletin.
+- [ ] Ajouter l’administration traçable des coefficients officiellement vérifiés.
+- [ ] Valider CRUD, calculs, RLS, indépendance du Bulletin, non-régression et export Android avec données temporaires nettoyées.
+- [ ] Rédiger le rapport final de la Commande 10 et enregistrer une version contrôlée.
