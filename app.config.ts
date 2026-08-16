@@ -126,6 +126,14 @@ const config: ExpoConfig = {
         },
       },
     ],
+    [
+      "expo-image-picker",
+      {
+        cameraPermission: "Autoriser EduTech School à utiliser l’appareil photo pour analyser un exercice ou un cours.",
+        photosPermission: "Autoriser EduTech School à accéder aux images choisies pour le Mentor IA.",
+      },
+    ],
+    "expo-document-picker",
   ],
   experiments: {
     typedRoutes: true,

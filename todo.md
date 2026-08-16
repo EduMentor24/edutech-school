@@ -194,3 +194,10 @@
 - [x] Adapter la page Bulletin existante aux états Synchronisé, En attente et Erreur, sans créer de nouvelle page.
 - [x] Valider coefficients, calculs, CRUD hors ligne, synchronisation, RLS, Android réel et nettoyage des données temporaires.
 - [x] Rédiger le rapport final de la Commande 10.2 et enregistrer une version contrôlée.
+- [x] Lire intégralement la Commande 11, auditer le Mentor IA existant, les capacités backend, les routes et les dépendances multimodales.
+- [x] Concevoir les réglages Gemini côté serveur, la clé unique masquée, les conversations isolées, les images temporaires et les règles pédagogiques.
+- [x] Implémenter le backend Gemini sécurisé : clé serveur, test de connexion, diagnostic administrateur, quotas et erreurs élève.
+- [x] Transformer la page Mentor IA existante en conversation multimodale avec contexte élève, images, Markdown et gestion hors connexion.
+- [x] Ajouter Administration → Paramètres → Mentor IA avec enregistrement, masquage, statut et test de connexion réservés à l’administrateur.
+- [ ] Vérifier RLS, absence de fuite de clé ou de conversation, indépendance Bulletin/Quiz/Exercices, réponses réseau et parcours réels.
+- [ ] Nettoyer les données temporaires, rédiger le rapport final de la Commande 11 et enregistrer une version contrôlée.

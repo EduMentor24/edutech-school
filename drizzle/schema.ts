@@ -25,4 +25,23 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Configuration unique du fournisseur Mentor IA.
+ * La clé reste chiffrée et n'est jamais envoyée au client.
+ */
+export const mentorSettings = mysqlTable("mentor_settings", {
+  id: int("id").primaryKey(),
+  provider: varchar("provider", { length: 64 }).notNull().default("Google Gemini"),
+  model: varchar("model", { length: 128 }).notNull().default("gemini-2.5-flash-lite"),
+  apiKeyCiphertext: text("apiKeyCiphertext").notNull(),
+  encryptionIv: varchar("encryptionIv", { length: 64 }).notNull(),
+  encryptionAuthTag: varchar("encryptionAuthTag", { length: 64 }).notNull(),
+  keySuffix: varchar("keySuffix", { length: 12 }).notNull(),
+  status: mysqlEnum("status", ["unknown", "valid", "quota", "invalid", "unavailable"]).notNull().default("unknown"),
+  lastCheckedAt: timestamp("lastCheckedAt"),
+  updatedBy: varchar("updatedBy", { length: 64 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MentorSettings = typeof mentorSettings.$inferSelect;
