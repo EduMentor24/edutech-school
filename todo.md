@@ -180,3 +180,10 @@
 - [x] Ajouter l’administration traçable des coefficients officiellement vérifiés.
 - [x] Valider CRUD, calculs, RLS, indépendance du Bulletin, non-régression et export Android avec données temporaires nettoyées.
 - [x] Rédiger le rapport final de la Commande 10 et enregistrer une version contrôlée.
+- [x] Auditer les associations Terminale A1/A2, les notes Bulletin existantes et les coefficients à préserver pour la Commande 10.1.
+- [x] Ajouter le coefficient d’évaluation positif à chaque note, sans confondre ce coefficient avec le coefficient officiel de la matière.
+- [x] Intégrer les coefficients fournis pour Terminale A1/A2, par association Niveau–Série–Matière, en excluant Physique-Chimie.
+- [x] Mettre à jour les calculs de moyenne de matière pondérés par coefficient d’évaluation et les tests correspondants.
+- [x] Mettre à jour la page Bulletin existante et le formulaire de note pour afficher le coefficient de matière en lecture seule et saisir le coefficient de l’évaluation.
+- [x] Vérifier administration, RLS, séparation A1/A2, années, trimestres, indépendance des modules et parcours réels avec nettoyage des données temporaires.
+- [x] Produire le rapport final de la Commande 10.1 et enregistrer une version contrôlée.

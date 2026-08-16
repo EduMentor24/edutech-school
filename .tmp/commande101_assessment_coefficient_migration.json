@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "add_weighted_assessment_coefficients_to_bulletin",
+  "query": "ALTER TABLE public.edutech_grades ADD COLUMN IF NOT EXISTS assessment_coefficient numeric; UPDATE public.edutech_grades SET assessment_coefficient = 1 WHERE assessment_coefficient IS NULL; ALTER TABLE public.edutech_grades ALTER COLUMN assessment_coefficient SET DEFAULT 1; ALTER TABLE public.edutech_grades ALTER COLUMN assessment_coefficient SET NOT NULL; ALTER TABLE public.edutech_grades DROP CONSTRAINT IF EXISTS edutech_grades_assessment_coefficient_positive; ALTER TABLE public.edutech_grades ADD CONSTRAINT edutech_grades_assessment_coefficient_positive CHECK (assessment_coefficient > 0); ALTER TABLE public.edutech_grades DROP CONSTRAINT IF EXISTS edutech_grades_assessment_type_check; ALTER TABLE public.edutech_grades ADD CONSTRAINT edutech_grades_assessment_type_check CHECK (assessment_type IN ('devoir_classe','devoir_niveau','interrogation','interrogation_ecrite','interrogation_orale','composition','examen','bonus','autre'));"
+}
