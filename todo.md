@@ -192,5 +192,5 @@
 - [x] Intégrer les coefficients Terminale C/D et le caractère facultatif des LV2 sans modifier les valeurs A1/A2.
 - [x] Implémenter le stockage persistant des notes, calculs locaux et synchronisation Supabase respectant strictement RLS au retour réseau ou à la reprise de l’application.
 - [x] Adapter la page Bulletin existante aux états Synchronisé, En attente et Erreur, sans créer de nouvelle page.
-- [ ] Valider coefficients, calculs, CRUD hors ligne, synchronisation, RLS, Android réel et nettoyage des données temporaires.
-- [ ] Rédiger le rapport final de la Commande 10.2 et enregistrer une version contrôlée.
+- [x] Valider coefficients, calculs, CRUD hors ligne, synchronisation, RLS, Android réel et nettoyage des données temporaires.
+- [x] Rédiger le rapport final de la Commande 10.2 et enregistrer une version contrôlée.
