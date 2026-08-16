@@ -199,8 +199,19 @@
 - [x] Implémenter le backend Gemini sécurisé : clé serveur, test de connexion, diagnostic administrateur, quotas et erreurs élève.
 - [x] Transformer la page Mentor IA existante en conversation multimodale avec contexte élève, images, Markdown et gestion hors connexion.
 - [x] Ajouter Administration → Paramètres → Mentor IA avec enregistrement, masquage, statut et test de connexion réservés à l’administrateur.
-- [ ] Vérifier RLS, absence de fuite de clé ou de conversation, indépendance Bulletin/Quiz/Exercices, réponses réseau et parcours réels.
-- [ ] Nettoyer les données temporaires, rédiger le rapport final de la Commande 11 et enregistrer une version contrôlée.
-- [ ] Diagnostiquer puis corriger l’état « service indisponible » retourné lors du test réel de la clé Gemini, sans exposer la clé enregistrée.
-- [ ] Remplacer l’appel Gemini actuel par une intégration Google compatible avec la clé administrée, puis valider une réponse réelle du Mentor.
-- [ ] Détecter les modèles Gemini accessibles pour la clé active et appliquer un repli multimodal compatible sans exposer la clé.
+- [x] Vérifier RLS, absence de fuite de clé ou de conversation, indépendance Bulletin/Quiz/Exercices et refus réseau sans session pour la route native ; parcours utilisateur réel restant à confirmer.
+- [x] Nettoyer les références de l’ancien système et enregistrer l’architecture native ; le rapport final historique de la Commande 11 est supersédé par la Commande 11.1.
+- [x] Diagnostiquer l’état « service indisponible » de l’ancien système et l’abandonner sans exposer la clé enregistrée.
+- [x] Remplacer l’appel Gemini externe par le connecteur LLM natif Manus et valider une réponse réelle Gemini hors du parcours applicatif.
+- [x] Vérifier le catalogue natif Manus et sélectionner le modèle Gemini multimodal réellement disponible.
+
+# Commande 11.1 — Intégration IA native Manus
+
+- [x] Supprimer le panneau applicatif de clé Gemini et le lien Administration → Paramètres Mentor IA.
+- [x] Supprimer les services, routes, dépendance Google et table `mentor_settings` utilisés uniquement par l’ancienne clé Gemini.
+- [x] Connecter le backend Mentor au connecteur LLM natif Manus via `invokeLLM`, sans clé dans l’application.
+- [x] Utiliser `gemini-3-flash-preview`, seul modèle Gemini Flash multimodal retourné par le catalogue natif Manus au moment du contrôle.
+- [x] Préserver le contexte réel élève, les pièces jointes images/PDF éphémères côté application, l’hors connexion et l’isolation locale.
+- [x] Ajouter les tests Mentor natifs de politique, d’isolation et de non-exposition ; le scan du bundle Android ne trouve aucun secret ou ancien endpoint.
+- [ ] Valider le parcours utilisateur réel sur Android : texte, cinq matières, trois photos, image illisible, suivi, hors connexion et reprise réseau.
+- [ ] Rédiger le rapport final de la Commande 11.1 après la validation utilisateur réelle ; la table `mentor_settings` et son contenu ont été supprimés.
