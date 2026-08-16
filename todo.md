@@ -227,3 +227,17 @@
 - [x] Ajouter l’historique privé Mentor avec création, reprise, suppression confirmée et consultation hors connexion.
 - [x] Vérifier les contrôles RLS, la confidentialité, la non-régression, TypeScript, lint, les tests et l’export Android.
 - [ ] Nettoyer les éventuelles données de test, rédiger le rapport final de la Commande 12 et enregistrer un checkpoint contrôlé.
+
+# Commande 13 — Structuration Première A1 et A2
+
+- [x] Lire intégralement la commande et auditer les séries, matières, associations, chapitres et leçons déjà présents pour Première A1/A2.
+- [x] Rechercher les progressions officielles DPFC 2025-2026 de Première A1/A2, sans utiliser les progressions C/D ni Terminale.
+- [x] Vérifier l’existence réelle de Première A1 et Première A2, sans créer de doublon.
+- [x] Documenter les matières officiellement applicables à A1/A2 et les différences de progression éventuelles.
+- [x] Importer uniquement les chapitres et leçons officiellement vérifiés, vides, inactifs et non publiés.
+- [x] Éviter les doublons en réutilisant les matières, chapitres, leçons et associations compatibles.
+- [x] Préserver strictement Terminale, les modules Bulletin/Coefficients et les autres séries Première hors A1/A2.
+- [ ] Valider avec les profils réels disponibles l’administration, la navigation Cours, la recherche et la compatibilité avec la progression existante.
+- [x] Ajouter les tests Première A1/A2, contrôler RLS, TypeScript, lint, tous les tests et l’export Android.
+- [ ] Supprimer les éventuelles données temporaires, rédiger le rapport officiel et enregistrer le checkpoint de la Commande 13.
+- [x] Ajuster le catalogue Cours pour qu’une offre sans chapitre actif ne soit pas proposée à l’élève avant publication administrative.

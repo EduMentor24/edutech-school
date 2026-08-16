@@ -11,8 +11,9 @@ describe("moteur de cours progressif", () => {
     expect(service).toContain('eq("is_published", true)');
     expect(service).toContain('eq("subject.is_active", true)');
     expect(service).toContain('eq("is_active", true)');
-    expect(service).toContain('chapters(id)');
+    expect(service).toContain('chapters(id,is_active)');
     expect(service).toContain("activeChapterCount");
+    expect(service).toContain("activeChapterCount > 0");
     expect(service).toContain('order("display_order", { ascending: true })');
     expect(service).toContain('getChaptersForOffering');
     expect(service).toContain('getLessonsForChapter');
