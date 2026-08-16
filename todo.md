@@ -187,3 +187,10 @@
 - [x] Mettre à jour la page Bulletin existante et le formulaire de note pour afficher le coefficient de matière en lecture seule et saisir le coefficient de l’évaluation.
 - [x] Vérifier administration, RLS, séparation A1/A2, années, trimestres, indépendance des modules et parcours réels avec nettoyage des données temporaires.
 - [x] Produire le rapport final de la Commande 10.1 et enregistrer une version contrôlée.
+- [x] Auditer les offres Terminale C/D, les coefficients A1/A2 à préserver et la persistance locale disponible pour la Commande 10.2.
+- [x] Concevoir le cache local Bulletin, la file de synchronisation, les identifiants stables et la stratégie de conflit explicite.
+- [x] Intégrer les coefficients Terminale C/D et le caractère facultatif des LV2 sans modifier les valeurs A1/A2.
+- [x] Implémenter le stockage persistant des notes, calculs locaux et synchronisation Supabase respectant strictement RLS au retour réseau ou à la reprise de l’application.
+- [x] Adapter la page Bulletin existante aux états Synchronisé, En attente et Erreur, sans créer de nouvelle page.
+- [ ] Valider coefficients, calculs, CRUD hors ligne, synchronisation, RLS, Android réel et nettoyage des données temporaires.
+- [ ] Rédiger le rapport final de la Commande 10.2 et enregistrer une version contrôlée.
