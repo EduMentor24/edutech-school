@@ -215,3 +215,15 @@
 - [x] Ajouter les tests Mentor natifs de politique, d’isolation et de non-exposition ; le scan du bundle Android ne trouve aucun secret ou ancien endpoint.
 - [ ] Valider le parcours utilisateur réel sur Android : texte, cinq matières, trois photos, image illisible, suivi, hors connexion et reprise réseau.
 - [ ] Rédiger le rapport final de la Commande 11.1 après la validation utilisateur réelle ; la table `mentor_settings` et son contenu ont été supprimés.
+
+# Commande 12 — Citations et historique Mentor
+
+- [x] Auditer les schémas, services, routes et écrans à réutiliser pour Citations et l’historique Mentor.
+- [x] Rechercher et documenter un corpus initial de citations vérifiables pour Français, Philosophie, Histoire-Géographie et Physique-Chimie.
+- [x] Créer les tables mutualisées Citations, associations niveau/série/thème et favoris personnels avec RLS.
+- [x] Ajouter le catalogue Citations élève avec recherche tolérante aux accents, filtres, favoris, copie et partage natif léger.
+- [x] Ajouter l’administration des citations avec brouillon, validation, publication, désactivation, recherche et suppression.
+- [x] Ajouter un bouton Retour cohérent dans Mentor IA sans casser la navigation native.
+- [x] Ajouter l’historique privé Mentor avec création, reprise, suppression confirmée et consultation hors connexion.
+- [x] Vérifier les contrôles RLS, la confidentialité, la non-régression, TypeScript, lint, les tests et l’export Android.
+- [ ] Nettoyer les éventuelles données de test, rédiger le rapport final de la Commande 12 et enregistrer un checkpoint contrôlé.
