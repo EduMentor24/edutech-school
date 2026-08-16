@@ -1,15 +1,16 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 import type { Express, Request } from "express";
+import { GoogleGenAI, type Content, type Part } from "@google/genai";
 import { z } from "zod";
-import { getMentorSettings, saveMentorSettings, updateMentorSettingsStatus } from "./mentor-db";
-import { isSupportedMentorAttachment, mentorKeyMask, mentorStudentMessage } from "../lib/mentor/mentor-policy";
+import { getMentorSettings, saveMentorSettings, updateMentorSettingsModelAndStatus, updateMentorSettingsStatus } from "./mentor-db";
+import { diagnoseGeminiFailure, isSupportedMentorAttachment, mentorKeyMask, mentorStudentMessage } from "../lib/mentor/mentor-policy";
 
 const GEMINI_MODEL = "gemini-2.5-flash-lite";
 const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta";
+const GEMINI_MODEL_PREFERENCE = ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.6-flash"];
 const MAX_ATTACHMENTS = 3;
 
 type Profile = { id: string; role: "admin" | "student"; school_level: string | null; series: string | null };
-type GeminiStatus = "valid" | "quota" | "invalid" | "unavailable";
 
 const messageSchema = z.object({
   message: z.string().trim().min(1).max(6000),
@@ -18,7 +19,7 @@ const messageSchema = z.object({
   attachments: z.array(z.object({ mimeType: z.string(), base64: z.string().min(1), name: z.string().trim().max(160).optional() })).max(MAX_ATTACHMENTS).default([]),
 });
 
-const saveSchema = z.object({ model: z.literal(GEMINI_MODEL).default(GEMINI_MODEL), apiKey: z.string().trim().min(16).max(512) });
+const saveSchema = z.object({ apiKey: z.string().trim().min(16).max(512) });
 const testSchema = z.object({ apiKey: z.string().trim().min(16).max(512) });
 
 function getServerKey(): Buffer {
@@ -67,13 +68,6 @@ class MentorHttpError extends Error {
   constructor(public readonly status: number, public readonly code: string, message: string) { super(message); }
 }
 
-function toGeminiStatus(status: number): GeminiStatus {
-  if (status === 429) return "quota";
-  if (status === 400 || status === 401 || status === 403) return "invalid";
-  return "unavailable";
-}
-
-
 function pedagogicalInstruction(profile: Profile, subject?: string | null) {
   const level = profile.school_level ?? "niveau non renseigné";
   const series = profile.series ?? "série non renseignée";
@@ -82,37 +76,51 @@ function pedagogicalInstruction(profile: Profile, subject?: string | null) {
 Réponds en français avec une structure claire et aérée. Explique progressivement, guide le raisonnement, vérifie la compréhension si utile et donne une solution expliquée si l’élève la demande. N’invente jamais un programme DPFC, une source, une citation, une donnée officielle ou une partie illisible d’une image. Si une image ou un document est flou, sombre, coupé ou illisible, indique précisément ce que tu ne peux pas lire et demande une capture plus nette. Le Mentor ne modifie jamais les notes, coefficients, quiz, exercices ou progression.`;
 }
 
+function sdkErrorStatus(error: unknown) { const status = (error as { status?: unknown })?.status; return typeof status === "number" ? status : 503; }
+function sdkProviderStatus(error: unknown) { const value = (error as { error?: { status?: unknown } })?.error?.status; return typeof value === "string" ? value : undefined; }
+
+async function resolveGeminiModel(apiKey: string) {
+  let response: Response;
+  try { response = await fetch(`${GEMINI_API_BASE}/models`, { headers: { "x-goog-api-key": apiKey } }); }
+  catch { throw new MentorHttpError(503, "UNAVAILABLE", "Le serveur ne peut pas joindre Gemini pour le moment. Vérifiez à nouveau dans quelques instants."); }
+  if (!response.ok) {
+    const payload = await response.json().catch(() => null) as { error?: { status?: string } } | null;
+    const diagnostic = diagnoseGeminiFailure(response.status, payload?.error?.status);
+    throw new MentorHttpError(response.status, diagnostic.code, diagnostic.message);
+  }
+  const payload = await response.json() as { models?: Array<{ name?: string; supportedGenerationMethods?: string[] }> };
+  const available = new Set((payload.models ?? []).filter((item) => item.supportedGenerationMethods?.includes("generateContent")).map((item) => item.name?.replace(/^models\//, "")).filter((name): name is string => Boolean(name)));
+  const selected = GEMINI_MODEL_PREFERENCE.find((model) => available.has(model));
+  if (!selected) throw new MentorHttpError(404, "UNAVAILABLE", "Aucun modèle Gemini compatible avec la génération de contenu n’est accessible avec cette clé. Vérifiez les modèles autorisés dans Google AI Studio.");
+  return selected;
+}
+
 async function callGemini(input: { apiKey: string; model: string; profile: Profile; message: string; subject?: string | null; conversation: Array<{ role: "user" | "assistant"; content: string }>; attachments: Array<{ mimeType: string; base64: string }> }) {
-  const parts: Array<Record<string, unknown>> = [{ text: input.message }];
+  const parts: Part[] = [{ text: input.message }];
   for (const attachment of input.attachments) {
     const byteLength = Buffer.byteLength(attachment.base64, "base64");
     if (!isSupportedMentorAttachment(attachment.mimeType, byteLength)) throw new MentorHttpError(400, "INVALID_ATTACHMENT", "Pièce jointe invalide.");
-    parts.push({ inline_data: { mime_type: attachment.mimeType, data: attachment.base64 } });
+    parts.push({ inlineData: { mimeType: attachment.mimeType, data: attachment.base64 } });
   }
-  const contents = [
+  const contents: Content[] = [
     ...input.conversation.slice(-8).map((item) => ({ role: item.role === "assistant" ? "model" : "user", parts: [{ text: item.content }] })),
     { role: "user", parts },
   ];
-  let response: Response;
   try {
-    response = await fetch(`${GEMINI_API_BASE}/models/${encodeURIComponent(input.model)}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": input.apiKey },
-      body: JSON.stringify({ system_instruction: { parts: [{ text: pedagogicalInstruction(input.profile, input.subject) }] }, contents, generationConfig: { temperature: 0.35, maxOutputTokens: 1800 } }),
+    const ai = new GoogleGenAI({ apiKey: input.apiKey, apiVersion: "v1beta" });
+    const response = await ai.models.generateContent({
+      model: input.model,
+      contents,
+      config: { systemInstruction: pedagogicalInstruction(input.profile, input.subject), temperature: 0.35, maxOutputTokens: 1800 },
     });
-  } catch {
-    throw new MentorHttpError(503, "UNAVAILABLE", "Service Gemini indisponible.");
+    const text = response.text?.trim();
+    if (!text) throw new MentorHttpError(503, "UNAVAILABLE", "Gemini a retourné une réponse vide.");
+    return text;
+  } catch (error) {
+    if (error instanceof MentorHttpError) throw error;
+    const diagnostic = diagnoseGeminiFailure(sdkErrorStatus(error), sdkProviderStatus(error));
+    throw new MentorHttpError(sdkErrorStatus(error), diagnostic.code, diagnostic.message);
   }
-  if (!response.ok) {
-    const status = toGeminiStatus(response.status);
-    const code = status === "quota" ? "QUOTA" : status === "invalid" ? "INVALID" : "UNAVAILABLE";
-    const message = code === "QUOTA" ? "Le quota Gemini est temporairement atteint." : code === "INVALID" ? "La clé Gemini est invalide ou non autorisée." : "Le service Gemini est temporairement indisponible.";
-    throw new MentorHttpError(response.status, code, message);
-  }
-  const payload = await response.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
-  const text = payload.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("\n").trim();
-  if (!text) throw new MentorHttpError(503, "UNAVAILABLE", "Réponse Gemini vide.");
-  return text;
 }
 
 function adminSettingsView(settings: Awaited<ReturnType<typeof getMentorSettings>>) {
@@ -142,19 +150,17 @@ export function registerMentorApi(app: Express) {
   app.post("/api/mentor/admin/test", async (req, res) => {
     try {
       const profile = await requireAdmin(req); const { apiKey } = testSchema.parse(req.body);
-      await callGemini({ apiKey, model: GEMINI_MODEL, profile, message: "Réponds uniquement : connexion valide.", conversation: [], attachments: [] });
-      res.json({ ok: true, status: "valid", message: "Clé valide et service disponible." });
-    } catch (error) {
-      const status = error instanceof MentorHttpError ? (error.code === "QUOTA" ? "quota" : error.code === "INVALID" ? "invalid" : "unavailable") : "unavailable";
-      sendError(res, error, true);
-      void status;
-    }
+      const model = await resolveGeminiModel(apiKey);
+      await callGemini({ apiKey, model, profile, message: "Réponds uniquement : connexion valide.", conversation: [], attachments: [] });
+      res.json({ ok: true, status: "valid", model, message: `Clé valide et service disponible avec ${model}.` });
+    } catch (error) { sendError(res, error, true); }
   });
 
   app.post("/api/mentor/admin/save", async (req, res) => {
     try {
-      const profile = await requireAdmin(req); const input = saveSchema.parse(req.body); const encrypted = encryptApiKey(input.apiKey);
-      await saveMentorSettings({ model: input.model, updatedBy: profile.id, ...encrypted });
+      const profile = await requireAdmin(req); const input = saveSchema.parse(req.body); const model = await resolveGeminiModel(input.apiKey);
+      await callGemini({ apiKey: input.apiKey, model, profile, message: "Réponds uniquement : connexion valide.", conversation: [], attachments: [] });
+      const encrypted = encryptApiKey(input.apiKey); await saveMentorSettings({ model, updatedBy: profile.id, ...encrypted });
       res.json({ ok: true, settings: adminSettingsView(await getMentorSettings()) });
     } catch (error) { sendError(res, error, true); }
   });
@@ -164,8 +170,9 @@ export function registerMentorApi(app: Express) {
       const profile = await requireAdmin(req); const settings = await getMentorSettings();
       if (!settings) throw new MentorHttpError(404, "NOT_CONFIGURED", "Aucune clé active n’est configurée.");
       try {
-        await callGemini({ apiKey: decryptApiKey(settings), model: settings.model, profile, message: "Réponds uniquement : connexion valide.", conversation: [], attachments: [] });
-        await updateMentorSettingsStatus("valid"); res.json({ ok: true, status: "valid", message: "Clé valide et service disponible." });
+        const apiKey = decryptApiKey(settings); const model = await resolveGeminiModel(apiKey);
+        await callGemini({ apiKey, model, profile, message: "Réponds uniquement : connexion valide.", conversation: [], attachments: [] });
+        await updateMentorSettingsModelAndStatus(model, "valid"); res.json({ ok: true, status: "valid", model, message: `Clé valide et service disponible avec ${model}.` });
       } catch (error) {
         const status = error instanceof MentorHttpError ? (error.code === "QUOTA" ? "quota" : error.code === "INVALID" ? "invalid" : "unavailable") : "unavailable";
         await updateMentorSettingsStatus(status); throw error;

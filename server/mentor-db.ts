@@ -51,3 +51,9 @@ export async function updateMentorSettingsStatus(status: "valid" | "quota" | "in
   if (!db) throw new Error("La configuration serveur est indisponible.");
   await db.update(mentorSettings).set({ status, lastCheckedAt: new Date() }).where(eq(mentorSettings.id, 1));
 }
+
+export async function updateMentorSettingsModelAndStatus(model: string, status: "valid" | "quota" | "invalid" | "unavailable") {
+  const db = await getDb();
+  if (!db) throw new Error("La configuration serveur est indisponible.");
+  await db.update(mentorSettings).set({ model, status, lastCheckedAt: new Date() }).where(eq(mentorSettings.id, 1));
+}

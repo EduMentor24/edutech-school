@@ -34,5 +34,5 @@ export async function sendMentorMessage(input: { message: string; subject: strin
 
 export async function getMentorSettings() { const result = await request<{ ok: true; settings: MentorSettingsSummary }>("/api/mentor/admin/settings"); return result.settings; }
 export async function saveMentorSettings(apiKey: string) { const result = await request<{ ok: true; settings: MentorSettingsSummary }>("/api/mentor/admin/save", { method: "POST", body: { apiKey, model: "gemini-2.5-flash-lite" } }); return result.settings; }
-export async function testPendingMentorKey(apiKey: string) { return request<{ ok: true; status: "valid"; message: string }>("/api/mentor/admin/test", { method: "POST", body: { apiKey } }); }
-export async function testActiveMentorKey() { return request<{ ok: true; status: "valid" | "quota" | "invalid" | "unavailable"; message: string }>("/api/mentor/admin/test-active", { method: "POST" }); }
+export async function testPendingMentorKey(apiKey: string) { return request<{ ok: true; status: "valid"; model: string; message: string }>("/api/mentor/admin/test", { method: "POST", body: { apiKey } }); }
+export async function testActiveMentorKey() { return request<{ ok: true; status: "valid" | "quota" | "invalid" | "unavailable"; model: string; message: string }>("/api/mentor/admin/test-active", { method: "POST" }); }

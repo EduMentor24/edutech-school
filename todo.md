@@ -201,3 +201,6 @@
 - [x] Ajouter Administration → Paramètres → Mentor IA avec enregistrement, masquage, statut et test de connexion réservés à l’administrateur.
 - [ ] Vérifier RLS, absence de fuite de clé ou de conversation, indépendance Bulletin/Quiz/Exercices, réponses réseau et parcours réels.
 - [ ] Nettoyer les données temporaires, rédiger le rapport final de la Commande 11 et enregistrer une version contrôlée.
+- [ ] Diagnostiquer puis corriger l’état « service indisponible » retourné lors du test réel de la clé Gemini, sans exposer la clé enregistrée.
+- [ ] Remplacer l’appel Gemini actuel par une intégration Google compatible avec la clé administrée, puis valider une réponse réelle du Mentor.
+- [ ] Détecter les modèles Gemini accessibles pour la clé active et appliquer un repli multimodal compatible sans exposer la clé.
