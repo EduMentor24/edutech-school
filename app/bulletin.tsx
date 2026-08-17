@@ -1,6 +1,6 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Redirect, useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/edutech/app-screen";
@@ -19,7 +19,8 @@ const emptySummary = (schoolYear: string, term: BulletinTerm): BulletinSummary =
 
 export default function BulletinScreen() {
   const router = useRouter(); const { isAuthenticated, profile } = useSupabaseAuth(); const sync = useBulletinSync(); const { isOnline, syncNow } = sync; const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]);
-  const initialYear = currentSchoolYear(); const [schoolYear, setSchoolYear] = useState(initialYear); const [term, setTerm] = useState<BulletinTerm>("T1"); const [summary, setSummary] = useState<BulletinSummary>(emptySummary(initialYear, "T1")); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
+  const initialYear = currentSchoolYear(); const [schoolYear, setSchoolYear] = useState(profile?.school_year ?? initialYear); const [term, setTerm] = useState<BulletinTerm>("T1"); const [summary, setSummary] = useState<BulletinSummary>(emptySummary(profile?.school_year ?? initialYear, "T1")); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
+  useEffect(() => { if (profile?.school_year) setSchoolYear(profile.school_year); }, [profile?.school_year]);
   const load = useCallback(async () => { if (!profile) return; setLoading(true); setError(null); try { if (isOnline) await syncNow(schoolYear); const studentId = await getCurrentBulletinStudentId(); const snapshot = await readBulletinSnapshot(studentId); if (!snapshot.subjects.length) throw new Error(isOnline ? "Le cache du Bulletin n’a pas encore été initialisé." : "Aucune donnée Bulletin n’est encore disponible sur cet appareil hors connexion."); setSummary(buildLocalBulletinSummary(snapshot, schoolYear, term)); } catch (cause) { setError(cause instanceof Error ? cause.message : "Le Bulletin local n’a pas pu être chargé."); } finally { setLoading(false); } }, [isOnline, profile, schoolYear, syncNow, term]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   if (!isAuthenticated) return <Redirect href="/auth/login" />;

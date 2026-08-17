@@ -13,9 +13,15 @@ const one = <T,>(value: T | T[] | null) => Array.isArray(value) ? value[0] ?? nu
 
 export async function getCurrentBulletinStudentId() { const { data, error } = await supabase.auth.getUser(); if (error) throw new Error(error.message); if (!data.user) throw new Error("Vous devez être connecté pour consulter votre Bulletin."); return data.user.id; }
 
-async function getProfileOfferings(profile: StudentProfile) {
-  if (!profile.school_level || !profile.series) return [] as Array<{ id: string; subjectId: string; subjectName: string }>;
-  const [{ data: level, error: levelError }, { data: series, error: seriesError }] = await Promise.all([supabase.from("levels").select("id").eq("name", profile.school_level).maybeSingle(), supabase.from("series").select("id").eq("name", profile.series).maybeSingle()]);
+async function getProfileOfferings(profile: StudentProfile, schoolYear: string) {
+  let schoolLevel = profile.school_level; let schoolSeries = profile.series;
+  if (profile.school_year !== schoolYear) {
+    const { data: historicalContext, error: historyError } = await supabase.from("edutech_student_school_history").select("school_level,series").eq("student_id", profile.id).eq("school_year", schoolYear).maybeSingle();
+    if (historyError) throw new Error(errorMessage(historyError));
+    if (historicalContext) { schoolLevel = historicalContext.school_level; schoolSeries = historicalContext.series; }
+  }
+  if (!schoolLevel || !schoolSeries) return [] as Array<{ id: string; subjectId: string; subjectName: string }>;
+  const [{ data: level, error: levelError }, { data: series, error: seriesError }] = await Promise.all([supabase.from("levels").select("id").eq("name", schoolLevel).maybeSingle(), supabase.from("series").select("id").eq("name", schoolSeries).maybeSingle()]);
   if (levelError) throw new Error(errorMessage(levelError)); if (seriesError) throw new Error(errorMessage(seriesError)); if (!level || !series) return [];
   const { data, error } = await supabase.from("course_subject_offerings").select("id,subject:subjects!inner(id,name,is_active)").eq("level_id", level.id).eq("series_id", series.id).eq("subject.is_active", true).order("display_order", { ascending: true });
   if (error) throw new Error(errorMessage(error));
@@ -23,7 +29,7 @@ async function getProfileOfferings(profile: StudentProfile) {
 }
 
 export async function getRemoteBulletinSnapshot(profile: StudentProfile, schoolYear: string, term: BulletinTerm): Promise<BulletinSnapshot> {
-  const [studentId, offerings] = await Promise.all([getCurrentBulletinStudentId(), getProfileOfferings(profile)]);
+  const [studentId, offerings] = await Promise.all([getCurrentBulletinStudentId(), getProfileOfferings(profile, schoolYear)]);
   if (!offerings.length) return { summary: { schoolYear, term, subjects: [], termAverage: null, coefficientMatrixTotal: null, includedSubjectCount: 0, excludedUnverifiedCoefficientCount: 0 }, grades: [] };
   const offeringIds = offerings.map((item) => item.id);
   const [{ data: grades, error: gradesError }, { data: annualCoefficients, error: annualCoefficientsError }, { data: legacyCoefficients, error: legacyCoefficientsError }] = await Promise.all([
@@ -44,7 +50,7 @@ export async function getRemoteBulletinSnapshot(profile: StudentProfile, schoolY
 export async function getBulletinSummary(profile: StudentProfile, schoolYear: string, term: BulletinTerm): Promise<BulletinSummary> { return (await getRemoteBulletinSnapshot(profile, schoolYear, term)).summary; }
 
 export async function getBulletinSubjectGrades(profile: StudentProfile, offeringId: string, schoolYear: string, term: BulletinTerm): Promise<{ subjectName: string; grades: BulletinGrade[] }> {
-  const [studentId, offerings] = await Promise.all([getCurrentBulletinStudentId(), getProfileOfferings(profile)]); const offering = offerings.find((item) => item.id === offeringId); if (!offering) throw new Error("Cette matière n’est pas associée à votre niveau et à votre série.");
+  const [studentId, offerings] = await Promise.all([getCurrentBulletinStudentId(), getProfileOfferings(profile, schoolYear)]); const offering = offerings.find((item) => item.id === offeringId); if (!offering) throw new Error("Cette matière n’est pas associée à votre niveau et à votre série pour cette année scolaire.");
   const { data, error } = await supabase.from("edutech_grades").select("id,subject_offering_id,school_year,term,assessment_type,grade,max_grade,assessment_coefficient,assessment_date,comment,include_in_average").eq("student_id", studentId).eq("subject_offering_id", offeringId).eq("school_year", schoolYear).eq("term", term).order("assessment_date", { ascending: false });
   if (error) throw new Error(errorMessage(error));
   return { subjectName: offering.subjectName, grades: (data ?? []).map((row: any) => ({ id: String(row.id), offeringId: String(row.subject_offering_id), subjectName: offering.subjectName, schoolYear: String(row.school_year), term: row.term as BulletinTerm, assessmentType: row.assessment_type as AssessmentType, grade: Number(row.grade), maxGrade: Number(row.max_grade), assessmentCoefficient: Number(row.assessment_coefficient ?? 1), assessmentDate: String(row.assessment_date), comment: row.comment ?? null, includeInAverage: Boolean(row.include_in_average), normalizedGrade: Math.round((Number(row.grade) / Number(row.max_grade)) * 2000) / 100, updatedAt: row.updated_at ? String(row.updated_at) : null })) };
