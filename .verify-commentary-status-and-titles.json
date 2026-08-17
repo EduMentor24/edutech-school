@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select l.id as lesson_id, l.title as lesson_title, l.created_at, l.updated_at, l.is_active as lesson_is_active, l.is_test_data as lesson_is_test_data, length(coalesce(l.content, '')) as content_length, c.id as chapter_id, c.title as chapter_title, o.id as offering_id, o.is_published as offering_is_published, o.is_test_data as offering_is_test_data, s.name as series_name, lv.name as level_name, sub.name as subject_name from public.lessons l join public.chapters c on c.id = l.chapter_id join public.course_subject_offerings o on o.id = c.subject_offering_id join public.subjects sub on sub.id = o.subject_id join public.levels lv on lv.id = o.level_id join public.series s on s.id = o.series_id where sub.name = 'Philosophie' and lv.name = 'Terminale' and s.name in ('A1', 'A2') and c.title ilike 'COMPETENCE I%' order by s.name, c.display_order, l.display_order limit 50;"
+}

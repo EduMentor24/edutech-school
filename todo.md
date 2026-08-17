@@ -270,3 +270,13 @@
 - [x] Autoriser strictement l’administrateur à prévisualiser les contenus brouillon ou inactifs sans les publier.
 - [x] Préserver l’invisibilité stricte des brouillons pour les comptes élèves.
 - [x] Ajouter les tests de séparation prévisualisation admin et consultation élève, puis valider TypeScript, lint, tests et Android.
+- [x] Lire intégralement les PDF de Philosophie Terminale A1/A2 des leçons 3, 4 et 5 et relever fidèlement leurs contenus.
+- [x] Vérifier les trois leçons cibles existantes et l’absence de contenu, exercice ou quiz à écraser.
+- [x] Rédiger trois cours premium fidèles aux PDF et préparer les exercices corrigés et quiz associés.
+- [x] Enregistrer les trois ensembles pédagogiques uniquement en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, statuts, doublons, fidélité et validations techniques du lot avant rapport final.
+- [x] Vérifier en lecture seule l’emplacement exact du premier cours créé de Philosophie et ses ressources associées.
+- [x] Retracer en lecture seule sa leçon, son chapitre, sa matière, son niveau, sa série et ses statuts réels.
+- [x] Expliquer le résultat nul de la recherche récente de leçons sans changer la configuration ni les données.
+- [x] Produire le rapport de vérification demandé et s’arrêter avant toute nouvelle création.
+- [x] Exécuter la Commande 17 : produire le lot contrôlé des trois PDF de Philosophie Terminale A1/A2, sans activer ni publier automatiquement les ressources créées.
