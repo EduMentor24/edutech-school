@@ -10,7 +10,7 @@ export const normalizedOutOfTwenty = (grade: number, maxGrade: number) => maxGra
 export const roundGrade = (value: number) => Math.round(value * 100) / 100;
 
 export type BulletinCalculationGrade = { grade: number; maxGrade: number; includeInAverage: boolean; assessmentCoefficient?: number };
-export type SubjectAverageInput = { average: number | null; coefficient: number | null; coefficientVerified: boolean };
+export type SubjectAverageInput = { average: number | null; coefficient: number | null; coefficientVerified: boolean; isOptional?: boolean };
 
 export function calculateSubjectAverage(grades: BulletinCalculationGrade[]): number | null {
   const values = grades.flatMap((item) => { const normalized = normalizedOutOfTwenty(item.grade, item.maxGrade); const coefficient = item.assessmentCoefficient ?? 1; return item.includeInAverage && normalized !== null && coefficient > 0 ? [{ normalized, coefficient }] : []; });
@@ -20,10 +20,17 @@ export function calculateSubjectAverage(grades: BulletinCalculationGrade[]): num
 }
 
 export function calculateTermAverage(subjects: SubjectAverageInput[]) {
-  const included = subjects.filter((subject) => subject.average !== null && subject.coefficientVerified && subject.coefficient !== null && subject.coefficient > 0) as Array<{ average: number; coefficient: number; coefficientVerified: true }>;
+  const evaluated = subjects.filter((subject) => subject.average !== null && subject.coefficientVerified && subject.coefficient !== null && subject.coefficient > 0) as Array<{ average: number; coefficient: number; coefficientVerified: true; isOptional?: boolean }>;
+  const included = [...evaluated.filter((subject) => !subject.isOptional), ...evaluated.filter((subject) => subject.isOptional).slice(0, 1)];
   if (!included.length) return { average: null, includedSubjectCount: 0, excludedUnverifiedCoefficientCount: subjects.filter((subject) => subject.average !== null && !subject.coefficientVerified).length };
   const denominator = included.reduce((sum, subject) => sum + subject.coefficient, 0);
   return { average: roundGrade(included.reduce((sum, subject) => sum + subject.average * subject.coefficient, 0) / denominator), includedSubjectCount: included.length, excludedUnverifiedCoefficientCount: subjects.filter((subject) => subject.average !== null && !subject.coefficientVerified).length };
+}
+
+export function calculateCoefficientMatrixTotal(subjects: Array<Pick<SubjectAverageInput, "coefficient" | "coefficientVerified" | "isOptional">>) {
+  const verified = subjects.filter((subject) => subject.coefficientVerified && subject.coefficient !== null && subject.coefficient > 0) as Array<{ coefficient: number; coefficientVerified: true; isOptional?: boolean }>;
+  const selected = [...verified.filter((subject) => !subject.isOptional), ...verified.filter((subject) => subject.isOptional).slice(0, 1)];
+  return selected.length ? selected.reduce((sum, subject) => sum + subject.coefficient, 0) : null;
 }
 
 export function isValidSchoolYear(value: string) { return /^\d{4}-\d{4}$/.test(value) && Number(value.slice(0, 4)) + 1 === Number(value.slice(5, 9)); }
