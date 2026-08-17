@@ -63,17 +63,49 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
   const user = session?.user ?? null;
 
   const refreshProfile = useCallback(async () => {
-    if (!user) { setProfile(null); setProfileError(null); return; }
-    setIsProfileLoading(true); setProfileError(null);
-    const { data, error } = await supabase.from("profiles").select(PROFILE_FIELDS).eq("id", user.id).maybeSingle();
-    if (error) {
-      const cached = await readCachedProfileContext(user.id);
-      if (cached) { setProfile(cached); setProfileError(null); }
-      else { setProfile(null); setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(error)}`); }
+    if (!user) {
+      setProfile(null);
+      setProfileError(null);
+      setIsProfileLoading(false);
+      return;
     }
-    else if (!data) { setProfile(null); setProfileError(null); }
-    else { const nextProfile = data as StudentProfile; setProfile(nextProfile); await cacheProfileContext(nextProfile); }
-    setIsProfileLoading(false);
+
+    setIsProfileLoading(true);
+    setProfileError(null);
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select(PROFILE_FIELDS)
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (error) {
+        const cached = await readCachedProfileContext(user.id).catch(() => null);
+        if (cached) {
+          setProfile(cached);
+          setProfileError(null);
+        } else {
+          setProfile(null);
+          setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(error)}`);
+        }
+        return;
+      }
+
+      if (!data) {
+        setProfile(null);
+        setProfileError("Votre profil n’est pas encore disponible. Réessayez dans quelques instants.");
+        return;
+      }
+
+      const nextProfile = data as StudentProfile;
+      setProfile(nextProfile);
+      await cacheProfileContext(nextProfile).catch(() => undefined);
+    } catch (cause) {
+      setProfile(null);
+      setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(cause)}`);
+    } finally {
+      setIsProfileLoading(false);
+    }
   }, [user]);
 
   useEffect(() => { void refreshProfile(); }, [refreshProfile]);

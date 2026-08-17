@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "fix_profile_authenticated_grants",
+  "query": "begin;\n\ngrant usage on schema public to authenticated;\ngrant select, update on table public.profiles to authenticated;\n\ncommit;\n"
+}

@@ -249,3 +249,9 @@
 - [x] Intégrer la génération de notification aux publications réellement actives, sans notification de brouillon.
 - [x] Corriger les anomalies vérifiables identifiées dans la base ou le stockage sans suppression ni écrasement de données existantes.
 - [x] Ajouter les tests Commande 19, les contrôles de non-régression, puis valider TypeScript, lint, tests, RLS et build Android.
+- [x] Reproduire avec la session réelle l’erreur RLS du Profil et vérifier la politique `profiles` réellement appliquée.
+- [x] Corriger la récupération du profil connecté sans cache trompeur ni contournement de RLS.
+- [x] Corriger le chargement infini du Bulletin lorsque le cache local ne peut pas être initialisé.
+- [x] Corriger la détection de session du Mentor IA afin que l’utilisateur connecté soit reconnu dans le module.
+- [x] Ajouter des tests de régression inter-modules pour Profil, Bulletin et Mentor avec session authentifiée.
+- [x] Revalider les trois parcours avec un compte réel, les politiques RLS, TypeScript, lint, tests et le bundle Android.
