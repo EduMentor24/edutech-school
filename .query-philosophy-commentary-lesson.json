@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT l.id AS lesson_id, l.title AS lesson_title, l.is_active AS lesson_active, c.id AS chapter_id, c.title AS chapter_title, c.is_active AS chapter_active, o.id AS offering_id, o.is_published, level.name AS school_level, series.name AS school_series, subject.name AS subject_name FROM lessons l JOIN chapters c ON c.id = l.chapter_id JOIN course_subject_offerings o ON o.id = c.subject_offering_id JOIN levels level ON level.id = o.level_id JOIN series series ON series.id = o.series_id JOIN subjects subject ON subject.id = o.subject_id WHERE level.name = 'Terminale' AND series.name IN ('A1', 'A2') AND subject.name = 'Philosophie' AND lower(l.title) LIKE '%commentaire%texte%' ORDER BY series.name, c.title, l.title LIMIT 50;"
+}

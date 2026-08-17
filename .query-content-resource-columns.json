@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT table_name, column_name, is_nullable, column_default FROM information_schema.columns WHERE table_schema = 'public' AND table_name IN ('exercises', 'exercise_questions', 'quizzes', 'quiz_questions', 'quiz_answers') ORDER BY table_name, ordinal_position LIMIT 100;"
+}

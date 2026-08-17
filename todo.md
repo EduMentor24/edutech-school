@@ -260,3 +260,9 @@
 - [x] Contrôler les fonctions SECURITY DEFINER et les alertes de sécurité liées aux six modules audités.
 - [x] Corriger uniquement les écarts RLS ou SQL réellement établis par l’audit, sans modifier les données.
 - [x] Produire le rapport d’audit RLS par module.
+- [x] Lire intégralement le PDF « Le commentaire de texte philosophique » et en relever fidèlement le plan, les notions et les méthodes.
+- [x] Vérifier la correspondance exacte avec la leçon existante de Philosophie Terminale A1/A2 et l’absence de contenu déjà publié à écraser.
+- [x] Rédiger un cours mobile premium fidèle au PDF, avec une reformulation pédagogique sans ajout présenté comme source.
+- [x] Préparer des exercices corrigés et un quiz cohérent, séparés et reliés à la même leçon.
+- [x] Enregistrer le cours, les exercices et le quiz uniquement en brouillon, inactifs et non publiés.
+- [x] Contrôler les doublons, les liens, les statuts, la fidélité au PDF et les validations techniques avant le rapport final.
