@@ -15,10 +15,6 @@ export type StudentProfile = {
   role: "admin" | "student";
   school_level: "Première" | "Terminale" | null;
   series: string | null;
-  school_year: string | null;
-  lv2_choice: "Allemand" | "Espagnol" | null;
-  is_active: boolean;
-  status: string;
   created_at: string;
   updated_at: string;
 };
@@ -45,7 +41,7 @@ type AuthContextValue = {
   refreshProfile: () => Promise<void>;
 };
 
-const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,role,school_level,series,school_year,lv2_choice,is_active,status,created_at,updated_at";
+const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,role,school_level,series,created_at,updated_at";
 const SCHOOL_LEVELS = ["Première", "Terminale"];
 const SCHOOL_SERIES = ["A1", "A2", "C", "D"];
 const SupabaseAuthContext = createContext<AuthContextValue | undefined>(undefined);
