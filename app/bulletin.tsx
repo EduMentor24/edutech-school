@@ -1,14 +1,14 @@
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Redirect, useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { AppScreen } from "@/components/edutech/app-screen";
 import { CourseEmpty, CourseError, CourseLoading } from "@/components/edutech/course-feedback";
 import { PageHeader } from "@/components/edutech/page-header";
 import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
-import { BulletinSummary, getCurrentBulletinStudentId } from "@/lib/bulletin/bulletin-service";
-import { buildLocalBulletinSummary, readBulletinSnapshot } from "@/lib/bulletin/bulletin-offline-store";
+import { BulletinSummary, getCurrentBulletinStudentId, getRemoteBulletinSnapshot } from "@/lib/bulletin/bulletin-service";
+import { buildLocalBulletinSummary, mergeRemoteBulletinSnapshot, readBulletinSnapshot } from "@/lib/bulletin/bulletin-offline-store";
 import { useBulletinSync } from "@/lib/bulletin/bulletin-sync-context";
 import { BulletinTerm, formatAverage, termLabel } from "@/lib/bulletin/bulletin-model";
 import { useEduTheme } from "@/lib/edutech/theme-context";
@@ -20,7 +20,40 @@ const emptySummary = (schoolYear: string, term: BulletinTerm): BulletinSummary =
 export default function BulletinScreen() {
   const router = useRouter(); const { isAuthenticated, profile } = useSupabaseAuth(); const sync = useBulletinSync(); const { isOnline, syncNow } = sync; const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]);
   const initialYear = currentSchoolYear(); const [schoolYear, setSchoolYear] = useState(initialYear); const [term, setTerm] = useState<BulletinTerm>("T1"); const [summary, setSummary] = useState<BulletinSummary>(emptySummary(initialYear, "T1")); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
-  const load = useCallback(async () => { if (!profile) return; setLoading(true); setError(null); try { if (isOnline) await syncNow(schoolYear); const studentId = await getCurrentBulletinStudentId(); const snapshot = await readBulletinSnapshot(studentId); if (!snapshot.subjects.length) throw new Error(isOnline ? "Le cache du Bulletin n’a pas encore été initialisé." : "Aucune donnée Bulletin n’est encore disponible sur cet appareil hors connexion."); setSummary(buildLocalBulletinSummary(snapshot, schoolYear, term)); } catch (cause) { setError(cause instanceof Error ? cause.message : "Le Bulletin local n’a pas pu être chargé."); } finally { setLoading(false); } }, [isOnline, profile, schoolYear, syncNow, term]);
+  
+  const load = useCallback(async () => {
+    if (!profile) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const studentId = await getCurrentBulletinStudentId();
+      if (isOnline) {
+        try {
+          await syncNow(schoolYear);
+          const remote = await getRemoteBulletinSnapshot(profile, schoolYear, term);
+          await mergeRemoteBulletinSnapshot(studentId, remote.summary.subjects, remote.grades, schoolYear, term);
+        } catch (syncErr) {
+          console.warn("Bulletin online sync/fetch warning:", syncErr);
+        }
+      }
+      const snapshot = await readBulletinSnapshot(studentId);
+      // Si le cache local est vide mais que l’utilisateur est en ligne, récupérons directement les données de base pour initialiser le snapshot
+      if (!snapshot.subjects.length && isOnline) {
+        const remote = await getRemoteBulletinSnapshot(profile, schoolYear, term);
+        await mergeRemoteBulletinSnapshot(studentId, remote.summary.subjects, remote.grades, schoolYear, term);
+      }
+      const refreshedSnapshot = await readBulletinSnapshot(studentId);
+      if (!refreshedSnapshot.subjects.length) {
+        throw new Error(isOnline ? "Aucune matière n’est associée à votre profil pour ce niveau et cette série." : "Le cache du Bulletin n’a pas encore été initialisé. Connectez-vous une première fois avec Internet pour charger vos matières.");
+      }
+      setSummary(buildLocalBulletinSummary(refreshedSnapshot, schoolYear, term));
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Le Bulletin local n’a pas pu être chargé.");
+    } finally {
+      setLoading(false);
+    }
+  }, [isOnline, profile, schoolYear, syncNow, term]);
+
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   if (!isAuthenticated) return <Redirect href="/auth/login" />;
   const addRoute = `/bulletin/note/new?schoolYear=${schoolYear}&term=${term}`;
