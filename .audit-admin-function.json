@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT pg_get_functiondef('public.is_edutech_admin()'::regprocedure) AS definition LIMIT 1;"
+}

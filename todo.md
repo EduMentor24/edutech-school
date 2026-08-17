@@ -241,3 +241,11 @@
 - [x] Ajouter les tests Première A1/A2, contrôler RLS, TypeScript, lint, tous les tests et l’export Android.
 - [ ] Supprimer les éventuelles données temporaires, rédiger le rapport officiel et enregistrer le checkpoint de la Commande 13.
 - [x] Ajuster le catalogue Cours pour qu’une offre sans chapitre actif ne soit pas proposée à l’élève avant publication administrative.
+- [x] Auditer les implémentations existantes de session persistante, notifications, années scolaires, profils et synchronisation offline.
+- [x] Vérifier sans modification destructive les données, contraintes, politiques RLS et références de stockage réellement présentes.
+- [x] Compléter la restauration sécurisée de session et de contexte local après fermeture, redémarrage et absence de réseau.
+- [x] Implémenter ou compléter le centre de notifications élève, son cache hors connexion et la synchronisation anti-doublon.
+- [x] Ajouter l’interface administrative de notification ciblée par année, niveau et série avec confirmation et traçabilité.
+- [x] Intégrer la génération de notification aux publications réellement actives, sans notification de brouillon.
+- [x] Corriger les anomalies vérifiables identifiées dans la base ou le stockage sans suppression ni écrasement de données existantes.
+- [x] Ajouter les tests Commande 19, les contrôles de non-régression, puis valider TypeScript, lint, tests, RLS et build Android.

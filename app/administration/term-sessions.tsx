@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, Text, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { fetchSchoolYears, SchoolYear } from "@/lib/admin/school-administration-service";
@@ -10,23 +10,21 @@ export default function TermSessionsScreen() {
   const [sessions, setSessions] = useState<TermSession[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const yList = await fetchSchoolYears();
       setYears(yList);
       const active = yList.find((y: SchoolYear) => y.is_active) || yList[0];
-      if (active && !selectedYearId) {
-        setSelectedYearId(active.id);
-      }
+      if (active) setSelectedYearId((current) => current || active.id);
     } catch (e: any) {
       Alert.alert("Erreur", e.message || "Impossible de charger les années");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { void loadData(); }, []);
+  useEffect(() => { void loadData(); }, [loadData]);
 
   useEffect(() => {
     if (!selectedYearId) return;
@@ -70,7 +68,7 @@ export default function TermSessionsScreen() {
                   <Text className="text-sm text-muted">{existing ? existing.title : `Trimestre ${termNum} - Année scolaire`}</Text>
                   <Text className="text-xs text-muted">Statut : {existing?.is_open !== false ? "Ouvert aux notes" : "Clôturé"}</Text>
                   <TouchableOpacity
-                    onPress={() => handleToggleSession(existing || { id: "", school_year_id: selectedYearId, term_number: termNum, title: `Trimestre ${termNum}`, start_date: "2026-09-01", end_date: "2027-06-30", is_open: true })}
+                    onPress={() => handleToggleSession(existing || { id: "", school_year_id: selectedYearId, term_number: termNum, title: `Trimestre ${termNum}`, start_date: null, end_date: null, is_open: true })}
                     className="bg-primary py-2 px-4 rounded-lg self-start mt-2"
                   >
                     <Text className="text-background font-semibold">{existing?.is_open !== false ? "Clôturer le trimestre" : "Ouvrir le trimestre"}</Text>

@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
 import { ExerciseDifficulty, ExerciseType } from "@/lib/exercises/exercise-model";
+import { publishContentNotification } from "@/lib/notifications/content-notification-service";
 import { AdminChapter, AdminOfferingOption, AdminLesson, getAdminChapters, getAdminLessons, getAdminOfferingOptions } from "./course-admin-service";
 
 export type AdminExercise = { id: string; subjectId: string; levelId: string; seriesId: string; chapterId: string; lessonId: string; title: string; statement: string; contentMarkdown: string | null; correctionMarkdown: string | null; exerciseType: ExerciseType; difficulty: ExerciseDifficulty | null; estimatedDurationMinutes: number | null; displayOrder: number; isPublished: boolean; isActive: boolean; isTestData: boolean; subjectName: string; chapterTitle: string; lessonTitle: string; questionCount: number; attemptCount: number; createdAt: string; updatedAt: string };
@@ -50,6 +51,7 @@ export async function saveAdminExercise(input: AdminExerciseInput, exerciseId?: 
 export async function setAdminExerciseAvailability(exercise: AdminExercise, values: { isPublished: boolean; isActive: boolean }) {
   if (values.isPublished && exercise.questionCount === 0) throw new Error("Ajoutez au moins une question avant de publier cet exercice.");
   const { error } = await supabase.from("exercises").update({ is_published: values.isPublished, is_active: values.isActive }).eq("id", exercise.id); if (error) throw new Error(message(error));
+  if (values.isPublished && values.isActive && (!exercise.isPublished || !exercise.isActive)) await publishContentNotification({ contentType: "exercice", contentId: exercise.id, title: exercise.title, levelId: exercise.levelId, seriesId: exercise.seriesId, route: "/(tabs)/exercises" });
 }
 
 function validateQuestion(input: AdminExerciseQuestionInput) { const prompt = input.promptMarkdown.trim(); if (!prompt) throw new Error("L’énoncé de la question est obligatoire."); const automatic = input.questionType === "single_choice" || input.questionType === "multiple_choice" || input.questionType === "true_false"; if (automatic && (!input.options.length || !input.correctAnswers.length)) throw new Error("Les options et au moins une réponse correcte sont obligatoires pour ce type de question."); if (input.correctAnswers.some((answer) => automatic && !input.options.includes(answer))) throw new Error("Chaque réponse correcte doit correspondre à une option proposée."); }

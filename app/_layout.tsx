@@ -14,6 +14,7 @@ import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-run
 import { EduThemeProvider } from "@/lib/edutech/theme-context";
 import { SupabaseAuthProvider, useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { BulletinSyncProvider } from "@/lib/bulletin/bulletin-sync-context";
+import { NotificationSyncProvider } from "@/lib/notifications/notification-sync-context";
 import { AuthLoadingScreen } from "@/components/edutech/auth-loading-screen";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { createTRPCClient, trpc } from "@/lib/trpc";
@@ -29,9 +30,9 @@ function RootNavigator() {
     <Stack.Screen name="index" />
     <Stack.Protected guard={!isAuthenticated || isPasswordRecovery}><Stack.Screen name="auth" /></Stack.Protected>
     <Stack.Protected guard={isAuthenticated && !isPasswordRecovery}>
-      <Stack.Screen name="(tabs)" /><Stack.Screen name="course" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="settings" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
+      <Stack.Screen name="(tabs)" /><Stack.Screen name="course" /><Stack.Screen name="mentor" /><Stack.Screen name="bulletin" /><Stack.Screen name="notifications" /><Stack.Screen name="settings" /><Stack.Screen name="privacy" /><Stack.Screen name="terms" /><Stack.Screen name="about" /><Stack.Screen name="profile/edit" />
     </Stack.Protected>
-    <Stack.Protected guard={isAuthenticated && !isPasswordRecovery && isAdmin}><Stack.Screen name="administration" /></Stack.Protected>
+    <Stack.Protected guard={isAuthenticated && !isPasswordRecovery && isAdmin}><Stack.Screen name="administration" /><Stack.Screen name="administration/notifications" /></Stack.Protected>
     <Stack.Screen name="oauth/callback" />
   </Stack>;
 }
@@ -47,7 +48,7 @@ export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } } }));
   const [trpcClient] = useState(() => createTRPCClient());
   const providerInitialMetrics = useMemo(() => { const metrics = initialWindowMetrics ?? { insets: initialInsets, frame: initialFrame }; return { ...metrics, insets: { ...metrics.insets, top: Math.max(metrics.insets.top, 16), bottom: Math.max(metrics.insets.bottom, 12) } }; }, [initialInsets, initialFrame]);
-  const content = <GestureHandlerRootView style={{ flex: 1 }}><trpc.Provider client={trpcClient} queryClient={queryClient}><QueryClientProvider client={queryClient}><SupabaseAuthProvider><BulletinSyncProvider><RootNavigator /><StatusBar style="auto" /></BulletinSyncProvider></SupabaseAuthProvider></QueryClientProvider></trpc.Provider></GestureHandlerRootView>;
+  const content = <GestureHandlerRootView style={{ flex: 1 }}><trpc.Provider client={trpcClient} queryClient={queryClient}><QueryClientProvider client={queryClient}><SupabaseAuthProvider><BulletinSyncProvider><NotificationSyncProvider><RootNavigator /><StatusBar style="auto" /></NotificationSyncProvider></BulletinSyncProvider></SupabaseAuthProvider></QueryClientProvider></trpc.Provider></GestureHandlerRootView>;
   const safeArea = Platform.OS === "web" ? <SafeAreaProvider initialMetrics={providerInitialMetrics}><SafeAreaFrameContext.Provider value={frame}><SafeAreaInsetsContext.Provider value={insets}>{content}</SafeAreaInsetsContext.Provider></SafeAreaFrameContext.Provider></SafeAreaProvider> : <SafeAreaProvider initialMetrics={providerInitialMetrics}>{content}</SafeAreaProvider>;
   return <EduThemeProvider><ThemeProvider>{safeArea}</ThemeProvider></EduThemeProvider>;
 }

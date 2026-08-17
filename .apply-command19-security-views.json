@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "command19_security_invoker_views",
+  "query": "begin;\n\nalter view public.edutech_leaderboard set (security_invoker = true);\nalter view public.schoolci_grade_summary set (security_invoker = true);\n\ncommit;\n"
+}

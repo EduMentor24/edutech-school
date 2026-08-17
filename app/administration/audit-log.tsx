@@ -10,7 +10,7 @@ export default function AuditLogScreen() {
   const loadLogs = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase.from("audit_logs").select("*").order("created_at", { ascending: false }).limit(50);
+      const { data, error } = await supabase.from("edutech_activity_logs").select("id,actor_id,action,resource_type,resource_id,created_at").order("created_at", { ascending: false }).limit(50);
       if (error) throw error;
       setLogs(data || []);
     } catch (e: any) {
@@ -38,8 +38,8 @@ export default function AuditLogScreen() {
           <View className="gap-3">
             {logs.map(l => (
               <View key={l.id} className="bg-surface border border-border rounded-xl p-4 gap-1">
-                <Text className="text-sm font-bold text-foreground">{l.action || l.event_type}</Text>
-                <Text className="text-xs text-muted">Par : {l.user_id || "Système"}</Text>
+                <Text className="text-sm font-bold text-foreground">{l.action}</Text>
+                <Text className="text-xs text-muted">Par : {l.actor_id || "Système"}</Text>
                 <Text className="text-xs text-muted">Date : {new Date(l.created_at).toLocaleString()}</Text>
               </View>
             ))}

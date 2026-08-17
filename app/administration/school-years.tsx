@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import { ScrollView, Text, View, Alert, ActivityIndicator } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { fetchSchoolYears, SchoolYear } from "@/lib/admin/school-administration-service";
 
@@ -39,7 +39,7 @@ export default function SchoolYearsScreen() {
                     {y.is_active ? "Active" : y.status}
                   </Text>
                 </View>
-                <Text className="text-xs text-muted">Du {y.start_date} au {y.end_date}</Text>
+                <Text className="text-xs text-muted">Du {y.start_date ?? "date non renseignée"} au {y.end_date ?? "date non renseignée"}</Text>
               </View>
             ))}
           </View>

@@ -10,7 +10,7 @@ export default function ClassRequestsScreen() {
   const loadRequests = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase.from("class_change_requests").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase.from("edutech_class_change_requests").select("id,student_id,new_school_level,new_series,status,reason,created_at").order("created_at", { ascending: false });
       if (error) throw error;
       setRequests(data || []);
     } catch (e: any) {
@@ -39,7 +39,7 @@ export default function ClassRequestsScreen() {
             {requests.map(r => (
               <View key={r.id} className="bg-surface border border-border rounded-xl p-4 gap-1">
                 <Text className="text-sm font-bold text-foreground">Élève ID : {r.student_id}</Text>
-                <Text className="text-xs text-muted">Demandé : {r.target_school_level} {r.target_series}</Text>
+                <Text className="text-xs text-muted">Demandé : {r.new_school_level} {r.new_series}</Text>
                 <Text className="text-xs font-semibold text-primary">Statut : {r.status}</Text>
               </View>
             ))}

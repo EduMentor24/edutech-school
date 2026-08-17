@@ -4,6 +4,8 @@ import { PropsWithChildren, createContext, useCallback, useContext, useEffect, u
 import { AppState, Platform } from "react-native";
 
 import { supabase } from "@/lib/supabase/client";
+import { cacheProfileContext, readCachedProfileContext } from "./profile-context-cache";
+import { clearUserOfflineCache } from "@/lib/offline/user-cache-lifecycle";
 
 export type StudentProfile = {
   id: string;
@@ -15,6 +17,9 @@ export type StudentProfile = {
   role: "admin" | "student";
   school_level: "Première" | "Terminale" | null;
   series: string | null;
+  school_year: string | null;
+  is_active: boolean;
+  status: string;
   created_at: string;
   updated_at: string;
 };
@@ -41,7 +46,7 @@ type AuthContextValue = {
   refreshProfile: () => Promise<void>;
 };
 
-const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,role,school_level,series,created_at,updated_at";
+const PROFILE_FIELDS = "id,email,first_name,last_name,full_name,avatar_url,role,school_level,series,school_year,is_active,status,created_at,updated_at";
 const SCHOOL_LEVELS = ["Première", "Terminale"];
 const SCHOOL_SERIES = ["A1", "A2", "C", "D"];
 const SupabaseAuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -61,9 +66,13 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
     if (!user) { setProfile(null); setProfileError(null); return; }
     setIsProfileLoading(true); setProfileError(null);
     const { data, error } = await supabase.from("profiles").select(PROFILE_FIELDS).eq("id", user.id).maybeSingle();
-    if (error) { setProfile(null); setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(error)}`); }
+    if (error) {
+      const cached = await readCachedProfileContext(user.id);
+      if (cached) { setProfile(cached); setProfileError(null); }
+      else { setProfile(null); setProfileError(`Le chargement de votre profil a échoué : ${messageFrom(error)}`); }
+    }
     else if (!data) { setProfile(null); setProfileError(null); }
-    else { setProfile(data as StudentProfile); }
+    else { const nextProfile = data as StudentProfile; setProfile(nextProfile); await cacheProfileContext(nextProfile); }
     setIsProfileLoading(false);
   }, [user]);
 
@@ -121,9 +130,11 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   const signOut = useCallback(async (): Promise<AuthResult> => {
+    const userId = user?.id;
     const { error } = await supabase.auth.signOut({ scope: "local" });
+    if (!error && userId) await clearUserOfflineCache(userId);
     return { error: error ? messageFrom(error) : null };
-  }, []);
+  }, [user?.id]);
 
   const sendPasswordReset = useCallback(async (email: string): Promise<AuthResult> => {
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: Linking.createURL("/auth/reset-password") });
@@ -141,7 +152,7 @@ export function SupabaseAuthProvider({ children }: PropsWithChildren) {
     const firstName = input.firstName.trim(); const lastName = input.lastName.trim();
     if (!firstName || !lastName) return { error: "Le prénom et le nom sont obligatoires." };
     const { data, error } = await supabase.from("profiles").update({ first_name: firstName, last_name: lastName, full_name: `${firstName} ${lastName}`.trim(), avatar_url: input.avatarUrl?.trim() || null }).eq("id", user.id).select(PROFILE_FIELDS).single();
-    if (!error && data) setProfile(data as StudentProfile);
+    if (!error && data) { const nextProfile = data as StudentProfile; setProfile(nextProfile); await cacheProfileContext(nextProfile); }
     return { error: error ? messageFrom(error) : null };
   }, [user]);
 

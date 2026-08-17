@@ -68,3 +68,13 @@ export async function updateSyncQueue(queue: SyncQueueItem[], userId?: string): 
   const queueKey = "edutech_offline_sync_queue";
   await saveLocalData(queueKey, queue, userId);
 }
+
+export async function removeLocalData(key: string, userId?: string): Promise<void> {
+  const scopedKey = userId ? `${key}_${userId}` : key;
+  memoryStore.delete(scopedKey);
+  try {
+    if (AsyncStorage && typeof AsyncStorage.removeItem === "function") await AsyncStorage.removeItem(scopedKey);
+  } catch {
+    // La purge mémoire a déjà été effectuée ; la prochaine session ne réutilisera pas la donnée locale.
+  }
+}

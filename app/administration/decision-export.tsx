@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, Text, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { fetchSchoolYears, SchoolYear } from "@/lib/admin/school-administration-service";
@@ -11,21 +11,21 @@ export default function DecisionExportScreen() {
   const [filterDecision, setFilterDecision] = useState<string>("All");
   const [loading, setLoading] = useState(true);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const yList = await fetchSchoolYears();
       setYears(yList);
       const active = yList.find((y: SchoolYear) => y.is_active) || yList[0];
-      if (active && !selectedYearId) setSelectedYearId(active.id);
+      if (active) setSelectedYearId((current) => current || active.id);
     } catch (e: any) {
       Alert.alert("Erreur", e.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => { void loadData(); }, [loadData]);
 
   useEffect(() => {
     if (!selectedYearId) return;

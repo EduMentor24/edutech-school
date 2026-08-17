@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ScrollView, Text, View, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { fetchSchoolYears, SchoolYear } from "@/lib/admin/school-administration-service";
@@ -10,21 +10,21 @@ export default function ArchivedReportsScreen() {
   const [reports, setReports] = useState<ArchivedReport[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const yList = await fetchSchoolYears();
       setYears(yList);
       const archived = yList.find((y: SchoolYear) => y.status === "archived") || yList[0];
-      if (archived && !selectedYearId) setSelectedYearId(archived.id);
+      if (archived) setSelectedYearId((current) => current || archived.id);
     } catch (e: any) {
       Alert.alert("Erreur", e.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { loadData(); }, []);
+  useEffect(() => { void loadData(); }, [loadData]);
 
   useEffect(() => {
     if (!selectedYearId) return;

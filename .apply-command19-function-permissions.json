@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "command19_function_permission_repair",
+  "query": "begin;\n\nrevoke execute on function public.apply_edutech_content_policies(regclass) from anon;\nrevoke execute on function public.edutech_log_coefficient_change() from anon;\nrevoke execute on function public.edutech_set_updated_at() from anon;\nrevoke execute on function public.is_admin() from anon;\nrevoke execute on function public.prevent_self_profile_role_change() from anon;\nrevoke execute on function public.rls_auto_enable() from anon;\nrevoke execute on function public.schoolci_guard_profile() from anon;\nrevoke execute on function public.schoolci_log_admin_action(text, text, text, jsonb) from anon;\nrevoke execute on function public.schoolci_publish_notification() from anon;\nrevoke execute on function public.sync_profile_role_assignment() from anon;\nrevoke execute on function public.validate_exercise_pedagogical_link() from anon;\n\nalter function public.set_updated_at() set search_path = public;\n\ncommit;\n"
+}

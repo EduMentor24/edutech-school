@@ -29,6 +29,7 @@ export default function AdministrationScreen() {
     { title: "Export des décisions", description: "Filtres et export CSV/JSON des décisions.", icon: "file-download", route: "/administration/decision-export" },
     { title: "Rapports archivés", description: "Bilans de fin d’année des élèves archivés.", icon: "archive", route: "/administration/archived-reports" },
     { title: "Journal d’audit", description: "Traçabilité sécurisée des actions administratives.", icon: "receipt-long", route: "/administration/audit-log" },
+    { title: "Notifications", description: "Publication ciblée par année, niveau, série ou élève.", icon: "notifications", route: "/administration/notifications" },
     { title: "Matières", description: "Catalogue, ordre, statut et associations niveau-série.", icon: "menu-book", route: "/administration/subjects" },
     { title: "Chapitres", description: "Chapitres liés aux matières publiées, ordre et brouillon.", icon: "format-list-numbered", route: "/administration/chapters" },
     { title: "Leçons", description: "Éditeur simple de leçons, contenu, ordre et publication.", icon: "article", route: "/administration/lessons" },

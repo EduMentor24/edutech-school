@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT p.oid::regprocedure::text AS signature, p.proname, has_function_privilege('anon', p.oid, 'EXECUTE') AS anon_execute, has_function_privilege('authenticated', p.oid, 'EXECUTE') AS authenticated_execute FROM pg_proc p JOIN pg_namespace n ON n.oid = p.pronamespace WHERE n.nspname = 'public' AND p.prosecdef ORDER BY p.proname LIMIT 200;"
+}

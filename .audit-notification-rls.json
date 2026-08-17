@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT tablename, policyname, cmd, roles, qual, with_check FROM pg_policies WHERE schemaname = 'public' AND tablename IN ('profiles', 'edutech_notifications', 'edutech_notification_reads') ORDER BY tablename, policyname LIMIT 100;"
+}

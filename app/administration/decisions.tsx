@@ -10,7 +10,7 @@ export default function DecisionsScreen() {
   const loadDecisions = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase.from("end_of_year_decisions").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabase.from("edutech_student_school_history").select("id,student_id,annual_average,promotion_decision,school_year,created_at").order("created_at", { ascending: false });
       if (error) throw error;
       setDecisions(data || []);
     } catch (e: any) {
@@ -40,7 +40,7 @@ export default function DecisionsScreen() {
               <View key={d.id} className="bg-surface border border-border rounded-xl p-4 gap-1">
                 <Text className="text-sm font-bold text-foreground">Élève ID : {d.student_id}</Text>
                 <Text className="text-xs text-muted">Moyenne annuelle : {d.annual_average ?? "—"}</Text>
-                <Text className="text-xs font-semibold text-primary">Décision : {d.decision}</Text>
+                <Text className="text-xs font-semibold text-primary">Décision : {d.promotion_decision}</Text>
               </View>
             ))}
           </View>

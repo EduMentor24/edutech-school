@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
+import { publishContentNotification } from "@/lib/notifications/content-notification-service";
 
 export type AdminSubject = { id: string; name: string; description: string | null; icon: string | null; isActive: boolean; displayOrder: number; isTestData: boolean; createdAt: string; updatedAt: string; associationCount: number; publishedAssociationCount: number; levels: string[]; series: string[]; chapterCount: number; lessonCount: number };
 export type AdminTarget = { levelId: string; seriesId: string; levelName: string; seriesName: string; levelOrder: number; seriesOrder: number };
@@ -62,11 +63,13 @@ export async function setOfferingPublication(subjectId: string, target: AdminTar
   if (existing) {
     const { error } = await supabase.from("course_subject_offerings").update({ is_published: isPublished }).eq("id", existing.id);
     if (error) throw new Error(message(error));
+    if (isPublished) { const { data: subject, error: subjectError } = await supabase.from("subjects").select("name").eq("id", subjectId).single(); if (subjectError) throw new Error(message(subjectError)); await publishContentNotification({ contentType: "cours", contentId: existing.id, title: subject.name, levelId: target.levelId, seriesId: target.seriesId, route: "/(tabs)/courses" }); }
     return;
   }
   if (!isPublished) return;
-  const { error } = await supabase.from("course_subject_offerings").insert({ subject_id: subjectId, level_id: target.levelId, series_id: target.seriesId, is_published: true, display_order: await nextOfferingOrder(target.levelId, target.seriesId) });
+  const { data: created, error } = await supabase.from("course_subject_offerings").insert({ subject_id: subjectId, level_id: target.levelId, series_id: target.seriesId, is_published: true, display_order: await nextOfferingOrder(target.levelId, target.seriesId) }).select("id").single();
   if (error) throw new Error(message(error));
+  const { data: subject, error: subjectError } = await supabase.from("subjects").select("name").eq("id", subjectId).single(); if (subjectError) throw new Error(message(subjectError)); await publishContentNotification({ contentType: "cours", contentId: created.id, title: subject.name, levelId: target.levelId, seriesId: target.seriesId, route: "/(tabs)/courses" });
 }
 
 export async function getSubjectDependencySummary(subjectId: string): Promise<{ offerings: number; chapters: number }> {
