@@ -255,3 +255,8 @@
 - [x] Corriger la détection de session du Mentor IA afin que l’utilisateur connecté soit reconnu dans le module.
 - [x] Ajouter des tests de régression inter-modules pour Profil, Bulletin et Mentor avec session authentifiée.
 - [x] Revalider les trois parcours avec un compte réel, les politiques RLS, TypeScript, lint, tests et le bundle Android.
+- [x] Inventorier les tables Supabase réellement utilisées par les leçons, exercices, quiz, Bulletin, citations et Mentor IA.
+- [x] Vérifier les politiques RLS et les privilèges SQL de lecture et d’écriture pour les rôles anon et authenticated.
+- [x] Contrôler les fonctions SECURITY DEFINER et les alertes de sécurité liées aux six modules audités.
+- [x] Corriger uniquement les écarts RLS ou SQL réellement établis par l’audit, sans modifier les données.
+- [x] Produire le rapport d’audit RLS par module.

@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "audit_rls_legacy_pedagogical_repair",
+  "query": "begin;\n\ndrop policy if exists edutech_exercises_all on public.edutech_exercises;\ndrop policy if exists edutech_quizzes_all on public.edutech_quizzes;\n\ndrop policy if exists schoolci_chapters_read on public.edutech_chapters;\ncreate policy schoolci_chapters_read\non public.edutech_chapters\nfor select\nto authenticated\nusing (is_edutech_admin());\n\ncommit;\n"
+}
