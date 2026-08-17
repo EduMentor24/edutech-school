@@ -266,3 +266,7 @@
 - [x] Préparer des exercices corrigés et un quiz cohérent, séparés et reliés à la même leçon.
 - [x] Enregistrer le cours, les exercices et le quiz uniquement en brouillon, inactifs et non publiés.
 - [x] Contrôler les doublons, les liens, les statuts, la fidélité au PDF et les validations techniques avant le rapport final.
+- [x] Auditer le refus de prévisualisation des leçons inactives dans le parcours administrateur.
+- [x] Autoriser strictement l’administrateur à prévisualiser les contenus brouillon ou inactifs sans les publier.
+- [x] Préserver l’invisibilité stricte des brouillons pour les comptes élèves.
+- [x] Ajouter les tests de séparation prévisualisation admin et consultation élève, puis valider TypeScript, lint, tests et Android.

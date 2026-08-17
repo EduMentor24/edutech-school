@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase/client";
 export type CourseSubject = { offeringId: string; subjectId: string; name: string; description: string | null; activeChapterCount: number };
 export type CourseOffering = { id: string; subjectName: string; subjectDescription: string | null };
 export type CourseChapter = { id: string; title: string; description: string | null; displayOrder: number };
-export type CourseLesson = { id: string; chapterId: string; title: string; description: string | null; content: string | null; displayOrder: number };
+export type CourseLesson = { id: string; chapterId: string; title: string; description: string | null; content: string | null; displayOrder: number; isActive: boolean };
 
 function messageFrom(error: unknown) { if (typeof error === "object" && error && "message" in error && typeof error.message === "string") return error.message; return "Une erreur de données est survenue."; }
 function schoolTarget(profile: StudentProfile) { if (!profile.school_level || !profile.series) return null; return { schoolLevel: profile.school_level, series: profile.series }; }
@@ -42,12 +42,16 @@ export async function getChapter(chapterId: string): Promise<CourseChapter | nul
   if (error) throw new Error(messageFrom(error)); return data ? { id: data.id, title: data.title, description: data.description, displayOrder: data.display_order } : null;
 }
 
-export async function getLessonsForChapter(chapterId: string): Promise<CourseLesson[]> {
-  const { data, error } = await supabase.from("lessons").select("id,chapter_id,title,description,content,display_order").eq("chapter_id", chapterId).eq("is_active", true).order("display_order", { ascending: true });
-  if (error) throw new Error(messageFrom(error)); return (data ?? []).map((lesson) => ({ id: lesson.id, chapterId: lesson.chapter_id, title: lesson.title, description: lesson.description, content: lesson.content, displayOrder: lesson.display_order }));
+export async function getLessonsForChapter(chapterId: string, options: { includeInactive?: boolean } = {}): Promise<CourseLesson[]> {
+  let request = supabase.from("lessons").select("id,chapter_id,title,description,content,display_order,is_active").eq("chapter_id", chapterId);
+  if (!options.includeInactive) request = request.eq("is_active", true);
+  const { data, error } = await request.order("display_order", { ascending: true });
+  if (error) throw new Error(messageFrom(error)); return (data ?? []).map((lesson) => ({ id: lesson.id, chapterId: lesson.chapter_id, title: lesson.title, description: lesson.description, content: lesson.content, displayOrder: lesson.display_order, isActive: Boolean(lesson.is_active) }));
 }
 
-export async function getLesson(lessonId: string): Promise<CourseLesson | null> {
-  const { data, error } = await supabase.from("lessons").select("id,chapter_id,title,description,content,display_order").eq("id", lessonId).eq("is_active", true).maybeSingle();
-  if (error) throw new Error(messageFrom(error)); return data ? { id: data.id, chapterId: data.chapter_id, title: data.title, description: data.description, content: data.content, displayOrder: data.display_order } : null;
+export async function getLesson(lessonId: string, options: { includeInactive?: boolean } = {}): Promise<CourseLesson | null> {
+  let request = supabase.from("lessons").select("id,chapter_id,title,description,content,display_order,is_active").eq("id", lessonId);
+  if (!options.includeInactive) request = request.eq("is_active", true);
+  const { data, error } = await request.maybeSingle();
+  if (error) throw new Error(messageFrom(error)); return data ? { id: data.id, chapterId: data.chapter_id, title: data.title, description: data.description, content: data.content, displayOrder: data.display_order, isActive: Boolean(data.is_active) } : null;
 }
