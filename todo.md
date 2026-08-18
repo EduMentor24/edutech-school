@@ -286,3 +286,9 @@
 - [x] Enregistrer uniquement les ressources en brouillon, inactives et non publiées, sans écraser de contenu publié ni créer de doublon.
 - [x] Contrôler les rattachements, l’année, les statuts, la qualité pédagogique, les formulations et les validations techniques avant le rapport final.
 - [x] Appliquer la confirmation utilisateur : variantes « QUESTION AU CHOIX » pour les leçons 7 et 8 A1/A2, et contenus des leçons 7 et 8 sur les leçons de même titre C/D uniquement.
+- [x] Lire intégralement les PDF de Philosophie Terminale sur le langage et la vérité ainsi que sur la connaissance scientifique.
+- [x] Vérifier les leçons existantes, vides et correctement rattachées pour A1/A2, puis contrôler sans hypothèse les équivalents éventuels en C/D.
+- [x] Rédiger les cours approfondis fidèles aux deux PDF et préparer les exercices corrigés et quiz séparés pour chaque rattachement confirmé.
+- [x] Enregistrer les ressources uniquement à l’état brouillon, inactif et non publié, sans écraser de contenu publié ni créer de doublon.
+- [x] Contrôler les rattachements, l’année disponible dans le schéma, les statuts, la fidélité et les validations techniques avant rapport final.
+- [x] Appliquer la confirmation utilisateur : utiliser les huit leçons « Étude d’œuvres » de Langage et vérité et de La connaissance scientifique pour Terminale A1, A2, C et D.
