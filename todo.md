@@ -292,3 +292,9 @@
 - [x] Enregistrer les ressources uniquement à l’état brouillon, inactif et non publié, sans écraser de contenu publié ni créer de doublon.
 - [x] Contrôler les rattachements, l’année disponible dans le schéma, les statuts, la fidélité et les validations techniques avant rapport final.
 - [x] Appliquer la confirmation utilisateur : utiliser les huit leçons « Étude d’œuvres » de Langage et vérité et de La connaissance scientifique pour Terminale A1, A2, C et D.
+- [x] Lire intégralement le PDF sur la dissertation philosophique et relever fidèlement son plan, ses méthodes, ses notions et ses références.
+- [x] Vérifier les leçons existantes, vides et correctement rattachées de Première et Terminale A1, A2, C et D, sans supposer d’équivalence.
+- [x] Rédiger un cours approfondi avec glossaire des notions nouvelles, exercices corrigés et quiz séparés pour chaque rattachement confirmé.
+- [x] Enregistrer les ressources uniquement à l’état brouillon, inactif et non publié, sans écraser un contenu publié ni créer de doublon.
+- [x] Contrôler les rattachements, l’année disponible dans le schéma, les statuts, la fidélité et les validations techniques avant le rapport final.
+- [x] Appliquer la confirmation utilisateur : contenu, exercices et quiz pour Terminale A2/C/D ; exercices et quiz uniquement pour Terminale A1 sans modifier le cours publié ; aucune structure Première.
