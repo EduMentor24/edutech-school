@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select column_name from information_schema.columns where table_schema = 'public' and table_name in ('lessons', 'chapters', 'course_subject_offerings') and column_name ilike '%year%' order by table_name, ordinal_position limit 20;"
+}

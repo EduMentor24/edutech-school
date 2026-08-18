@@ -280,3 +280,9 @@
 - [x] Expliquer le résultat nul de la recherche récente de leçons sans changer la configuration ni les données.
 - [x] Produire le rapport de vérification demandé et s’arrêter avant toute nouvelle création.
 - [x] Exécuter la Commande 17 : produire le lot contrôlé des trois PDF de Philosophie Terminale A1/A2, sans activer ni publier automatiquement les ressources créées.
+- [x] Lire intégralement les trois PDF de Philosophie Terminale sur l’histoire et l’humanité, la valeur de la philosophie, le progrès et le bonheur.
+- [x] Vérifier les leçons existantes et vides pour Terminale A1/A2, puis contrôler sans hypothèse les équivalents éventuels pour Terminale C/D.
+- [x] Produire des contenus approfondis, strictement fidèles aux PDF, avec cours premium, exercices corrigés et quiz séparés pour chaque rattachement confirmé.
+- [x] Enregistrer uniquement les ressources en brouillon, inactives et non publiées, sans écraser de contenu publié ni créer de doublon.
+- [x] Contrôler les rattachements, l’année, les statuts, la qualité pédagogique, les formulations et les validations techniques avant le rapport final.
+- [x] Appliquer la confirmation utilisateur : variantes « QUESTION AU CHOIX » pour les leçons 7 et 8 A1/A2, et contenus des leçons 7 et 8 sur les leçons de même titre C/D uniquement.
