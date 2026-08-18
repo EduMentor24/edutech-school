@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select l.id as lesson_id, l.title as lesson_title, l.is_active, length(coalesce(l.content, '')) as content_length, c.title as chapter_title, s.name as series_name, lv.name as level_name, (select count(*) from public.exercises e where e.lesson_id = l.id) as exercise_count, (select count(*) from public.quizzes q where q.lesson_id = l.id) as quiz_count from public.lessons l join public.chapters c on c.id = l.chapter_id join public.course_subject_offerings o on o.id = c.subject_offering_id join public.subjects sub on sub.id = o.subject_id join public.levels lv on lv.id = o.level_id join public.series s on s.id = o.series_id where lower(sub.name) = 'mathématiques' and lv.name = 'Terminale' and (lower(l.title) like '%polynôme%' or lower(l.title) like '%rationnelle%' or lower(l.title) like '%probabilit%' or lower(l.title) like '%logarithme%') order by s.name, c.title, l.title limit 40;"
+}

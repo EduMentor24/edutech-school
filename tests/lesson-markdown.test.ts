@@ -22,4 +22,11 @@ describe("parseLessonMarkdown", () => {
       rows: [["1", "Analyser"], ["2", "Argumenter"]],
     });
   });
+
+  it("reconnaît les formules délimitées et les conserve dans un bloc dédié", () => {
+    const blocks = parseLessonMarkdown("## Limite\n\n$$\n\\lim_{x\\to +\\infty} \\frac{\\ln x}{x}=0\n$$\n\n> **Méthode :**\n> Déterminer d’abord l’ensemble de définition.");
+
+    expect(blocks.map((block) => block.type)).toEqual(["heading", "formula", "callout"]);
+    expect(blocks[1]).toMatchObject({ type: "formula", value: "\\lim_{x\\to +\\infty} \\frac{\\ln x}{x}=0" });
+  });
 });

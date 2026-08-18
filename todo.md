@@ -298,3 +298,10 @@
 - [x] Enregistrer les ressources uniquement à l’état brouillon, inactif et non publié, sans écraser un contenu publié ni créer de doublon.
 - [x] Contrôler les rattachements, l’année disponible dans le schéma, les statuts, la fidélité et les validations techniques avant le rapport final.
 - [x] Appliquer la confirmation utilisateur : contenu, exercices et quiz pour Terminale A2/C/D ; exercices et quiz uniquement pour Terminale A1 sans modifier le cours publié ; aucune structure Première.
+- [x] Lire intégralement les trois PDF de Mathématiques Terminale sur les fonctions polynômes et rationnelles, les probabilités et le logarithme népérien.
+- [x] Vérifier les leçons existantes, vides et correctement rattachées pour les séries Terminale, sans supposer une correspondance de série.
+- [x] Concevoir une amélioration mobile du lecteur de cours pour valoriser les définitions, encadrés, méthodes, tableaux et formules mathématiques.
+- [x] Rédiger les cours mathématiques approfondis, les exercices corrigés et les quiz séparés pour chaque rattachement confirmé.
+- [x] Enregistrer les ressources uniquement en brouillon, inactif et non publié, sans écraser de contenu publié ni créer de doublon.
+- [x] Contrôler les rattachements, les formules, les statuts, la fidélité, l’interface et les validations techniques avant le rapport final.
+- [x] Appliquer la confirmation utilisateur : créer uniquement les six leçons de Mathématiques Terminale A1/A2, sans rattachement C/D pour ce lot.

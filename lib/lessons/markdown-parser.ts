@@ -2,10 +2,11 @@ export type HeadingBlock = { type: "heading"; level: 2 | 3; text: string };
 export type ParagraphBlock = { type: "paragraph"; text: string };
 export type ListBlock = { type: "unordered" | "ordered"; items: string[] };
 export type CalloutBlock = { type: "callout"; title: string | null; lines: string[] };
+export type FormulaBlock = { type: "formula"; value: string };
 export type TableBlock = { type: "table"; headers: string[]; rows: string[][] };
 export type RuleBlock = { type: "rule" };
 
-export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | TableBlock | RuleBlock;
+export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
 const isHeading = (line: string) => /^(#{2,3})\s+/.test(line);
@@ -13,6 +14,7 @@ const isUnordered = (line: string) => /^\s*-\s+/.test(line);
 const isOrdered = (line: string) => /^\s*\d+\.\s+/.test(line);
 const isTableLine = (line: string) => /^\s*\|.*\|\s*$/.test(line);
 const isTableSeparator = (line: string) => /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+const isFormulaFence = (line: string) => /^\$\$\s*$/.test(line);
 
 function normalizeInline(text: string) {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 — $2");
@@ -32,6 +34,19 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const trimmed = lines[index].trim();
     if (!trimmed) { index += 1; continue; }
     if (isRule(trimmed)) { blocks.push({ type: "rule" }); index += 1; continue; }
+
+    if (isFormulaFence(trimmed)) {
+      const formulaLines: string[] = [];
+      index += 1;
+      while (index < lines.length && !isFormulaFence(lines[index].trim())) {
+        formulaLines.push(lines[index].trim());
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      const value = formulaLines.join(" ").trim();
+      if (value) blocks.push({ type: "formula", value });
+      continue;
+    }
 
     const heading = trimmed.match(/^(#{2,3})\s+(.+)$/);
     if (heading) { blocks.push({ type: "heading", level: heading[1].length as 2 | 3, text: normalizeInline(heading[2]) }); index += 1; continue; }
