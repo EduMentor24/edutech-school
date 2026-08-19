@@ -305,3 +305,13 @@
 - [x] Enregistrer les ressources uniquement en brouillon, inactif et non publié, sans écraser de contenu publié ni créer de doublon.
 - [x] Contrôler les rattachements, les formules, les statuts, la fidélité, l’interface et les validations techniques avant le rapport final.
 - [x] Appliquer la confirmation utilisateur : créer uniquement les six leçons de Mathématiques Terminale A1/A2, sans rattachement C/D pour ce lot.
+- [x] Lire intégralement les trois PDF de Mathématiques sur la dérivabilité, la géométrie analytique de l’espace et les primitives.
+- [x] Vérifier les leçons existantes, vides et correctement rattachées pour Terminale A1/A2, sans supposer de correspondance de titre.
+- [x] Rédiger les cours mathématiques approfondis avec définitions, méthodes et formules, puis préparer les exercices corrigés et quiz séparés.
+- [x] Enregistrer les ressources uniquement en brouillon, inactif et non publié, sans écraser de contenu publié ni créer de doublon.
+- [x] Contrôler les rattachements, formules, statuts, fidélité et validations techniques avant le rapport final.
+- [x] Appliquer la confirmation utilisateur : rattacher les trois PDF étiquetés TC uniquement aux leçons Terminale C réellement confirmées, sans créer de contenu A1/A2.
+- [x] Créer les brouillons approfondis de Mathématiques Terminale C confirmés pour la dérivabilité et les primitives, sans le PDF de géométrie dont la leçon est absente.
+- [x] Concevoir l’export PDF premium d’un cours en respectant les droits d’accès élève et administrateur, avec encadrés, définitions et formules lisibles.
+- [x] Intégrer les actions d’impression et de téléchargement PDF dans le lecteur de leçon sans contourner RLS ni exposer de brouillon à un élève.
+- [x] Tester l’export PDF, les statuts de brouillon et les validations techniques avant rapport final.
