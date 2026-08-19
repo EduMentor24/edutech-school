@@ -318,3 +318,5 @@
 - [x] Ajouter le logo et l’identité EduTech School dans l’en-tête des PDF de cours exportés.
 - [x] Ajouter la signature développeur « loua.spacedigital » dans le pied de page personnalisé des PDF.
 - [x] Tester le modèle PDF personnalisé, les validations TypeScript et la non-régression de l’export.
+- [x] Répéter l’en-tête EduTech School avec logo officiel et le pied de page « Développé par loua.spacedigital » sur chaque page PDF imprimée ou exportée.
+- [x] Tester un document multipage et revalider l’export PDF sans régression des droits d’accès.

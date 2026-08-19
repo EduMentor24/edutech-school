@@ -12,6 +12,10 @@ describe("générateur PDF de leçon", () => {
     expect(html).toContain("<table>");
     expect(html).toContain('class="brand-logo"');
     expect(html).toContain("Développé par loua.spacedigital");
+    expect(html).toContain('@media print');
+    expect(html).toContain('class="page-header"');
+    expect(html).toContain('class="page-footer"');
+    expect(html).toContain('position: fixed');
   });
 
   it("échappe le contenu fourni par une leçon", () => {
