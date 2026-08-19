@@ -87,6 +87,12 @@ const config: ExpoConfig = {
   plugins: [
     "expo-router",
     [
+      "expo-asset",
+      {
+        assets: ["./assets/images/icon.png"],
+      },
+    ],
+    [
       "expo-secure-store",
       {
         "configureAndroidBackup": true,

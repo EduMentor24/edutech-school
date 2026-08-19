@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { buildLessonPdfHtml } from "../lib/lessons/lesson-pdf-html";
 
 describe("générateur PDF de leçon", () => {
-  const html = buildLessonPdfHtml({ title: "Leçon test", description: "Une description", content: "## Partie\n\n> **Définition**\n> Notion clé.\n\n$$\nf(x)=x²\n$$\n\n| A | B |\n|---|---|\n| 1 | 2 |" });
+  const html = buildLessonPdfHtml({ title: "Leçon test", description: "Une description", logoUri: "data:image/png;base64,logo", content: "## Partie\n\n> **Définition**\n> Notion clé.\n\n$$\nf(x)=x²\n$$\n\n| A | B |\n|---|---|\n| 1 | 2 |" });
 
   it("préserve la hiérarchie, les encadrés et les formules", () => {
     expect(html).toContain("<h2>Partie</h2>");
@@ -10,6 +10,8 @@ describe("générateur PDF de leçon", () => {
     expect(html).toContain('class="formula"');
     expect(html).toContain("f(x)=x²");
     expect(html).toContain("<table>");
+    expect(html).toContain('class="brand-logo"');
+    expect(html).toContain("Développé par loua.spacedigital");
   });
 
   it("échappe le contenu fourni par une leçon", () => {

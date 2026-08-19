@@ -315,3 +315,6 @@
 - [x] Concevoir l’export PDF premium d’un cours en respectant les droits d’accès élève et administrateur, avec encadrés, définitions et formules lisibles.
 - [x] Intégrer les actions d’impression et de téléchargement PDF dans le lecteur de leçon sans contourner RLS ni exposer de brouillon à un élève.
 - [x] Tester l’export PDF, les statuts de brouillon et les validations techniques avant rapport final.
+- [x] Ajouter le logo et l’identité EduTech School dans l’en-tête des PDF de cours exportés.
+- [x] Ajouter la signature développeur « loua.spacedigital » dans le pied de page personnalisé des PDF.
+- [x] Tester le modèle PDF personnalisé, les validations TypeScript et la non-régression de l’export.
