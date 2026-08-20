@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select s.name as series, l.id as lesson_id, l.title as lesson_title, coalesce(length(l.content), 0) as content_length, l.is_active, count(distinct e.id) as exercise_count, count(distinct q.id) as quiz_count from public.lessons l join public.chapters c on c.id = l.chapter_id join public.course_subject_offerings o on o.id = c.subject_offering_id join public.series s on s.id = o.series_id left join public.exercises e on e.lesson_id = l.id left join public.quizzes q on q.lesson_id = l.id where l.id in ('aec347c0-a680-4ef1-b4f6-67947a1e600c', '50398ee8-8130-47eb-ad7c-f2ef9f8ad5d0', '2261f542-9481-4d49-9a72-54b71fdb9929', 'f1ebf95d-9b61-40dc-b3a5-7a9699cac3be', '221c3f88-b3cd-4287-9647-78f82e5928af', 'ac91de56-a15f-43ff-8baf-a2f4dcbe82b1') group by s.name, l.id, l.title, l.content, l.is_active order by s.name, l.title limit 6"
+}

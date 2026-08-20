@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select s.name as series, c.title as chapter_title, l.title as lesson_title, l.id as lesson_id from public.lessons l join public.chapters c on c.id = l.chapter_id join public.course_subject_offerings o on o.id = c.subject_offering_id join public.subjects sub on sub.id = o.subject_id join public.levels lv on lv.id = o.level_id join public.series s on s.id = o.series_id where sub.name = 'Mathématiques' and lv.name = 'Terminale' and coalesce(length(trim(l.content)), 0) = 0 and l.is_active = false order by s.name, c.title, l.title limit 100"
+}

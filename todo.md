@@ -320,3 +320,7 @@
 - [x] Tester le modèle PDF personnalisé, les validations TypeScript et la non-régression de l’export.
 - [x] Répéter l’en-tête EduTech School avec logo officiel et le pied de page « Développé par loua.spacedigital » sur chaque page PDF imprimée ou exportée.
 - [x] Tester un document multipage et revalider l’export PDF sans régression des droits d’accès.
+- [x] Lire intégralement les PDF sur le logarithme népérien, la fonction exponentielle et les suites numériques.
+- [x] Vérifier l’état déjà créé du logarithme népérien et confirmer les leçons A1/A2 vides pour l’exponentielle et les suites numériques.
+- [x] Produire uniquement les nouveaux cours approfondis, exercices corrigés et quiz séparés confirmés, en brouillon et sans doublon.
+- [x] Contrôler les rattachements, statuts, formules, ressources et validations techniques avant rapport final.
