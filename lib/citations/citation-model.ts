@@ -32,6 +32,15 @@ export function citationMatches(citation: Citation, search: string) {
   return [citation.quoteText, citation.author, citation.subjectName, citation.sourceTitle ?? "", citation.sourceReference ?? "", citation.pedagogicalExplanation ?? "", ...citation.keywords, ...citation.themes].some((value) => normalizeCitationSearch(value).includes(needle));
 }
 
+/**
+ * Retourne uniquement les notions réellement associées à une matière.
+ * Le thème « Méthode », par exemple, reste donc indépendant dans chaque matière.
+ */
+export function citationNotionsForSubject(citations: Citation[], subjectName: string | null) {
+  if (!subjectName) return [];
+  return Array.from(new Set(citations.filter((citation) => citation.subjectName === subjectName).flatMap((citation) => citation.themes))).sort((a, b) => a.localeCompare(b, "fr-FR"));
+}
+
 export function citationShareText(citation: Citation) {
   const source = [citation.sourceTitle, citation.sourceReference].filter(Boolean).join(" · ");
   return `« ${citation.quoteText} »\n— ${citation.author}${source ? `, ${source}` : ""}\n\nEduTech School`;

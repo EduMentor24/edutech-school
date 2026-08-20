@@ -369,3 +369,11 @@
 - [x] Créer seulement les structures absentes explicitement couvertes par les PDF valides, à la dernière position pédagogique, en brouillon inactif et non publié.
 - [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés pour chaque rattachement confirmé, sans écraser de contenu publié.
 - [x] Contrôler les liens, sources, statuts, doublons et validations techniques du lot SVT Terminale.
+
+- [x] Lire intégralement les PDF SVT Terminale A sur l’évolution de la lignée humaine, l’hérédité du sexe et du groupe sanguin, et les prévisions génétiques.
+- [x] Vérifier les leçons SVT correspondantes de Terminale A1 et A2, les contenus publiés à préserver et les éventuelles structures explicitement absentes.
+- [x] Créer en brouillon les cours approfondis, exercices corrigés et quiz séparés pour les rattachements SVT A1/A2 confirmés, sans publication ni écrasement.
+- [x] Auditer les données, services et écrans Citations afin de séparer clairement les notions et filtres de chaque matière.
+- [x] Ajouter dix citations authentiques supplémentaires par matière disponible, avec auteur, œuvre, référence, URL et explication pédagogique détaillée, sans doublon.
+- [x] Réorganiser le module Citations pour afficher et filtrer les notions propres à la matière sélectionnée, sans mélange inter-matières et sans modifier les droits RLS.
+- [x] Contrôler les contenus SVT, les citations, les statuts, les liens, les doublons, l’interface, les droits et les validations techniques.

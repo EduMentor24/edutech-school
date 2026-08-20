@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select sub.name as subject_name,c.id,c.quote_text,c.author,c.source_title,c.source_reference,c.source_url,c.is_active,c.is_validated from public.citations c join public.subjects sub on sub.id=c.subject_id where sub.name in ('Français','Philosophie','Histoire-Géographie','Physique-Chimie') order by sub.name,c.created_at asc limit 100;"
+}
