@@ -337,3 +337,8 @@
 - [x] Créer en ordre pédagogique les structures Histoire Terminale manquantes explicitement couvertes par les PDF valides.
 - [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
 - [x] Contrôler les rattachements, positions, statuts, doublons et validations techniques du lot Histoire.
+- [x] Lire intégralement les PDF d’Histoire Terminale sur la montée des nationalismes, l’indépendance de la Côte d’Ivoire et celle de l’Algérie.
+- [x] Vérifier les structures du thème de la décolonisation pour les séries A1, A2, C et D.
+- [x] Créer en ordre officiel les chapitres ou leçons explicitement couverts mais absents dans les séries scientifiques.
+- [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés, uniquement en brouillon, inactifs et non publiés.
+- [x] Contrôler les liens, positions, statuts, doublons et validations techniques du nouveau lot d’Histoire.
