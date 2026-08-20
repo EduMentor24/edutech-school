@@ -345,3 +345,12 @@
 - [x] Examiner l’écran d’administration des leçons et le modèle de données afin d’identifier les filtres matière et série disponibles.
 - [x] Ajouter des filtres par matière et série A1, A2, C, D exclusivement dans l’administration des leçons.
 - [x] Tester les filtres et vérifier que les parcours, données et droits côté élève restent inchangés.
+- [x] Examiner les modules administratifs Exercices et Quiz afin d’étendre les filtres matière et série sans toucher aux parcours élèves.
+- [x] Ajouter les filtres distincts par matière et série A1, A2, C, D dans Administration → Exercices et Administration → Quiz.
+- [ ] Lire intégralement les trois PDF d’Histoire Terminale sur l’Union africaine, les croyances et valeurs occidentales, et les mutations de la civilisation négro-africaine.
+- [x] Vérifier les structures Histoire Terminale A1, A2, C et D puis créer uniquement les structures explicitement couvertes et absentes dans l’ordre officiel.
+- [x] Créer les cours approfondis, exercices corrigés et quiz séparés pour toutes les leçons confirmées, en brouillon inactif et non publié.
+- [x] Identifier les matières réellement présentes dans le module Citations et documenter dix citations authentiques, vérifiables et non dupliquées pour chacune.
+- [x] Ajouter les citations confirmées sans inventer de source, ni supprimer ou publier des citations existantes.
+- [x] Contrôler les filtres, les contenus, les citations, les statuts, les doublons, les droits et les validations techniques.
+- [ ] Obtenir une copie lisible du PDF « Les mutations contemporaines de la civilisation négro-africaine » avant de créer cette troisième leçon dans les quatre séries.
