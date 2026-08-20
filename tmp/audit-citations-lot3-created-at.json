@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select s.name as subject_name, c.author, c.source_title, c.created_at, count(*) as citation_count from public.citations c join public.subjects s on s.id=c.subject_id where (s.name='Français' and c.author='Jean de La Fontaine') or (s.name='Philosophie' and c.author='Jean-Jacques Rousseau') or (s.name='Histoire-Géographie' and c.author='Organisation de l’unité africaine') or (s.name='Physique-Chimie' and c.author='Claude Bernard') group by s.name, c.author, c.source_title, c.created_at order by c.created_at desc limit 100;"
+}

@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select s.name as subject_name,c.quote_text,c.source_title,c.source_reference,c.created_at from public.citations c join public.subjects s on s.id=c.subject_id where (s.name='Français' and c.author='Jean de La Fontaine') or (s.name='Philosophie' and c.author='Jean-Jacques Rousseau') order by s.name,c.created_at,c.quote_text limit 100;"
+}

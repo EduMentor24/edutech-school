@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select c.id, c.quote_text, c.author, c.is_active, c.is_validated, array_agg(ct.theme order by ct.theme) as themes from public.citations c join public.subjects s on s.id = c.subject_id left join public.citation_themes ct on ct.citation_id = c.id where s.name = 'Physique-Chimie' and c.author = 'Claude Bernard' group by c.id, c.quote_text, c.author, c.is_active, c.is_validated order by c.quote_text limit 30;"
+}

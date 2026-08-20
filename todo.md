@@ -379,3 +379,10 @@
 - [x] Contrôler les contenus SVT, les citations, les statuts, les liens, les doublons, l’interface, les droits et les validations techniques.
 
 - [x] Retirer le nom et le logo EduTech School des impressions et exports PDF, puis isoler la signature « Développé par loua.spacedigital » en bas à droite de chaque page sans chevauchement.
+
+- [x] Lire intégralement les deux PDF SVT Terminale A reçus sur la biosynthèse des protéines et l’évolution de la lignée humaine, sans supposer de troisième PDF absent.
+- [x] Vérifier les leçons SVT A1/A2 réellement compatibles, les contenus existants à préserver et la portée pédagogique du PDF d’évolution avant toute création.
+- [x] Créer seulement les cours approfondis, exercices corrigés et quiz séparés confirmés, en brouillon inactif et non publié, sans écraser de contenu.
+- [x] Auditer la répartition actuelle des notions de citations par matière afin de préparer un apport équilibré de vingt citations authentiques par matière.
+- [x] Vérifier les sources primaires, l’auteur, l’œuvre, la référence et l’URL, puis ajouter les citations équilibrées sans doublon et en brouillon.
+- [x] Contrôler les contenus SVT, les citations, l’équilibre des notions, les statuts, les liens, les doublons, les sources et les validations techniques.
