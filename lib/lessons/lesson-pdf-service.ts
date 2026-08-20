@@ -1,5 +1,3 @@
-import { Asset } from "expo-asset";
-import * as FileSystem from "expo-file-system/legacy";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import { Platform } from "react-native";
@@ -8,27 +6,18 @@ import { buildLessonPdfHtml } from "@/lib/lessons/lesson-pdf-html";
 
 export type LessonPdfInput = { title: string; description?: string | null; content: string };
 
-const appLogo = require("../../assets/images/icon.png");
+const LESSON_PDF_MARGINS = { left: 36, top: 42, right: 36, bottom: 78 };
 
 function browserWindow() {
   return globalThis as typeof globalThis & { window?: Window };
 }
 
-async function resolvePdfLogoUri() {
-  const asset = Asset.fromModule(appLogo);
-  if (Platform.OS === "web") return asset.uri;
-  await asset.downloadAsync();
-  if (!asset.localUri) return asset.uri;
-  const base64 = await FileSystem.readAsStringAsync(asset.localUri, { encoding: FileSystem.EncodingType.Base64 });
-  return `data:image/png;base64,${base64}`;
-}
-
-async function buildBrandedLessonPdfHtml(input: LessonPdfInput) {
-  return buildLessonPdfHtml({ ...input, logoUri: await resolvePdfLogoUri() });
+function buildPrintableLessonPdfHtml(input: LessonPdfInput) {
+  return buildLessonPdfHtml(input);
 }
 
 export async function printLessonPdf(input: LessonPdfInput) {
-  const html = await buildBrandedLessonPdfHtml(input);
+  const html = buildPrintableLessonPdfHtml(input);
   if (Platform.OS === "web") {
     const popup = browserWindow().window?.open("", "_blank");
     if (!popup) throw new Error("Le navigateur a bloqué la fenêtre d’impression. Autorisez les fenêtres surgissantes puis réessayez.");
@@ -39,17 +28,17 @@ export async function printLessonPdf(input: LessonPdfInput) {
     popup.print();
     return;
   }
-  await Print.printAsync({ html });
+  await Print.printAsync({ html, margins: LESSON_PDF_MARGINS });
 }
 
 /** Creates a native PDF then opens the operating system's save/share dialog. */
 export async function downloadLessonPdf(input: LessonPdfInput) {
-  const html = await buildBrandedLessonPdfHtml(input);
+  const html = buildPrintableLessonPdfHtml(input);
   if (Platform.OS === "web") {
     await printLessonPdf(input);
     return;
   }
-  const result = await Print.printToFileAsync({ html, margins: { left: 24, top: 28, right: 24, bottom: 28 } });
+  const result = await Print.printToFileAsync({ html, margins: LESSON_PDF_MARGINS });
   if (!(await Sharing.isAvailableAsync())) throw new Error("Le partage de fichiers PDF n’est pas disponible sur cet appareil.");
   await Sharing.shareAsync(result.uri, { mimeType: "application/pdf", UTI: ".pdf", dialogTitle: "Enregistrer ou partager le cours PDF" });
 }

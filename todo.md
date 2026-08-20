@@ -377,3 +377,5 @@
 - [x] Ajouter dix citations authentiques supplémentaires par matière disponible, avec auteur, œuvre, référence, URL et explication pédagogique détaillée, sans doublon.
 - [x] Réorganiser le module Citations pour afficher et filtrer les notions propres à la matière sélectionnée, sans mélange inter-matières et sans modifier les droits RLS.
 - [x] Contrôler les contenus SVT, les citations, les statuts, les liens, les doublons, l’interface, les droits et les validations techniques.
+
+- [x] Retirer le nom et le logo EduTech School des impressions et exports PDF, puis isoler la signature « Développé par loua.spacedigital » en bas à droite de chaque page sans chevauchement.

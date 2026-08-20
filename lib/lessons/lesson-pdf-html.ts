@@ -1,6 +1,6 @@
 import { parseLessonMarkdown } from "./markdown-parser";
 
-type LessonPdfInput = { title: string; description?: string | null; content: string; logoUri?: string | null };
+type LessonPdfInput = { title: string; description?: string | null; content: string };
 
 function escapeHtml(value: string) {
   return value
@@ -27,8 +27,8 @@ function calloutKind(title: string | null) {
   return "definition";
 }
 
-/** Converts EduTech's safe lesson Markdown blocks into branded, printable HTML. */
-export function buildLessonPdfHtml({ title, description, content, logoUri }: LessonPdfInput) {
+/** Converts safe lesson Markdown blocks into printable HTML with a separate developer footer. */
+export function buildLessonPdfHtml({ title, description, content }: LessonPdfInput) {
   const blocks = parseLessonMarkdown(content);
   const body = blocks.map((block) => {
     switch (block.type) {
@@ -58,17 +58,11 @@ export function buildLessonPdfHtml({ title, description, content, logoUri }: Les
   return `<!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-  @page { margin: 29mm 15mm 24mm; }
+  @page { margin: 18mm 15mm 32mm; }
   :root { color: #142033; background: #ffffff; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #142033; font-size: 11pt; line-height: 1.6; }
-  .page-header { background: #ffffff; }
-  .document-header { display: flex; align-items: center; gap: 11px; padding-bottom: 10px; border-bottom: 2px solid #D7E6F7; }
-  .brand-logo { width: 42px; height: 42px; border-radius: 10px; object-fit: contain; flex: 0 0 auto; }
-  .brand-fallback { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #1565C0; color: #ffffff; font-size: 14pt; font-weight: 900; flex: 0 0 auto; }
-  .brand { color: #1565C0; font-size: 9pt; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-  .brand-name { margin-top: 1px; color: #102A43; font-size: 15pt; font-weight: 900; line-height: 1.12; }
-  h1 { margin: 7px 0 5px; color: #102A43; font-size: 25pt; line-height: 1.18; }
+  h1 { margin: 0 0 5px; color: #102A43; font-size: 25pt; line-height: 1.18; }
   .subtitle { margin: 0 0 22px; color: #536579; font-size: 12pt; }
   h2 { margin: 28px 0 10px; color: #102A43; font-size: 17pt; line-height: 1.28; page-break-after: avoid; }
   h3 { margin: 20px 0 8px; color: #1565C0; font-size: 13pt; page-break-after: avoid; }
@@ -89,15 +83,12 @@ export function buildLessonPdfHtml({ title, description, content, logoUri }: Les
   th, td { border: 1px solid #C7D7E6; padding: 7px 8px; vertical-align: top; }
   tr:nth-child(even) { background: #F7FAFC; }
   hr { border: 0; border-top: 1px solid #D8E2EC; margin: 24px 0; }
-  .page-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-top: 9px; border-top: 1px solid #D8E2EC; background: #ffffff; color: #64748B; font-size: 8.5pt; }
+  .page-footer { display: flex; align-items: center; justify-content: flex-end; min-height: 12mm; margin-top: 20px; padding-top: 7px; border-top: 1px solid #D8E2EC; background: #ffffff; color: #64748B; font-size: 8.5pt; page-break-inside: avoid; }
   .developer-signature { color: #1565C0; font-weight: 800; white-space: nowrap; }
   @media print {
-    .page-header { position: fixed; top: -23mm; left: 0; right: 0; height: 18mm; z-index: 10; }
-    .page-footer { position: fixed; bottom: -18mm; left: 0; right: 0; min-height: 12mm; z-index: 10; }
-    h1 { margin-top: 0; }
+    .page-footer { position: fixed; bottom: -24mm; left: 0; right: 0; min-height: 12mm; margin: 0; padding-top: 6px; z-index: 10; }
   }
 </style></head><body>
-<header class="page-header"><div class="document-header">${logoUri ? `<img class="brand-logo" src="${escapeHtml(logoUri)}" alt="Logo EduTech School" />` : '<div class="brand-fallback">ES</div>'}<div><div class="brand">Cours premium</div><div class="brand-name">EduTech School</div></div></div></header>
-<main><h1>${escapeHtml(title)}</h1>${description ? `<p class="subtitle">${formatInline(description)}</p>` : ""}${body}</main><footer class="page-footer"><span>Document généré depuis EduTech School. Vérifiez vos calculs et les consignes du cours avant toute évaluation.</span><span class="developer-signature">Développé par loua.spacedigital</span></footer>
+<main><h1>${escapeHtml(title)}</h1>${description ? `<p class="subtitle">${formatInline(description)}</p>` : ""}${body}</main><footer class="page-footer"><span class="developer-signature">Développé par loua.spacedigital</span></footer>
 </body></html>`;
 }
