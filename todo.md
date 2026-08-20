@@ -342,3 +342,6 @@
 - [x] Créer en ordre officiel les chapitres ou leçons explicitement couverts mais absents dans les séries scientifiques.
 - [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés, uniquement en brouillon, inactifs et non publiés.
 - [x] Contrôler les liens, positions, statuts, doublons et validations techniques du nouveau lot d’Histoire.
+- [x] Examiner l’écran d’administration des leçons et le modèle de données afin d’identifier les filtres matière et série disponibles.
+- [x] Ajouter des filtres par matière et série A1, A2, C, D exclusivement dans l’administration des leçons.
+- [x] Tester les filtres et vérifier que les parcours, données et droits côté élève restent inchangés.
