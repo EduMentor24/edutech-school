@@ -332,3 +332,8 @@
 - [x] Lire intégralement le PDF de remplacement « TCMathsleçon09Nombrescomplexes.pdf » et confirmer son périmètre Terminale C avant toute création.
 - [x] Créer en dernière position toute leçon officiellement couverte par un PDF valide mais absente de sa progression, avec cours, exercices corrigés et quiz séparés en brouillon.
 - [ ] Obtenir une copie lisible du PDF Terminale C « Nombres complexes et géométrie du plan » avant de remplir la leçon existante correspondante, sans inventer de contenu.
+- [x] Lire intégralement les trois PDF d’Histoire Terminale sur l’ONU, la bipolarisation et le monde multipolaire.
+- [x] Vérifier les progressions Histoire Terminale A1, A2, C et D et identifier les leçons déjà présentes ou manquantes.
+- [x] Créer en ordre pédagogique les structures Histoire Terminale manquantes explicitement couvertes par les PDF valides.
+- [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, positions, statuts, doublons et validations techniques du lot Histoire.
