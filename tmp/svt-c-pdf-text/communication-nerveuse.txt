@@ -1,0 +1,428 @@
+Tle C
+CODE :
+SVT
+DURÉE : 4H
+
+MON ÉCOLE À LA MAISON
+
+THEME : La communication dans l’organisme
+
+LEÇON 4 : LA COMMUNICATION NERVEUSE
+1.
+
+SITUATION D’APPRENTISSAGE
+
+Au cours d’une activité de jardinage de la coopérative scolaire, un élève de ta classe est piqué
+par une épine. Immédiatement, il laisse tomber brusquement la daba. Pour comprendre
+cette réaction, ses camarades de classe décident de déterminer la nature du message
+nerveux et d’expliquer le mécanisme de sa transmission dans l’organisme.
+
+2.
+
+CONTENU DU COURS
+
+COMMENT L’INFLUX NERVEUX SE PROPAGE-T-IL DANS L’ORGANISME ?
+La réaction de l’élève suite à la piqûre par une épine nous permet de constater que l'influx
+nerveux se propage dans l'organisme. On suppose que :
+─
+l'influx nerveux se propage le long d'une structure particulière ;
+─
+l'influx nerveux se propage sous différents aspects ;
+─
+l’influx nerveux se propage selon un mécanisme.
+I - L'INFLUX
+LE
+
+PARTICULIÈRE ?
+1 - Observation du document I
+Observons des documents relatifs aux structures nerveuses.
+
+NERVEUX SE
+PROPAGE-T-IL
+LONG D'UNE
+STRUCTURE
+
+Figure 1 : COUPE TRANSVERSALE D’UN NERF
+
+Annotation : 1=membrane ; 2=cytoplasme ; 3=dendrite ; 4= noyau ; 5= péricaryon ; 6= cellule
+gliale; 7= axone ; 8= gaine de myéline ; 9= nœud de Ranvier ; 10= cellule de
+Schwann 11= arborisation terminale.
+Figure 2
+Document I
+
+2 - Résultats
+La figure 1 du document montre la coupe transversale d’un nerf.
+La figure 2 montre le schéma d’un neurone.
+
+3 - Analyse
+Le nerf est formé essentiellement d'une gaine conjonctive, de faisceaux de fibres nerveuses
+ou axones et de vaisseaux sanguins situés dans un tissu conjonctif.
+La gaine conjonctive est constituée d’une membrane externe appelée épinèvre et d’une
+membrane interne appelée périnèvre qui entoure chaque faisceau de fibre.
+Le neurone est une cellule allongée constituée de trois grandes parties :
+- Le corps cellulaire ou soma ou péricaryon ;
+- L'axone ou cylindraxe ;
+- L'arborisation terminale.
+4 - Conclusion
+L’influx nerveux se propage le long d’une structure particulière appelée neurone ou cellule
+nerveuse,
+représentant
+l’unité
+
+fonctionnelle du tissu nerveux.
+
+II - L'INFLUX NERVEUX SE PROPAGE-T-IL SOUS DIFFERENTS ASPECTS ?
+1 - Présentation d’expériences (Document II)
+Le dispositif expérimental ci-dessous permet l’enregistrement des messages nerveux.
+
+On
+réalise
+sur un
+axone
+géant
+de
+
+calmar, une série d’expériences en procédant de la manière suivante :
+en absence de stimulation :
+➢ Expérience 1 : les microélectrodes réceptrices R1 et R2 sont placées à la
+surface de l’axone.
+
+➢ Expérience
+est enfoncée à
+
+2 : la microélectrode R2
+l’intérieur de l’axone
+
+pendant que R1 est posée à la surface.
+
+-
+
+En
+
+présence
+
+de stimulation :
+
+➢
+
+Expérience 3 : la microélectrode R2 est enfoncée à l’intérieur de l’axone pendant
+que R1 est posée à la surface, on porte une stimulation efficace grâce aux électrodes
+stimulatrices E1E2
+
+➢
+
+Expérience 4 :
+les microélectrodes réceptrices
+R1 et R2 sont placées à la surface de l’axone, on porte une stimulation efficace grâce
+aux électrodes stimulatrices E1E2
+
+2- Résultats
+Les figures 1 ; 2 ; 3 et 4 représentent respectivement les résultats des expériences 1à 4.
+
+Figure 1
+
+Figure 3
+
+Figure 2
+
+(revoir la graduation à -70)
+
+Figure 4
+
+3 - Analyse
+• Figure 1 : En l'absence d'excitation, lorsque les deux électrodes réceptrices (R1 et R2)
+sont à la surface de l'axone, on enregistre sur l'écran de l'oscilloscope un
+
+potentiel 0 mV : c’est le potentiel de référence.
+• Figure 2 : En l'absence d'excitation, lorsqu'on enfonce l'une des électrodes réceptrices
+(R2) dans l'axone, on enregistre une déviation verticale du spot vers le bas qui se
+stabilise à -70 mV : c’est le potentiel de membrane.
+• Figure 3 : Lorsqu'on excite l'axone tout en maintenant l'électrode réceptrice R2 enfoncée
+dans celui-ci, on observe une variation de potentiel de membrane qui se matérialise
+par une courbe présentant les phases suivantes :
+A : artefact de stimulation ;
+AB : temps de latence ;
+BC : phase de dépolarisation ;
+CD : phase de repolarisation ;
+DE : hyperpolarisation ;
+EF : phase de restauration.
+Cette courbe est appelée potentiel d’action monophasique.
+• Figure 4 : Lorsque les deux électrodes réceptrices sont à la surface de l'axone excité, on
+obtient une courbe à deux sommets inversés appelée potentiel d’action diphasique
+dont chaque sommet présente les mêmes phases que le PA monophasique.
+4 – Interprétation
+Sur le plan électrique
+•
+Le potentiel de référence
+Le potentiel de référence de 0 mV obtenu, indique que toute la surface de l’axone est au même
+potentiel c’est-à-dire porte la même charge.
+•
+
+Le potentiel de membrane
+
+Le potentiel de membrane de -70 mV obtenu, indique que la face interne et la face externe de
+l’axone ne sont pas au même potentiel c’est-à-dire portent des charges différentes.
+Le faisceau d’électrons repoussé par la plaque supérieure reliée à l’électrode R 2 introduite
+dans l’axone, indique que la face interne est chargée négativement (électronégative).
+Le faisceau d’électrons attiré par la plaque inferieure reliée à l’électrode R1 restée à la surface
+de l’axone, indique que la face externe est chargée positivement (électropositive).
+•
+
+Le potentiel d’action monophasique
+
+A : L'artéfact de stimulation indique le moment précis de la stimulation responsable de la
+naissance de l'influx nerveux ou onde de négativité.
+AB : Le temps de latence. C’est le temps mis par l'influx nerveux pour atteindre la première électrode
+réceptrice R1.
+BC : La phase de dépolarisation indique l’inversion de la polarité de la membrane à l'arrivée de l'influx
+nerveux à la première électrode réceptrice R1. Sous cette électrode, la face externe de la
+
+membrane devient électronégative et la face interne électropositive. Nous obtenons alors un pic
+qui permet de déterminer l'amplitude du PA.
+
+CD : La phase de repolarisation indique le retour de la polarité de la membrane plasmique sous
+l’électrode R1 suite au passage de l’influx nerveux. La face externe redevient positive
+et la face interne négative. II y a un rétablissement des charges initiales au niveau de la
+portion de membrane située sous R1 qui ramène le spot au potentiel de membrane.
+DE : La phase d’hyperpolarisation correspond à une repolarisation extrême ou exagérée qui
+fait descendre le spot en dessous du potentiel de repos.
+EF : La phase de restauration
+La membrane retrouve son potentiel de repos initial.
+
+Sur le plan ionique (chimique)
+•
+
+Le potentiel de membrane
+
+L’origine du potentiel de membrane s’explique par une inégale répartition des ions K+ et Na+ de
+
+part et d’autre de la membrane de l’axone. Le milieu intracellulaire est plus concentré
+en ion K+ que le milieu extracellulaire qui est plus concentré en ions Na+ que le milieu
+intracellulaire
+
+Au repos la membrane de l’axone est plus perméable aux ions K+ qu’aux ions Na +, ce qui
+entraine une forte sortie de K+ de l’axone que de Na+ qui entrent en fonction de leur
+gradient de concentration : c’est un mouvement passif. Il s’en suit une accumulation de
+charges positives à l’extérieur qu’à l’intérieur de l’axone d’où l’extérieur chargé
+positivement et l’intérieur négativement.
+Le mouvement passif de ces ions devrait conduire à une égalité de concentration des ions de
+part et d’autre de la membrane. Mais il existe toujours cette inégalité de concentration.
+Ce déséquilibre ionique à l’origine du potentiel de membrane est maintenu grâce à la
+pompe ionique Na+/K+ dépendante qui refoule 3Na+ pour 2K+ entrant.
+
+•
+
+Le potentiel d’action monophasique
+
+Le temps de latence : Les canaux à Na+ voltage dépendant et les canaux à K+ voltage dépendant
+
+restent fermés.
+La phase de dépolarisation : Cette phase est due à une entrée massive d’ions Na+ dans l’axone
+
+suite à l’ouverture des canaux sodiques voltage dépendant. Les canaux K+ voltage
+dépendant restent fermés.
+La phase de repolarisation : Cette phase s’explique par une sortie progressive d’ions K+ de
+l’axone suite à l’ouverture des canaux K+ voltage dépendant, pendant ce temps, les
+canaux Na+ voltage dépendant restent fermés.
+La phase d’hyperpolarisation : Elle est due au fait que les canaux K+ voltage dépendant
+restent longtemps ouverts entrainant une sortie exagérée des ions K+.
+La phase de restauration
+La membrane retrouve son potentiel de repos initial grâce à la pompe ionique Na+/K+ qui
+assure un transport actif en faisant sortir les Na+ entrés et en faisant entrer les K+ sortis
+contre leur gradient de concentration grâce à l’énergie produite par l’hydrolyse de
+l’ATP. Les canaux Na+ et K+ voltage dépendant restent fermés.
+Le PA correspond donc à une inversion momentanée de la polarité entre les deux faces de la
+membrane de l’axone.
+L'influx nerveux est une onde de négativité qui se propage le long de l'axone en le
+dépolarisant localement sous forme de courant locaux.
+
+5 - Conclusion
+L'influx nerveux se propage grâce à des courants locaux issus de l’inversion de la polarité
+entre les deux faces de la membrane plasmique. Cette inversion est due aux
+mouvements des ions Na+ et K+ de part et d’autre de la membrane plasmique.
+III - L’INFLUX NERVEUX SE PROPAGE-T-IL SELON UN MECANISME ?
+A-
+
+Les différentes zones de contact entre structures cellulaires
+
+1- Observation de document III
+Nous observons deux schémas relatifs aux zones de contacts entre deux structures excitables.
+
+Figure 1 : LES DIFFERENTES SYNAPSES NEURONIQUES
+
+Figure 2 : ULTRASTRUCTURE D’UNE PLAQUE MOTRICE
+Document III
+
+2- Résultat
+La figure 1 du document montre 3 types de zones de contacts entre deux neurones.
+La figure 2 du document montre une zone de contact entre un neurone et une cellule
+musculaire.
+
+3- Analyse
+Les zones de contact présentées par les 2 schémas sont appelées synapses.
+On distingue trois types de zones contacts entre neurones :
+les zones contacts entre 2 axones (1) appelée contacts axo-axonique lorsque l’axone
+d’un neurone entre en contact avec l’axone d’un autre neurone.
+les zones contacts entre un axone et une dendrite (2) appelée contacts axodendritique lorsque l’axone d’un neurone est en contact avec la dendrite d’un autre
+neurone.
+les zones contacts entre un axone et le corps cellulaire ou soma (3) appelée contacts
+axo-somatique lorsque l’axone d’un neurone est en contact avec le corps cellulaire
+d’un autre neurone
+La Figure 2 présente une zone entre un neurone et une cellule musculaire appelée jonction
+neuro-musculaire ou plaque motrice.
+Ces différentes zones de contacts sont appelées synapse. Une synapse est composée d’un
+élément présynaptique et d’une élément postsynaptique séparés par un espace appelé
+fente synaptique.
+4- Conclusion
+La transmission de l'influx nerveux d'un neurone à une structure cellulaire se fait à travers des
+zones de contact appelée synapse.
+B-
+
+Le passage de l’influx nerveux à travers une synapse
+A- Le passage de l’influx nerveux à travers une synapse
+
+1- Observation du document IV
+Observons un document relatif l’électronographie d’une plaque motrice.
+
+Figure A : ELECTRONOGRAPHIE D’UNE
+PLAQUE MOTRICE
+
+2- Résultat
+Figure A : présence de nombreuses vésicules synaptiques et de vésicules d’exocytoses dans le
+neurone présynaptique. Absence de vésicules dans le neurone postsynaptique.
+
+3- Analyse
+La présence de nombreuses vésicules synaptique et des vésicules d’exocytose dans le bouton
+présynaptique traduisent que la synapse est en activité
+
+4- Interprétation
+Les étapes du fonctionnement de la synapse sont présentées par le document suivant.
+
+Figure B : SCHEMA D’INTERPRETATION
+D’UNE PLAQUE MOTRICE
+
+On dénombre 8 étapes dans l’ordre chronologique suivant :
+- (1) l'arrivée de l'influx nerveux au niveau du bouton présynaptique
+- (2) entrée des ions Ca2+ dans le bouton synaptique
+- (3) libération des neurotransmetteurs dans la fente synaptique par exocytose
+- (4) fixation des neurotransmetteurs sur les récepteurs à Na+ de la membrane postsynaptique
+- (5) ouverture des canaux à Na+ et entrée des ions Na+ dans la membrane postsynaptique.
+- (6) dépolarisation de la membrane du neurone postsynaptique
+- (7) hydrolyse du neuromédiateur
+- (8) recapture ou réabsorption du neurotransmetteur par le bouton synaptique.
+Suite à une stimulation efficace du neurone, l’influx nerveux arrive au niveau du bouton
+présynaptique et provoque l’ouverture des canaux à Ca2+ situés sur la membrane présynaptique.
+
+Cette ouverture entraine une entrée massive des ions Ca2+dans le bouton synaptique suivie de
+la libération par exocytose, dans la fente synaptique de neuromédiateurs ou neurotransmetteurs
+ou médiateurs chimiques (ex : acétylcholine ou ACH) stockés dans des vésicules synaptiques.
+L’acétylcholine libérée dans la fente synaptique se fixe sur son récepteur spécifique situé sur
+la membrane postsynaptique. Ce qui provoque l’ouverture des canaux à Na+ chimio dépendants
+et l’entrée massive des ions Na+ dans la fibre musculaire.
+Cette entrée massive d’ions Na+ entraine la dépolarisation de la membrane postsynaptique,
+d’où la naissance d’un PA musculaire se propageant le long du muscle qui se contracte.
+La contraction s’arrête lorsque l’ACH est hydrolysé en acétate et en choline par une enzyme
+appelée l’acétylcholinestérase.
+La choline est ensuite réabsorbée par le bouton synaptique pour servir à la synthèse de
+nouvelles molécules d’acétylcholine.
+La synapse neuro-neuronique a le même fonctionnement que la synapse neuro-musculaire.
+Dans le cas de la synapse neuro-neuronique, une stimulation du neurone présynaptique entraine
+la libération de neurotransmetteurs dans la fente synaptique.
+La fixation des neurotransmetteurs sur la membrane déclenche localement la naissance d’un
+potentiel postsynaptique (ou PPS).
+Lorsque dans une synapse, les neurotransmetteurs libérés ouvrent les canaux à Na+ et
+provoquent localement la dépolarisation de la membrane postsynaptique, la synapse est dite
+synapse excitatrice et le potentiel postsynaptique obtenu est appelé potentiel postsynaptique
+excitateur (ou PPSE)
+Lorsque dans une synapse, les neurotransmetteurs libérés entrainent une sortie massive d’ions
+K+ ou une entrée massive d’ions Cl- provoquant ainsi une hyperpolarisation de la membrane
+postsynaptique, cette membrane est inhibée. D’où absence de PA au niveau de cette membrane.
+Dans ce cas, la synapse est dite synapse inhibitrice et le PPS obtenu est appelé potentiel
+postsynaptique inhibiteur (ou PPSI).
+5- Conclusion
+La transmission de l’influx nerveux se fait grâce aux médiateurs qui se fixent sur leurs
+récepteurs spécifiques situés sur la membrane postsynaptique.
+Conclusion partielle
+La transmission de l'influx nerveux d'un neurone à une structure cellulaire se fait à travers des
+zones de contact appelée synapse grâce à des médiateurs chimiques qui se fixent sur leurs
+récepteurs spécifiques situés sur la membrane postsynaptique.
+CONCLUSION GENERALE
+L'influx nerveux se propage le long d'une structure nerveuse. Il est provoqué par une
+modification de la perméabilité membranaire à certains ions, et circule sous forme de
+courants locaux le long du neurone. Le passage de l’influx nerveux à travers la synapse est
+assuré par un médiateur chimique libéré dans la fente synaptique et qui provoque la
+dépolarisation de la membrane de l’élément postsynaptique. Dans l’organisme, l’influx
+nerveux se déplace toujours du corps cellulaire du neurone vers les terminaisons nerveuses.
+
+EVALUATIONS
+Exercice 1 (capsule 1)
+Les affirmations ci-dessous sont relatives au nerf et à la fibre nerveuse.
+1- Toutes les fibres nerveuses sont myelinisées
+2- Le nerf est l’unité fonctionnel du système nerveux.
+3- La fibre nerveuse et le neurone représentent une même structure.
+4- Le neurone est constitué de l’arborisation terminale, de l’axone et du corps cellulaire.
+5- La fibre nerveuse est une portion du neurone.
+6- Le potentiel de reference est obtenu et abbsence d’excitation.
+7- La fibre nerveuse réagit à une exctitation en dévelopant un potentiel de membrane
+8- Le potentiel d’action est toujours monophasique.
+9- La repolarisation et la dépolarisation sont des phases du PA
+10- Dans l’organisme, l’influx nerveux est transmis dans un seul sens
+au niveau d’un neurone.
+Ecris vrai ou faux devant chaque affirmation selon qu’elle est juste ou fausse.
+Exercice 2 (capsule 2)
+Les expressions ci-dessous citées dans le désordre, décrivent le fonctionnement d’une
+synapse excitatrice :
+aExocytose du neuromédiateur ;
+bEntrée des ions Na+ dans le bouton synaptique
+cEntrée des ions Ca2+ dans la membrane postsynaptique ;
+dFixation des molécules de neuromédiateurs sur les récepteurs portés par la membrane
+post synaptique ;
+eNaissance du potentiel d’action sur la membrane post synaptique ;
+fDépolarisation de la membrane post synaptique ;
+gArrivée du potentiel d’action à l’extrémité du neurone pré synaptique.
+Range ces expressions dans l’ordre chronologique, en utilisant les lettres.
+Exercice 3 (situation d’évaluation)
+En vue de comprendre le fonctionnement du tissu nerveux. Des élèves de ta classe simulent à
+l’aide d’un ordinateur des expériences d’excitations sur une chaîne de neurones A, B
+et C.
+A partir du montage du document 1, Ils excitent successivement dans un premier temps les
+neurones A et B ; ensuite ils excitent une seconde fois le neurone B après y avoir
+injecté de la cholinestérase.
+Les résultats obtenus sont présentés par le document 2.
+
+Réponse de A
+Réponse de B
+Réponse de C
+
+Expérience 1 :
+Excitation de A
+
+Expérience 2 :
+Excitation de B
+
+Image PA
+Un trait
+Image PA
+
+Un trait
+Image PA
+Image PA
+
+Expérience 3 :
+Excitation de B,
+après injection de la
+cholinestérase
+Un trait
+Image PA
+Un trait
+
+DOCUMENT 2
+Certains élèves, qui ont du mal à exploiter les résultats, te sollicitent pour les aider.
+1234-
+
+Décris le PA obtenu.
+Analyse les résultats obtenus.
+Explique-les.
+Déduis le sens de propagation de l’influx nerveux dans une synapse.
+
+

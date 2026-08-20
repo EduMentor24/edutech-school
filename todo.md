@@ -386,3 +386,11 @@
 - [x] Auditer la répartition actuelle des notions de citations par matière afin de préparer un apport équilibré de vingt citations authentiques par matière.
 - [x] Vérifier les sources primaires, l’auteur, l’œuvre, la référence et l’URL, puis ajouter les citations équilibrées sans doublon et en brouillon.
 - [x] Contrôler les contenus SVT, les citations, l’équilibre des notions, les statuts, les liens, les doublons, les sources et les validations techniques.
+
+- [x] Lire intégralement les PDF SVT Terminale C sur la communication nerveuse, les drogues et le système nerveux, et contrôler le PDF de production d’énergie par la cellule, qui est illisible.
+- [x] Vérifier les structures et leçons SVT de Terminale C, les contenus publiés à préserver et les structures absentes explicitement couvertes par les PDF.
+- [x] Créer seulement les cours approfondis, exercices corrigés et quiz séparés confirmés pour Terminale C, en brouillon inactif et non publié.
+- [x] Auditer les citations existantes afin de sélectionner vingt nouveaux extraits authentiques par matière avec des auteurs variés.
+- [x] Répartir chaque nouveau corpus de citations selon des notions indépendantes ayant strictement le même nombre de citations, avec sources et explications détaillées.
+- [x] Contrôler les contenus SVT, les citations, les auteurs, les notions, les statuts, les doublons, les sources et les validations techniques.
+- [ ] Obtenir un PDF lisible pour SVT Terminale C — « La production d’énergie par la cellule » avant de créer le contenu de la leçon 3, sans inventer de contenu.
