@@ -324,3 +324,11 @@
 - [x] Vérifier l’état déjà créé du logarithme népérien et confirmer les leçons A1/A2 vides pour l’exponentielle et les suites numériques.
 - [x] Produire uniquement les nouveaux cours approfondis, exercices corrigés et quiz séparés confirmés, en brouillon et sans doublon.
 - [x] Contrôler les rattachements, statuts, formules, ressources et validations techniques avant rapport final.
+- [ ] Lire intégralement les PDF sur primitives et calcul intégral, statistiques à deux variables, et nombres complexes avec géométrie du plan.
+- [x] Vérifier les leçons existantes, vides et correctement rattachées pour Terminale A1/A2 et Terminale C, sans supposer de correspondance.
+- [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés uniquement pour chaque rattachement confirmé.
+- [x] Enregistrer toutes les ressources en brouillon, inactives et non publiées, sans écraser de contenu ni créer de doublon.
+- [x] Contrôler les liens, les formules, les statuts et les validations techniques avant le rapport final.
+- [x] Lire intégralement le PDF de remplacement « TCMathsleçon09Nombrescomplexes.pdf » et confirmer son périmètre Terminale C avant toute création.
+- [x] Créer en dernière position toute leçon officiellement couverte par un PDF valide mais absente de sa progression, avec cours, exercices corrigés et quiz séparés en brouillon.
+- [ ] Obtenir une copie lisible du PDF Terminale C « Nombres complexes et géométrie du plan » avant de remplir la leçon existante correspondante, sans inventer de contenu.
