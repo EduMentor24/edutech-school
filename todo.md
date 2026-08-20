@@ -358,3 +358,8 @@
 - [x] Vérifier les progressions de Géographie Terminale A1, A2, C et D et confirmer chaque rattachement sans extrapolation.
 - [x] Créer les cours approfondis, exercices corrigés et quiz séparés pour les leçons confirmées, uniquement en brouillon, inactifs et non publiés.
 - [x] Contrôler les structures, contenus, statuts, doublons et validations techniques du lot Géographie.
+- [x] Lire intégralement les PDF de Géographie Terminale sur la Corée du Sud, la CEDEAO et la coopération UE/ACP.
+- [x] Vérifier les structures et leçons correspondantes de Géographie Terminale A1, A2, C et D sans supposer de rattachement.
+- [x] Créer les cours approfondis, exercices corrigés et quiz séparés pour les leçons confirmées, en brouillon inactif et non publié.
+- [x] Vérifier les citations existantes, sourcer dix nouvelles citations authentiques par matière disponible et les ajouter sans doublon.
+- [x] Contrôler les contenus, citations, sources, statuts, doublons et validations techniques de ce lot.
