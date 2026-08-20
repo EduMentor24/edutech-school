@@ -363,3 +363,9 @@
 - [x] Créer les cours approfondis, exercices corrigés et quiz séparés pour les leçons confirmées, en brouillon inactif et non publié.
 - [x] Vérifier les citations existantes, sourcer dix nouvelles citations authentiques par matière disponible et les ajouter sans doublon.
 - [x] Contrôler les contenus, citations, sources, statuts, doublons et validations techniques de ce lot.
+
+- [x] Lire intégralement les PDF SVT Terminale sur les réactions émotionnelles, l’activité cérébrale et l’origine de la vie.
+- [x] Vérifier les structures et leçons SVT réellement disponibles pour Terminale A1, A2, C et D, sans supposer de correspondance.
+- [x] Créer seulement les structures absentes explicitement couvertes par les PDF valides, à la dernière position pédagogique, en brouillon inactif et non publié.
+- [x] Rédiger les cours approfondis, exercices corrigés et quiz séparés pour chaque rattachement confirmé, sans écraser de contenu publié.
+- [x] Contrôler les liens, sources, statuts, doublons et validations techniques du lot SVT Terminale.

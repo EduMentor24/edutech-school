@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select lv.name as level_name,s.name as series_name,sub.name as subject_name,o.id as offering_id,o.is_published as offering_published,c.id as chapter_id,c.display_order as chapter_order,c.title as chapter_title,c.is_active as chapter_active,l.id as lesson_id,l.display_order as lesson_order,l.title as lesson_title,l.is_active as lesson_active,coalesce(length(l.content),0) as content_length from public.course_subject_offerings o join public.levels lv on lv.id=o.level_id join public.series s on s.id=o.series_id join public.subjects sub on sub.id=o.subject_id left join public.chapters c on c.subject_offering_id=o.id left join public.lessons l on l.chapter_id=c.id where lv.name='Terminale' and s.name in ('A1','A2','C','D') and (sub.name ilike '%SVT%' or sub.name ilike '%Vie%' or sub.name ilike '%Terre%') order by s.name,c.display_order nulls last,l.display_order nulls last limit 500;"
+}
