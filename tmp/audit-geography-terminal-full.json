@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "select s.name as serie, c.id as chapter_id, c.title as chapter_title, c.display_order as chapter_order, l.id as lesson_id, l.title as lesson_title, l.display_order as lesson_order, coalesce(length(l.content), 0) as content_length, l.is_active from public.chapters c join public.course_subject_offerings o on o.id = c.subject_offering_id join public.subjects sub on sub.id = o.subject_id join public.levels lv on lv.id = o.level_id join public.series s on s.id = o.series_id left join public.lessons l on l.chapter_id = c.id where sub.name = 'Histoire-Géographie' and lv.name = 'Terminale' and s.name in ('A1','A2','C','D') order by s.name, c.display_order, l.display_order limit 200;"
+}

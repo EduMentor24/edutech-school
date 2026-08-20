@@ -354,3 +354,7 @@
 - [x] Ajouter les citations confirmées sans inventer de source, ni supprimer ou publier des citations existantes.
 - [x] Contrôler les filtres, les contenus, les citations, les statuts, les doublons, les droits et les validations techniques.
 - [ ] Obtenir une copie lisible du PDF « Les mutations contemporaines de la civilisation négro-africaine » avant de créer cette troisième leçon dans les quatre séries.
+- [x] Lire intégralement les PDF de Géographie Terminale sur les fondements, secteurs d’activités et problèmes du développement économique de la Côte d’Ivoire.
+- [x] Vérifier les progressions de Géographie Terminale A1, A2, C et D et confirmer chaque rattachement sans extrapolation.
+- [x] Créer les cours approfondis, exercices corrigés et quiz séparés pour les leçons confirmées, uniquement en brouillon, inactifs et non publiés.
+- [x] Contrôler les structures, contenus, statuts, doublons et validations techniques du lot Géographie.
