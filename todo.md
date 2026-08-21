@@ -394,3 +394,8 @@
 - [x] Répartir chaque nouveau corpus de citations selon des notions indépendantes ayant strictement le même nombre de citations, avec sources et explications détaillées.
 - [x] Contrôler les contenus SVT, les citations, les auteurs, les notions, les statuts, les doublons, les sources et les validations techniques.
 - [ ] Obtenir un PDF lisible pour SVT Terminale C — « La production d’énergie par la cellule » avant de créer le contenu de la leçon 3, sans inventer de contenu.
+- [x] Analyser les PDF SVT Terminale C des leçons 4 « L’utilisation de l’énergie par la cellule musculaire », 5 « Le système de défense de l’organisme » et 6 « L’infection de l’organisme par le VIH ».
+- [x] Vérifier les leçons SVT Terminale C correspondantes et préserver tout contenu existant avant de créer des brouillons.
+- [x] Créer uniquement les cours, exercices corrigés et quiz confirmés pour les trois leçons, en brouillon inactif et non publié ; seules les leçons 5 et 6 ont une source lisible et une structure confirmée.
+- [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du lot SVT Terminale C 4 à 6.
+- [ ] Obtenir un PDF lisible pour « L’utilisation de l’énergie par la cellule musculaire » et confirmer sa place dans la structure SVT Terminale C avant toute création de contenu.
