@@ -403,3 +403,7 @@
 - [x] Vérifier les leçons SVT Terminale D correspondantes, leurs rattachements et tout contenu existant à préserver.
 - [x] Créer uniquement les cours approfondis, exercices corrigés et quiz séparés confirmés par les PDF, en brouillon inactif et non publié.
 - [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du lot SVT Terminale D.
+- [x] Analyser les PDF SVT Terminale D sur le fonctionnement du cœur, le maintien de la constance du milieu intérieur et le système de défense de l’organisme.
+- [x] Vérifier les leçons SVT Terminale D correspondantes, leurs rattachements et tout contenu existant à préserver.
+- [x] Créer uniquement les cours approfondis, exercices corrigés et quiz séparés confirmés par les PDF, en brouillon inactif et non publié.
+- [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du nouveau lot SVT Terminale D.
