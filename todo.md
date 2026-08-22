@@ -412,3 +412,7 @@
 - [x] Vérifier les offres, chapitres et leçons d’espagnol réellement disponibles pour les séries Terminale, en préservant tout contenu existant.
 - [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les PDF, en brouillon inactif et non publié.
 - [x] Contrôler les rattachements, doublons, traductions françaises immédiates, statuts, fidélité aux PDF et validations techniques du lot Espagnol Terminale.
+- [x] Analyser les PDF d’espagnol Terminale sur la Guinée équatoriale, les questions et la description, avec traduction française immédiate de chaque élément espagnol.
+- [x] Vérifier les structures, chapitres et leçons d’espagnol Terminale existants, en préservant les brouillons déjà créés et tout contenu publié.
+- [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les PDF, en brouillon inactif et non publié.
+- [x] Contrôler les rattachements, doublons, traductions françaises immédiates, statuts, fidélité aux PDF et validations techniques du nouveau lot Espagnol Terminale.
