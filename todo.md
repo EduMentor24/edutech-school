@@ -399,3 +399,7 @@
 - [x] Créer uniquement les cours, exercices corrigés et quiz confirmés pour les trois leçons, en brouillon inactif et non publié ; seules les leçons 5 et 6 ont une source lisible et une structure confirmée.
 - [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du lot SVT Terminale C 4 à 6.
 - [ ] Obtenir un PDF lisible pour « L’utilisation de l’énergie par la cellule musculaire » et confirmer sa place dans la structure SVT Terminale C avant toute création de contenu.
+- [x] Analyser les PDF SVT Terminale D sur le réflexe conditionnel, le fonctionnement du tissu nerveux et le fonctionnement du muscle strié squelettique.
+- [x] Vérifier les leçons SVT Terminale D correspondantes, leurs rattachements et tout contenu existant à préserver.
+- [x] Créer uniquement les cours approfondis, exercices corrigés et quiz séparés confirmés par les PDF, en brouillon inactif et non publié.
+- [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du lot SVT Terminale D.
