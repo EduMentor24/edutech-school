@@ -407,3 +407,8 @@
 - [x] Vérifier les leçons SVT Terminale D correspondantes, leurs rattachements et tout contenu existant à préserver.
 - [x] Créer uniquement les cours approfondis, exercices corrigés et quiz séparés confirmés par les PDF, en brouillon inactif et non publié.
 - [x] Contrôler les rattachements, doublons, statuts, fidélité aux PDF et validations techniques du nouveau lot SVT Terminale D.
+- [x] Documenter et appliquer la convention bilingue : toute explication, expression, consigne, question et correction d’une langue vivante est immédiatement suivie de sa traduction française.
+- [x] Analyser les PDF d’espagnol sur l’Espagne et les réalités politiques, sociales et historiques, puis sur l’Amérique hispanique et ses réalités sociales, historiques, économiques et sociales.
+- [x] Vérifier les offres, chapitres et leçons d’espagnol réellement disponibles pour les séries Terminale, en préservant tout contenu existant.
+- [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les PDF, en brouillon inactif et non publié.
+- [x] Contrôler les rattachements, doublons, traductions françaises immédiates, statuts, fidélité aux PDF et validations techniques du lot Espagnol Terminale.
