@@ -416,3 +416,12 @@
 - [x] Vérifier les structures, chapitres et leçons d’espagnol Terminale existants, en préservant les brouillons déjà créés et tout contenu publié.
 - [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les PDF, en brouillon inactif et non publié.
 - [x] Contrôler les rattachements, doublons, traductions françaises immédiates, statuts, fidélité aux PDF et validations techniques du nouveau lot Espagnol Terminale.
+- [x] Analyser les PDF d’espagnol Terminale « Raconter un fait » et « Résumer », avec traduction française immédiate de chaque élément espagnol.
+- [x] Vérifier les structures, chapitres et leçons d’espagnol Terminale existants, en préservant tout contenu déjà créé ou publié.
+- [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les deux PDF, en brouillon inactif et non publié.
+- [x] Auditer le schéma de profil, les politiques RLS, le stockage de photo, le filtrage des contenus et l’administration afin de préparer le workflow de modification demandé.
+- [x] Permettre à l’administrateur de modifier sans limite son nom, sa photo, son niveau et sa série, avec persistance réelle en base.
+- [x] Permettre à l’élève une seule modification directe de profil par année scolaire, après un avertissement explicite et avec persistance réelle en base.
+- [x] Créer une demande de modification motivée pour la seconde modification élève de l’année, puis permettre à l’administrateur de l’approuver ou de la refuser sans contourner RLS.
+- [x] Actualiser immédiatement le profil, les contenus filtrés et les états de l’application après une modification ou une décision administrative.
+- [x] Contrôler les contenus, les droits RLS, les doublons, les statuts, TypeScript, lint, tests et export Android sans supprimer de données existantes.

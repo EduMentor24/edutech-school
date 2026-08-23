@@ -17,7 +17,7 @@ const emptyDashboard: LearningProgressDashboard = { subjects: [], completedLesso
 export default function CoursesScreen() {
   const router = useRouter();
   const { colors } = useEduTheme();
-  const { profile, isProfileLoading } = useSupabaseAuth();
+  const { profile, isProfileLoading, refreshProfile } = useSupabaseAuth();
   const [items, setItems] = useState<CourseSubject[]>([]);
   const [dashboard, setDashboard] = useState<LearningProgressDashboard>(emptyDashboard);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,9 @@ export default function CoursesScreen() {
     } finally { setLoading(false); }
   }, [profile, isProfileLoading]);
 
-  useFocusEffect(useCallback(() => { void load(); }, [load]));
+  useFocusEffect(useCallback(() => {
+    void refreshProfile().finally(() => void load());
+  }, [load, refreshProfile]));
   if (loading) return <AppScreen><CourseLoading label="Chargement de vos matières" /></AppScreen>;
   if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;
   if (!profile?.school_level || !profile.series) return <AppScreen><CourseEmpty title="Profil scolaire incomplet" description="Renseignez votre niveau scolaire et votre série pour recevoir les cours qui vous sont destinés." actionLabel="Voir mon profil" onAction={() => router.push("/(tabs)/profile")} /></AppScreen>;

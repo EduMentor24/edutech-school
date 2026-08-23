@@ -1,0 +1,5 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "name": "enforce_profile_update_guard_trigger",
+  "query": "begin;\n\ndrop trigger if exists schoolci_guard_profile_update on public.profiles;\ncreate trigger schoolci_guard_profile_update\nbefore update on public.profiles\nfor each row\nexecute function public.schoolci_guard_profile();\n\ncommit;\n"
+}
