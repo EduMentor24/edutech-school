@@ -452,3 +452,7 @@
 - [x] Auditer les offres, chapitres, leçons et contenus Unit 5 Anglais Terminale A1, A2, C et D sans créer de doublon ni écraser de contenu existant.
 - [x] Créer les brouillons bilingues complets Unit 5 Reading et Writing, avec exercices corrigés et quiz séparés, inactifs et non publiés.
 - [x] Contrôler les traductions françaises immédiates, les rattachements, les statuts, TypeScript, lint, tests et l’export Android du lot Unit 5.
+- [x] Définir une progression d’initiation à l’informatique Terminale adaptée aux quatre séries, explicitement présentée comme un parcours pédagogique non officiel et évolutif.
+- [x] Auditer les offres, chapitres, leçons et contenus Informatique Terminale A1, A2, C et D sans modifier les structures ni contenus existants.
+- [x] Créer le premier lot d’informatique commun aux quatre séries avec cours approfondi, exercices corrigés et quiz séparés, tous en brouillon inactif et non publié.
+- [x] Vérifier la neutralité pédagogique, les rattachements, l’absence de doublon, les statuts, TypeScript, lint, tests et l’export Android du premier lot d’informatique.
