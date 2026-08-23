@@ -6,6 +6,9 @@ export type FormulaBlock = { type: "formula"; value: string };
 export type TableBlock = { type: "table"; headers: string[]; rows: string[][] };
 export type RuleBlock = { type: "rule" };
 
+export type LessonGlossaryTerm = { type: "glossary"; term: string; translation: string; definition: string };
+export type LessonInlineToken = { type: "text"; value: string } | { type: "bold"; value: string } | LessonGlossaryTerm;
+
 export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
@@ -18,6 +21,33 @@ const isFormulaFence = (line: string) => /^\$\$\s*$/.test(line);
 
 function normalizeInline(text: string) {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 — $2");
+}
+
+/** Parses inline bold text and the safe glossary syntax [[term|traduction|définition]]. */
+export function parseLessonInline(value: string): LessonInlineToken[] {
+  const tokens: LessonInlineToken[] = [];
+  const matcher = /(\*\*[^*]+\*\*|\[\[[^\]]+\]\])/g;
+  let cursor = 0;
+  let match: RegExpExecArray | null;
+  while ((match = matcher.exec(value))) {
+    if (match.index > cursor) tokens.push({ type: "text", value: value.slice(cursor, match.index) });
+    const marker = match[0];
+    if (marker.startsWith("**")) {
+      tokens.push({ type: "bold", value: marker.slice(2, -2) });
+    } else {
+      const parts = marker.slice(2, -2).split("|").map((part) => part.trim());
+      if (parts.length === 3 && parts.every(Boolean)) tokens.push({ type: "glossary", term: parts[0], translation: parts[1], definition: parts[2] });
+      else tokens.push({ type: "text", value: marker });
+    }
+    cursor = match.index + marker.length;
+  }
+  if (cursor < value.length) tokens.push({ type: "text", value: value.slice(cursor) });
+  return tokens.length ? tokens : [{ type: "text", value }];
+}
+
+/** Converts glossary markers to their visible term for non-interactive renderers such as PDF export. */
+export function stripLessonGlossary(value: string) {
+  return parseLessonInline(value).map((token) => token.type === "glossary" ? token.term : token.value).join("");
 }
 
 function tableCells(line: string) {

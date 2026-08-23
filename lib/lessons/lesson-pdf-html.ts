@@ -1,4 +1,4 @@
-import { parseLessonMarkdown } from "./markdown-parser";
+import { parseLessonMarkdown, stripLessonGlossary } from "./markdown-parser";
 
 type LessonPdfInput = { title: string; description?: string | null; content: string };
 
@@ -12,7 +12,7 @@ function escapeHtml(value: string) {
 }
 
 function formatInline(value: string) {
-  return escapeHtml(value)
+  return escapeHtml(stripLessonGlossary(value))
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/`(.+?)`/g, '<code>$1</code>')
     .replace(/\\\((.+?)\\\)/g, '<span class="inline-formula">$1</span>');
