@@ -52,6 +52,34 @@ La migration atomique a été appliquée avec succès sur le projet officiel **E
 
 L’audit post-migration ne relève **aucune anomalie de statut** : aucune leçon, aucun exercice et aucun quiz de ce lot n’est actif ou publié. Les tables de contenus et de questions concernées gardent la RLS activée. Les validations locales ont réussi : TypeScript, lint, **274 tests réussis et 1 ignoré**, puis export Android terminé avec `Exported: dist`.
 
+## Chapitre suivant — Sécurité numérique interactive
+
+Le chapitre complémentaire suivant portera le titre **« Sécurité numérique : protéger, vérifier et réagir »**. Il sera créé pour A1, A2, C et D dans le même statut brouillon que le premier chapitre. Les situations utiliseront des personnages et données fictifs ; elles n’expliqueront ni le contournement d’une sécurité, ni la fabrication d’un message frauduleux, ni une méthode d’intrusion.
+
+| Leçon proposée | Compétence développée | Mise en situation pédagogique | Évaluation séparée |
+|---|---|---|---|
+| **1. Protéger ses comptes et ses appareils** | Choisir des réflexes de protection : phrase secrète longue et unique, deuxième vérification lorsque disponible, mises à jour obtenues depuis un canal fiable, verrouillage et sauvegarde. | Un camarade fictif demande un code de validation ; l’élève identifie le bon réflexe sans jamais communiquer de code réel. | Un exercice de décisions et un quiz. |
+| **2. Reconnaître un message ou un lien suspect** | Observer l’expéditeur, l’adresse, la demande, l’urgence et la possibilité de vérifier par un canal habituel. | Une fausse alerte de remise de devoir pousse à cliquer ; l’élève choisit de s’arrêter, vérifier et signaler. | Un exercice de repérage et un quiz. |
+| **3. Préserver sa vie privée et réagir à une situation difficile** | Limiter le partage d’informations personnelles, gérer une trace numérique et demander de l’aide face à un contenu ou comportement inquiétant. | Une photo privée fictive est repartagée ; l’élève protège les preuves, bloque ou signale selon le service et alerte un adulte ou l’établissement. | Un exercice de réaction responsable et un quiz. |
+
+La conception reprend des recommandations de sensibilisation : mots de passe uniques et longs, mises à jour, authentification à plusieurs facteurs lorsqu’elle est disponible, prudence devant les liens inattendus et protection des informations personnelles [4] [5]. Pour une expérience en ligne pénible, la progression insiste sur la non-culpabilisation, la conservation prudente d’éléments utiles et le recours à un adulte de confiance ou à l’établissement [6] [7].
+
+## Bilan d’intégration — Sécurité numérique interactive
+
+La migration atomique a créé le chapitre **« Sécurité numérique : protéger, vérifier et réagir »** pour les quatre offres officielles A1, A2, C et D, sans toucher au premier chapitre Informatique. Les trois leçons sont strictement préventives : elles n’expliquent ni la fabrication d’une fraude, ni le contournement d’une protection, ni l’intrusion. Toutes les situations et données utilisées dans les cours sont fictives.
+
+| Ressource créée | Par série | Total sur A1, A2, C et D | État contrôlé |
+|---|---:|---:|---|
+| Chapitres | 1 | 4 | Inactifs, non test. |
+| Leçons interactives | 3 | 12 | Inactives, non test ; 7 464 à 8 381 caractères par leçon. |
+| Exercices corrigés | 6 | 24 | Inactifs et non publiés. |
+| Questions d’exercice | 24 | 96 | Mises en situation et consolidation, avec explications. |
+| Quiz | 6 | 24 | Inactifs et non publiés. |
+| Questions de quiz | 24 | 96 | Repères et décisions responsables. |
+| Réponses de quiz | 72 | 288 | Trois options par question, avec correction. |
+
+L’audit Supabase confirme que les douze leçons sont inactives, que tous les compteurs sont complets et qu’aucun chapitre, cours, exercice ou quiz de ce lot n’a été activé ou publié par erreur. La RLS reste active sur les tables concernées. TypeScript, lint, **279 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, ont réussi.
+
 ## Références de conception
 
 [1] [UNESCO-UNEVOC, *Digital Literacy Global Framework*](https://connect.unevoc.unesco.org/home/Digital+Competence+Frameworks/lang=en/id=5) — sept domaines, incluant information et données, communication, création, sécurité, résolution de problèmes et opérations appareils/logiciels.
@@ -59,3 +87,11 @@ L’audit post-migration ne relève **aucune anomalie de statut** : aucune leço
 [2] [UNESCO, *AI and technologies in education*](https://www.unesco.org/en/digital-education) — priorité donnée à l’action humaine, à l’esprit critique et à l’éthique dans les technologies éducatives.
 
 [3] [UNESCO, *AI competency frameworks for students and teachers*](https://www.unesco.org/en/articles/what-you-need-know-about-unescos-new-ai-competency-frameworks-students-and-teachers) — approche centrée sur l’humain, éthique, fondements, applications et résolution de problèmes.
+
+[4] [CISA, *Good Security Habits*](https://www.cisa.gov/news-events/news/good-security-habits) — repères généraux sur les phrases secrètes longues et uniques, les mises à jour et la prudence devant des courriels inattendus.
+
+[5] [CISA, *Shields Up: Guidance for Families*](https://www.cisa.gov/shields-guidance-families) — authentification à plusieurs facteurs, mises à jour et vérification avant d’ouvrir un lien inattendu.
+
+[6] [UNICEF, *Keeping children safe online*](https://www.unicef.org/protection/keeping-children-safe-online) — risques de violence entre pairs, de harcèlement et d’atteintes à la vie privée, ainsi que la nécessité de compétences de sécurité en ligne.
+
+[7] [UNICEF, *How to keep your child safe online*](https://www.unicef.org/parenting/child-care/keep-your-child-safe-online) — prudence avant le partage, protection des informations personnelles et recours à un adulte de confiance en cas de malaise ou de peur.

@@ -456,3 +456,7 @@
 - [x] Auditer les offres, chapitres, leçons et contenus Informatique Terminale A1, A2, C et D sans modifier les structures ni contenus existants.
 - [x] Créer le premier lot d’informatique commun aux quatre séries avec cours approfondi, exercices corrigés et quiz séparés, tous en brouillon inactif et non publié.
 - [x] Vérifier la neutralité pédagogique, les rattachements, l’absence de doublon, les statuts, TypeScript, lint, tests et l’export Android du premier lot d’informatique.
+- [x] Définir trois leçons progressives de sécurité numérique Terminale, avec des mises en situation pédagogiques non dangereuses et des objectifs clairement séparés.
+- [x] Auditer les chapitres, leçons, exercices et quiz Informatique / TICE Terminale A1, A2, C et D pour éviter tout doublon ou écrasement.
+- [x] Créer le chapitre Sécurité numérique, ses trois cours, leurs mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, la sécurité pédagogique, les statuts, RLS, TypeScript, lint, tests et l’export Android du chapitre Sécurité numérique.
