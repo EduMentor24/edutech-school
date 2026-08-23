@@ -425,3 +425,8 @@
 - [x] Créer une demande de modification motivée pour la seconde modification élève de l’année, puis permettre à l’administrateur de l’approuver ou de la refuser sans contourner RLS.
 - [x] Actualiser immédiatement le profil, les contenus filtrés et les états de l’application après une modification ou une décision administrative.
 - [x] Contrôler les contenus, les droits RLS, les doublons, les statuts, TypeScript, lint, tests et export Android sans supprimer de données existantes.
+- [x] Analyser intégralement les PDF Anglais Terminale « Unit 1 Lifestyle — Reading » et « Unit 1 Lifestyle — Writing », en renforçant particulièrement l’enseignement de l’expression écrite.
+- [x] Auditer les structures, offres, chapitres et leçons Anglais Terminale A1, A2, C et D, sans créer de doublon ni écraser de contenu existant.
+- [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les deux PDF, en brouillon inactif et non publié.
+- [x] Diagnostiquer et corriger le cycle de rafraîchissement qui provoque le clignotement du module Cours après une modification de profil.
+- [x] Contrôler les contenus, la traduction française immédiate, les droits RLS, les doublons, les statuts, TypeScript, lint, tests et l’export Android du nouveau lot.

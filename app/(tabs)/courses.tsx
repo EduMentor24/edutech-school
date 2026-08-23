@@ -1,6 +1,6 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { AppScreen } from "@/components/edutech/app-screen";
@@ -25,7 +25,7 @@ export default function CoursesScreen() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const load = useCallback(async () => {
-    if (!profile) { setLoading(isProfileLoading); return; }
+    if (!profile) return;
     setLoading(true); setError(null);
     try {
       const [subjects, progress] = await Promise.all([getCoursesForProfile(profile), getLearningProgress()]);
@@ -34,11 +34,19 @@ export default function CoursesScreen() {
       setItems([]); setDashboard(emptyDashboard);
       setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue.");
     } finally { setLoading(false); }
-  }, [profile, isProfileLoading]);
+  }, [profile]);
 
   useFocusEffect(useCallback(() => {
-    void refreshProfile().finally(() => void load());
-  }, [load, refreshProfile]));
+    void refreshProfile();
+  }, [refreshProfile]));
+
+  useEffect(() => {
+    if (profile) {
+      void load();
+      return;
+    }
+    if (!isProfileLoading) setLoading(false);
+  }, [isProfileLoading, load, profile]);
   if (loading) return <AppScreen><CourseLoading label="Chargement de vos matières" /></AppScreen>;
   if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;
   if (!profile?.school_level || !profile.series) return <AppScreen><CourseEmpty title="Profil scolaire incomplet" description="Renseignez votre niveau scolaire et votre série pour recevoir les cours qui vous sont destinés." actionLabel="Voir mon profil" onAction={() => router.push("/(tabs)/profile")} /></AppScreen>;
