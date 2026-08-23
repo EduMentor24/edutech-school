@@ -448,3 +448,7 @@
 - [x] Ajouter au lecteur de contenu une interaction accessible de vocabulaire complexe dans les passages Reading, avec définition ou traduction instantanée en français.
 - [x] Ajouter dans l’administration une publication groupée par chapitre ou unité, avec aperçu des éléments concernés, confirmation explicite et respect strict des droits administrateur/RLS.
 - [x] Valider les droits de publication, les contenus Unit 4, le survol Reading, TypeScript, lint, tests et l’export Android sans modifier de données réelles hors brouillons explicitement publiés par un administrateur.
+- [x] Analyser intégralement les PDF Anglais Terminale Unit 5 « Managing Resources » pour Reading et Writing, avec une attention particulière aux méthodes d’expression écrite.
+- [x] Auditer les offres, chapitres, leçons et contenus Unit 5 Anglais Terminale A1, A2, C et D sans créer de doublon ni écraser de contenu existant.
+- [x] Créer les brouillons bilingues complets Unit 5 Reading et Writing, avec exercices corrigés et quiz séparés, inactifs et non publiés.
+- [x] Contrôler les traductions françaises immédiates, les rattachements, les statuts, TypeScript, lint, tests et l’export Android du lot Unit 5.
