@@ -430,3 +430,7 @@
 - [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les deux PDF, en brouillon inactif et non publié.
 - [x] Diagnostiquer et corriger le cycle de rafraîchissement qui provoque le clignotement du module Cours après une modification de profil.
 - [x] Contrôler les contenus, la traduction française immédiate, les droits RLS, les doublons, les statuts, TypeScript, lint, tests et l’export Android du nouveau lot.
+- [x] Analyser intégralement les PDF Anglais Terminale « Unit 2 Freedom and Civil Rights » pour les compétences Listening, Reading et Writing.
+- [x] Auditer les structures, les offres et les contenus existants de l’Unit 2 Anglais Terminale A1, A2, C et D, sans créer de doublon ni écraser de contenu.
+- [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les trois PDF, avec une méthode d’écriture particulièrement détaillée, en brouillon inactif et non publié.
+- [x] Contrôler les contenus, les traductions françaises immédiates, les rattachements, les statuts, TypeScript, lint, tests et l’export Android du lot Unit 2.
