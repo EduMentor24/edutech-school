@@ -434,3 +434,7 @@
 - [x] Auditer les structures, les offres et les contenus existants de l’Unit 2 Anglais Terminale A1, A2, C et D, sans créer de doublon ni écraser de contenu.
 - [x] Créer uniquement les cours, exercices corrigés et quiz bilingues confirmés par les trois PDF, avec une méthode d’écriture particulièrement détaillée, en brouillon inactif et non publié.
 - [x] Contrôler les contenus, les traductions françaises immédiates, les rattachements, les statuts, TypeScript, lint, tests et l’export Android du lot Unit 2.
+- [x] Analyser les PDF uniques Anglais Terminale Unit 3 « Development Issues » reçus, en distinguant le Reading du Writing et sans doubler le fichier Reading joint deux fois.
+- [x] Auditer les offres, chapitres et leçons Unit 3 Anglais Terminale A1, A2, C et D sans modifier les contenus existants.
+- [x] Préparer uniquement les éléments de structure Unit 3 strictement manquants, vides, inactifs et non publiés, sans créer de cours, exercice ni quiz.
+- [x] Vérifier les rattachements Unit 3, documenter l’état prêt à intégrer et confirmer l’absence de doublon.
