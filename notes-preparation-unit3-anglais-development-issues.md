@@ -33,3 +33,27 @@ La structure est donc prête pour une future intégration bilingue des contenus 
 ## Vérifications
 
 Le test spécialisé de la migration a réussi. TypeScript, lint et la suite complète ont également été validés : **249 tests réussis, 1 ignoré**.
+
+## Intégration bilingue complète — Reading et Writing
+
+Après confirmation explicite de création, les quatre leçons Unit 3 ont reçu un cours bilingue complet couvrant les deux compétences reçues : Reading sur le mariage des enfants, les droits humains, l’idée générale, le vocabulaire en contexte et la preuve ; Writing sur l’article relatif à un mode de vie autochtone menacé. La méthode d’article est développée pas à pas : genre, plan en six parties, grille de préparation, banque linguistique, connecteurs, modèle d’entraînement clairement identifié et relecture finale.
+
+| Série | Contenu bilingue | Exercices brouillons | Questions d’exercice | Quiz brouillons | Questions de quiz | Réponses de quiz |
+|---|---:|---:|---:|---:|---:|---:|
+| A1 | 24 366 caractères | 2 | 9 | 2 | 8 | 24 |
+| A2 | 24 366 caractères | 2 | 9 | 2 | 8 | 24 |
+| C | 24 366 caractères | 2 | 9 | 2 | 8 | 24 |
+| D | 24 366 caractères | 2 | 9 | 2 | 8 | 24 |
+| **Total** | — | **8** | **36** | **8** | **32** | **96** |
+
+Tous les contenus du lot sont **inactifs**. Les exercices et quiz sont **non publiés**. Le contrôle post-migration confirme le marqueur de traduction française immédiate dans les quatre leçons. Le doublon du PDF Reading n’a pas entraîné de contenu ou de module supplémentaire.
+
+## Validation finale du lot
+
+| Contrôle | Résultat |
+|---|---|
+| Tests ciblés Unit 2 / structure Unit 3 / contenu Unit 3 | 11 réussis |
+| TypeScript | Réussi (`pnpm check`) |
+| Lint | Réussi (`pnpm lint`) |
+| Suite complète | 253 réussis, 1 ignoré (`pnpm test`) |
+| Export Android | Bundle généré avec succès ; le journal confirme `Exported: dist` |

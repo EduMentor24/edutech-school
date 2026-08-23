@@ -438,3 +438,7 @@
 - [x] Auditer les offres, chapitres et leçons Unit 3 Anglais Terminale A1, A2, C et D sans modifier les contenus existants.
 - [x] Préparer uniquement les éléments de structure Unit 3 strictement manquants, vides, inactifs et non publiés, sans créer de cours, exercice ni quiz.
 - [x] Vérifier les rattachements Unit 3, documenter l’état prêt à intégrer et confirmer l’absence de doublon.
+- [x] Relire les sources Unit 3 Reading et Writing, en conservant l’analyse de leurs limites et sans traiter le PDF Reading dupliqué comme une source distincte.
+- [x] Auditer les leçons Unit 3 A1, A2, C et D pour confirmer qu’elles sont toujours vides, inactives et sans module avant insertion.
+- [x] Créer les brouillons bilingues complets Unit 3 Reading et Writing, avec exercices corrigés et quiz séparés, en développant particulièrement la rédaction d’article.
+- [x] Vérifier les traductions françaises immédiates, les rattachements, les statuts, TypeScript, lint, tests et l’export Android du lot Unit 3.
