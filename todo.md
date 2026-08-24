@@ -507,3 +507,7 @@
 - [x] Diagnostiquer pourquoi les leçons Français Terminale à séances affichent uniquement leur titre sans les séances ni le contenu dans le lecteur.
 - [x] Corriger l’affichage des séances et contenus pour l’administrateur, sans activer ni publier les brouillons.
 - [x] Vérifier l’accès au lecteur, les statuts, TypeScript, lint, tests et l’export Android après le correctif.
+- [x] Lire intégralement les trois PDF de séances suivantes du Résumé de texte argumentatif et consigner leurs méthodes, exemples et limites de source.
+- [x] Auditer les séances Résumé de texte existantes pour confirmer les ordres 40, 50 et 60 disponibles dans les quatre séries Terminale.
+- [x] Créer les séances 4 à 6 avec des explications méthodologiques approfondies, exercices corrigés et quiz séparés, tous en brouillon.
+- [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
