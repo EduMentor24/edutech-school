@@ -574,3 +574,7 @@
 - [x] Vérifier les rattachements, la complétude pédagogique, les questions, réponses et corrections avant toute publication.
 - [x] Publier et activer uniquement les contenus Histoire-Géographie complets validés pour A2, C et D.
 - [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et créer le checkpoint de livraison.
+- [x] Auditer séparément les exercices et quiz Histoire-Géographie A1 encore en brouillon, ainsi que les contenus Informatique non publiés.
+- [x] Vérifier les rattachements, la complétude pédagogique, les questions, réponses, corrections et l’absence de doublon avant toute publication.
+- [x] Publier et activer uniquement les évaluations Histoire-Géographie A1 et les contenus Informatique complets validés.
+- [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
