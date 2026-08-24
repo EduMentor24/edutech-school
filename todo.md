@@ -523,3 +523,8 @@
 - [x] Auditer les structures Mathématiques Terminale C/D pour rattacher les cinq leçons sans doublon et créer uniquement les cibles explicitement manquantes.
 - [x] Créer les cours approfondis, exercices corrigés et quiz séparés des cinq leçons pour les rattachements C/D confirmés, tous en brouillon.
 - [x] Vérifier les contenus, statuts, RLS, TypeScript, lint, tests et export Android avant livraison.
+- [x] Lire intégralement les cinq PDF Mathématiques C/D sur logarithmes, PPCM/PGCD, suites, isométries et calcul intégral.
+- [x] Auditer les structures Mathématiques Terminale C/D afin de rattacher les cinq leçons et de créer seulement les structures manquantes.
+- [x] Préparer les cours approfondis, exercices corrigés et quiz séparés des cinq leçons en respectant les sources PDF.
+- [x] Créer et publier les structures et contenus explicitement demandés, sans écraser de contenu existant.
+- [x] Vérifier les contenus publiés, la RLS, TypeScript, lint, tests et l’export Android avant livraison.
