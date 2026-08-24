@@ -554,3 +554,7 @@
 - [x] Vérifier les rattachements, la complétude pédagogique et l’absence de doublon avant toute publication.
 - [x] Publier et activer uniquement les contenus espagnols validés afin de les rendre visibles aux élèves.
 - [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
+- [x] Auditer en lecture seule les leçons, séances, exercices et quiz de SVT encore en brouillon.
+- [x] Vérifier les rattachements, la complétude pédagogique et l’absence de doublon avant toute publication.
+- [x] Publier et activer uniquement les contenus de SVT validés afin de les rendre visibles aux élèves.
+- [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
