@@ -570,3 +570,7 @@
 - [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
 - [x] Redémarrer le serveur de développement après l’arrêt signalé et confirmer que la prévisualisation est à nouveau accessible.
 - [x] Stabiliser le lancement Metro afin qu’une fin de processus web ne coupe plus le serveur applicatif de prévisualisation.
+- [x] Auditer en lecture seule les leçons, exercices et quiz d’Histoire-Géographie encore en brouillon pour Terminale A2, C et D, sans toucher à A1.
+- [x] Vérifier les rattachements, la complétude pédagogique, les questions, réponses et corrections avant toute publication.
+- [x] Publier et activer uniquement les contenus Histoire-Géographie complets validés pour A2, C et D.
+- [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et créer le checkpoint de livraison.
