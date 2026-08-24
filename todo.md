@@ -540,3 +540,9 @@
 - [x] Concevoir et intégrer des schémas interactifs accessibles aux leçons de chimie concernées, sans mélanger les contenus de mécanique.
 - [x] Publier et activer explicitement les structures, leçons, exercices, quiz et schémas demandés, sans écraser les contenus existants.
 - [x] Vérifier les données, les interactions, TypeScript, lint, tests, l’export Android et préparer le checkpoint de livraison.
+- [x] Lire intégralement les trois PDF Physique-Chimie Terminale C sur le champ magnétique, la loi de Laplace et l’autoinduction.
+- [x] Auditer les structures Terminale C d’électromagnétisme afin de rattacher les trois leçons sans doublon et créer uniquement les cibles absentes.
+- [x] Préparer les cours approfondis, deux exercices corrigés et deux quiz distincts par leçon à partir des PDF sources.
+- [x] Ajouter un simulateur de trajectoire interactif à la leçon sur les champs uniformes, avec solution de repli accessible.
+- [x] Intégrer des schémas de forces interactifs aux exercices de mécanique concernés, sans modifier leurs corrections ni les contenus existants hors périmètre.
+- [x] Publier et activer explicitement les contenus validés, puis contrôler les données, TypeScript, lint, tests, export Android et préparer le checkpoint.

@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Image } from "expo-image";
-import { useRef } from "react";
 import { Animated, PanResponder, Pressable, Platform, StyleSheet, Text, View, type StyleProp, type TextStyle } from "react-native";
+import Svg, { Circle, Line, Path, Polygon, Rect } from "react-native-svg";
 
 import { type LessonGlossaryTerm, type TableBlock, parseLessonInline, parseLessonMarkdown } from "@/lib/lessons/markdown-parser";
 import { useEduTheme } from "@/lib/edutech/theme-context";
@@ -73,6 +73,74 @@ const CHEMISTRY_REACTIONS = {
 
 type ChemistryReactionKind = keyof typeof CHEMISTRY_REACTIONS;
 type ChemistryReactionPart = { id: string; label: string; detail: string };
+
+type ForceDiagramKind = "solid" | "satellite" | "projectile" | "oscillator" | "laplace";
+type ForceVector = { id: string; label: string; detail: string; color: string; to: [number, number] };
+
+const FORCE_DIAGRAMS: Record<ForceDiagramKind, { title: string; description: string; body: string; forces: ForceVector[] }> = {
+  solid: { title: "Schéma interactif : solide soumis à des forces", description: "Sélectionnez une force pour relier son sens à son rôle dans le mouvement du centre d’inertie.", body: "Solide", forces: [{ id: "weight", label: "Poids P", detail: "Le poids est l’action gravitationnelle de la Terre sur le solide. Il est vertical et dirigé vers le bas.", color: "#D92D20", to: [110, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction du support s’exerce au contact du solide. Sa direction dépend du support étudié.", color: "#2563EB", to: [110, 36] }, { id: "drive", label: "Force motrice", detail: "Une force motrice peut entraîner le solide dans le sens du déplacement choisi.", color: "#15803D", to: [196, 94] }, { id: "friction", label: "Frottement", detail: "Une force de frottement s’oppose au glissement ou au mouvement relatif sur le support.", color: "#B45309", to: [25, 94] }] },
+  satellite: { title: "Schéma interactif : satellite en orbite", description: "La force gravitationnelle est dirigée vers le centre de la Terre ; elle fournit l’accélération centripète du modèle circulaire.", body: "Satellite", forces: [{ id: "gravity", label: "Attraction gravitationnelle", detail: "La Terre attire le satellite vers son centre. Cette force est la force principale du modèle de vol balistique étudié.", color: "#7C3AED", to: [24, 122] }] },
+  projectile: { title: "Schéma interactif : projectile sans frottement", description: "Le modèle utilisé dans le cours néglige la résistance de l’air : le projectile est alors soumis à son poids.", body: "Projectile", forces: [{ id: "weight", label: "Poids P", detail: "Le poids est orienté verticalement vers le bas et produit l’accélération \(\vec g\) du projectile.", color: "#D92D20", to: [125, 154] }] },
+  oscillator: { title: "Schéma interactif : masse-ressort", description: "La force de rappel du ressort est dirigée vers la position d’équilibre. Touchez les étiquettes pour distinguer les forces du modèle.", body: "Masse", forces: [{ id: "spring", label: "Force de rappel", detail: "La force du ressort est opposée à l’élongation. Elle ramène la masse vers la position d’équilibre.", color: "#15803D", to: [38, 94] }, { id: "weight", label: "Poids P", detail: "Le poids agit verticalement vers le bas ; il est compensé par la réaction dans le modèle horizontal.", color: "#D92D20", to: [118, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction du support équilibre l’action verticale du poids dans le modèle de pendule élastique horizontal.", color: "#2563EB", to: [118, 34] }] },
+  laplace: { title: "Schéma interactif : tige de Laplace", description: "La tige est soumise à son poids, à la réaction du support et à la force de Laplace lorsque courant et champ magnétique sont présents.", body: "Tige", forces: [{ id: "laplace", label: "Force de Laplace F", detail: "La force de Laplace est perpendiculaire au plan défini par le conducteur et le champ. Son sens dépend du courant et de \(\vec B\).", color: "#7C3AED", to: [198, 90] }, { id: "weight", label: "Poids P", detail: "Le poids de la tige est vertical et dirigé vers le bas.", color: "#D92D20", to: [110, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction est l’action du support ou de l’axe de rotation sur la tige.", color: "#2563EB", to: [110, 34] }] },
+};
+
+function VectorArrow({ to, color, label }: { to: [number, number]; color: string; label: string }) {
+  const origin: [number, number] = [110, 94];
+  const dx = to[0] - origin[0]; const dy = to[1] - origin[1]; const length = Math.sqrt(dx * dx + dy * dy) || 1;
+  const ux = dx / length; const uy = dy / length; const px = -uy; const py = ux;
+  const baseX = to[0] - ux * 12; const baseY = to[1] - uy * 12;
+  const points = `${to[0]},${to[1]} ${baseX + px * 6},${baseY + py * 6} ${baseX - px * 6},${baseY - py * 6}`;
+  return <><Line x1={origin[0]} y1={origin[1]} x2={to[0]} y2={to[1]} stroke={color} strokeWidth={3} /><Polygon points={points} fill={color} accessibilityLabel={label} /></>;
+}
+
+function ForceDiagram({ diagram, styles }: { diagram: ForceDiagramKind; styles: ReturnType<typeof createStyles> }) {
+  const schema = FORCE_DIAGRAMS[diagram];
+  const [selected, setSelected] = useState<ForceVector>(schema.forces[0]);
+  const satellite = diagram === "satellite";
+  return <View style={styles.forceCard} accessibilityLabel={schema.title}><Text style={styles.forceTitle}>{schema.title}</Text><Text style={styles.forceHint}>{schema.description}</Text><View style={styles.forceCanvas}><Svg width="100%" height={180} viewBox="0 0 220 180" accessibilityLabel={`Représentation du système : ${schema.body}`}><Line x1="10" y1="150" x2="210" y2="150" stroke="#94A3B8" strokeWidth="2" opacity={satellite ? 0 : 1} /><Circle cx={satellite ? 54 : 110} cy={satellite ? 126 : 94} r={satellite ? 29 : 18} fill={satellite ? "#2563EB" : "#E2E8F0"} /><Rect x={diagram === "laplace" ? 84 : 96} y={diagram === "laplace" ? 82 : 80} width={diagram === "laplace" ? 52 : 28} height={diagram === "laplace" ? 20 : 28} rx="4" fill={diagram === "laplace" ? "#64748B" : "#0F172A"} /><Path d={diagram === "oscillator" ? "M12 94 L22 84 L32 104 L42 84 L52 104 L62 84 L72 104 L82 94" : ""} stroke="#64748B" strokeWidth="3" fill="none" /><Circle cx="110" cy="94" r="3" fill="#0F172A" />{schema.forces.map((force) => <VectorArrow key={force.id} to={force.to} color={force.color} label={force.label} />)}</Svg></View><View style={styles.forceChoices}>{schema.forces.map((force) => <Pressable key={force.id} accessibilityRole="button" accessibilityState={{ selected: selected.id === force.id }} accessibilityLabel={`${force.label}. ${force.detail}`} onPress={() => setSelected(force)} style={({ pressed }) => [styles.forceChoice, selected.id === force.id && { borderColor: force.color, backgroundColor: `${force.color}15` }, pressed && styles.forceChoicePressed]}><View style={[styles.forceDot, { backgroundColor: force.color }]} /><Text style={styles.forceChoiceText}>{force.label}</Text></Pressable>)}</View><View style={[styles.forceDetail, { borderColor: selected.color }]} accessibilityLiveRegion="polite"><Text style={[styles.forceDetailTitle, { color: selected.color }]}>{selected.label}</Text><Text style={styles.forceDetailText}>{selected.detail}</Text></View><Text style={styles.forceFallback}>Repère de lecture : le système est identifié, puis chaque force est nommée, orientée et expliquée avant tout calcul.</Text></View>;
+}
+
+function TrajectorySimulator({ styles }: { styles: ReturnType<typeof createStyles> }) {
+  const [angle, setAngle] = useState(45); const [speed, setSpeed] = useState(15);
+  const radians = angle * Math.PI / 180; const range = (speed * speed * Math.sin(2 * radians)) / 10; const maxHeight = (speed * speed * Math.sin(radians) ** 2) / 20;
+  const points = Array.from({ length: 25 }, (_, index) => { const fraction = index / 24; const x = range * fraction; const y = x * Math.tan(radians) - (10 * x * x) / (2 * speed * speed * Math.cos(radians) ** 2); const drawX = 18 + fraction * 184; const drawY = 145 - (maxHeight ? y / maxHeight : 0) * 112; return `${index === 0 ? "M" : "L"}${drawX.toFixed(1)} ${drawY.toFixed(1)}`; }).join(" ");
+  const adjust = (setter: (value: number) => void, value: number, min: number, max: number, delta: number) => setter(Math.max(min, Math.min(max, value + delta)));
+  return <View style={styles.trajectoryCard} accessibilityLabel="Simulateur de trajectoire dans un champ de pesanteur uniforme">
+    <Text style={styles.trajectoryTitle}>Simulateur : trajectoire d’un projectile</Text>
+    <Text style={styles.trajectoryHint}>Modèle sans frottement : choisissez l’angle et la vitesse initiale, puis observez la trajectoire calculée dans le champ de pesanteur uniforme.</Text>
+    <View style={styles.trajectoryCanvas}>
+      <Svg width="100%" height={180} viewBox="0 0 220 180" accessibilityLabel={`Trajectoire calculée : angle ${angle} degrés, vitesse initiale ${speed} mètres par seconde`}>
+        <Line x1="12" y1="145" x2="210" y2="145" stroke="#64748B" strokeWidth="2" />
+        <Line x1="18" y1="20" x2="18" y2="150" stroke="#94A3B8" strokeWidth="1" />
+        <Path d={points} stroke="#2563EB" strokeWidth="4" fill="none" />
+        <Circle cx="18" cy="145" r="5" fill="#2563EB" />
+      </Svg>
+    </View>
+    <View style={styles.trajectoryControls}>
+      <View style={styles.trajectoryControl}>
+        <Text style={styles.trajectoryLabel}>Angle : {angle}°</Text>
+        <View style={styles.trajectoryButtons}>
+          <Pressable accessibilityRole="button" accessibilityLabel="Diminuer l’angle" onPress={() => adjust(setAngle, angle, 15, 75, -5)} style={styles.trajectoryButton}><Text style={styles.trajectoryButtonText}>−</Text></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel="Augmenter l’angle" onPress={() => adjust(setAngle, angle, 15, 75, 5)} style={styles.trajectoryButton}><Text style={styles.trajectoryButtonText}>+</Text></Pressable>
+        </View>
+      </View>
+      <View style={styles.trajectoryControl}>
+        <Text style={styles.trajectoryLabel}>Vitesse : {speed} m·s⁻¹</Text>
+        <View style={styles.trajectoryButtons}>
+          <Pressable accessibilityRole="button" accessibilityLabel="Diminuer la vitesse" onPress={() => adjust(setSpeed, speed, 5, 30, -1)} style={styles.trajectoryButton}><Text style={styles.trajectoryButtonText}>−</Text></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel="Augmenter la vitesse" onPress={() => adjust(setSpeed, speed, 5, 30, 1)} style={styles.trajectoryButton}><Text style={styles.trajectoryButtonText}>+</Text></Pressable>
+        </View>
+      </View>
+    </View>
+    <View style={styles.trajectoryResult} accessibilityLiveRegion="polite">
+      <Text style={styles.trajectoryResultTitle}>Résultat du modèle</Text>
+      <Text style={styles.trajectoryResultText}>Portée théorique : {range.toFixed(1)} m · Hauteur maximale : {maxHeight.toFixed(1)} m.</Text>
+      <Text style={styles.trajectoryResultText}>La force représentée dans ce modèle est le poids ; l’air est volontairement négligé.</Text>
+    </View>
+    <Text style={styles.trajectoryFallback}>Repère de lecture : les calculs utilisent g = 10 m·s⁻², une hauteur de départ nulle et une arrivée à la même hauteur.</Text>
+  </View>;
+}
 
 function ChemistryReactionDiagram({ reaction, styles }: { reaction: ChemistryReactionKind; styles: ReturnType<typeof createStyles> }) {
   const schema = CHEMISTRY_REACTIONS[reaction];
@@ -151,6 +219,8 @@ export function LessonMarkdown({ content }: { content: string }) {
     if (block.type === "computer_visual") return block.visual === "hardware_diagram" ? <HardwareDiagram key={key} styles={styles} /> : <ComputerVisual key={key} visual={block.visual} styles={styles} />;
     if (block.type === "peripheral_port_match") return <PeripheralPortMatch key={key} styles={styles} />;
     if (block.type === "chemistry_reaction") return <ChemistryReactionDiagram key={key} reaction={block.reaction} styles={styles} />;
+    if (block.type === "trajectory_simulator") return <TrajectorySimulator key={key} styles={styles} />;
+    if (block.type === "force_diagram") return <ForceDiagram key={key} diagram={block.diagram} styles={styles} />;
     if (block.type === "unordered" || block.type === "ordered") return <View key={key} style={styles.list}>{block.items.map((item, itemIndex) => <View key={`${key}-item-${itemIndex}`} style={styles.listItem}><Text style={styles.listMarker}>{block.type === "ordered" ? `${itemIndex + 1}.` : "•"}</Text><InlineText value={item} style={styles.listText} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>;
     const table = block as TableBlock;
     return <View key={key} style={styles.tableCard}>{table.rows.map((row, rowIndex) => <View key={`${key}-row-${rowIndex}`} style={styles.tableRow}>{row.map((cell, cellIndex) => <View key={`${key}-cell-${rowIndex}-${cellIndex}`} style={styles.tableCell}><Text style={styles.tableLabel}>{table.headers[cellIndex] ?? `Élément ${cellIndex + 1}`}</Text><InlineText value={cell} style={styles.tableValue} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>)}</View>;
@@ -219,6 +289,33 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => Style
   chemistryDetailTitle: { color: colors.success, fontSize: 14, lineHeight: 19, fontWeight: "900" },
   chemistryDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
   chemistryFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  forceCard: { gap: 10, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.surfaceMuted },
+  forceTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  forceHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  forceCanvas: { height: 180, borderRadius: 14, overflow: "hidden", backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
+  forceChoices: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  forceChoice: { flexDirection: "row", alignItems: "center", gap: 7, borderRadius: 999, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, paddingHorizontal: 10, paddingVertical: 8 },
+  forceChoicePressed: { opacity: 0.76, transform: [{ scale: 0.98 }] },
+  forceDot: { width: 9, height: 9, borderRadius: 5 },
+  forceChoiceText: { color: colors.text, fontSize: 12, lineHeight: 16, fontWeight: "800" },
+  forceDetail: { gap: 3, padding: 11, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4 },
+  forceDetailTitle: { fontSize: 14, lineHeight: 19, fontWeight: "900" },
+  forceDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  forceFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  trajectoryCard: { gap: 10, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  trajectoryTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  trajectoryHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  trajectoryCanvas: { height: 180, borderRadius: 14, overflow: "hidden", backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
+  trajectoryControls: { flexDirection: "row", gap: 10 },
+  trajectoryControl: { flex: 1, gap: 7, padding: 10, borderRadius: 12, backgroundColor: colors.background },
+  trajectoryLabel: { color: colors.text, fontSize: 12, lineHeight: 18, fontWeight: "900" },
+  trajectoryButtons: { flexDirection: "row", gap: 8 },
+  trajectoryButton: { flex: 1, minHeight: 34, alignItems: "center", justifyContent: "center", borderRadius: 9, backgroundColor: colors.primary },
+  trajectoryButtonText: { color: colors.background, fontSize: 18, lineHeight: 22, fontWeight: "900" },
+  trajectoryResult: { gap: 3, padding: 11, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4, borderColor: colors.success },
+  trajectoryResultTitle: { color: colors.success, fontSize: 14, lineHeight: 19, fontWeight: "900" },
+  trajectoryResultText: { color: colors.text, fontSize: 13, lineHeight: 19 },
+  trajectoryFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
   matchCard: { gap: 11, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
   matchTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
   matchHint: { color: colors.text, fontSize: 13, lineHeight: 20 },

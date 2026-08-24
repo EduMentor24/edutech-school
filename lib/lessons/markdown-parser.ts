@@ -8,11 +8,13 @@ export type RuleBlock = { type: "rule" };
 export type ComputerVisualBlock = { type: "computer_visual"; visual: "hardware_diagram" | "ports" | "workspace" };
 export type PeripheralPortMatchBlock = { type: "peripheral_port_match" };
 export type ChemistryReactionBlock = { type: "chemistry_reaction"; reaction: "carboxylic" | "soap" | "acid_base" };
+export type TrajectorySimulatorBlock = { type: "trajectory_simulator" };
+export type ForceDiagramBlock = { type: "force_diagram"; diagram: "solid" | "satellite" | "projectile" | "oscillator" | "laplace" };
 
 export type LessonGlossaryTerm = { type: "glossary"; term: string; translation: string; definition: string };
 export type LessonInlineToken = { type: "text"; value: string } | { type: "bold"; value: string } | LessonGlossaryTerm;
 
-export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock | PeripheralPortMatchBlock | ChemistryReactionBlock;
+export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock | PeripheralPortMatchBlock | ChemistryReactionBlock | TrajectorySimulatorBlock | ForceDiagramBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
 const isHeading = (line: string) => /^(#{2,3})\s+/.test(line);
@@ -32,6 +34,15 @@ const chemistryReaction = (line: string): ChemistryReactionBlock["reaction"] | n
   if (/^:::chemistry-reaction-carboxylic\s*$/.test(line)) return "carboxylic";
   if (/^:::chemistry-reaction-soap\s*$/.test(line)) return "soap";
   if (/^:::chemistry-reaction-acid-base\s*$/.test(line)) return "acid_base";
+  return null;
+};
+const isTrajectorySimulator = (line: string) => /^:::trajectory-simulator-uniform-fields\s*$/.test(line);
+const forceDiagram = (line: string): ForceDiagramBlock["diagram"] | null => {
+  if (/^:::force-diagram-solid\s*$/.test(line)) return "solid";
+  if (/^:::force-diagram-satellite\s*$/.test(line)) return "satellite";
+  if (/^:::force-diagram-projectile\s*$/.test(line)) return "projectile";
+  if (/^:::force-diagram-oscillator\s*$/.test(line)) return "oscillator";
+  if (/^:::force-diagram-laplace\s*$/.test(line)) return "laplace";
   return null;
 };
 
@@ -85,6 +96,9 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     if (isPeripheralPortMatch(trimmed)) { blocks.push({ type: "peripheral_port_match" }); index += 1; continue; }
     const reaction = chemistryReaction(trimmed);
     if (reaction) { blocks.push({ type: "chemistry_reaction", reaction }); index += 1; continue; }
+    if (isTrajectorySimulator(trimmed)) { blocks.push({ type: "trajectory_simulator" }); index += 1; continue; }
+    const diagram = forceDiagram(trimmed);
+    if (diagram) { blocks.push({ type: "force_diagram", diagram }); index += 1; continue; }
 
     if (isFormulaFence(trimmed)) {
       const formulaLines: string[] = [];
@@ -140,7 +154,7 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const paragraphLines: string[] = [];
     while (index < lines.length) {
       const candidate = lines[index].trim();
-      if (!candidate || isRule(candidate) || computerVisual(candidate) || isPeripheralPortMatch(candidate) || chemistryReaction(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
+      if (!candidate || isRule(candidate) || computerVisual(candidate) || isPeripheralPortMatch(candidate) || chemistryReaction(candidate) || isTrajectorySimulator(candidate) || forceDiagram(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
       paragraphLines.push(candidate);
       index += 1;
     }

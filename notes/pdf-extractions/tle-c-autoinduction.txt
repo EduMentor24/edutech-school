@@ -1,0 +1,587 @@
+Niveau : Terminales C
+                                              CÔTE D’IVOIRE – ÉCOLE NUMÉRIQUE
+Discipline : Physique-Chimie
+
+
+                                               THEME : ELECTRICITE
+                                  TITRE DE LA LEÇON : AUTO-INDUCTION
+
+
+         I)          SITUATION D’APPRENTISSAGE
+
+   Salimata est élève en classe de Tle C du Lycée Moderne HKB2 de Daoukro. Il a observé que le voyant
+   lumineux, témoin d’allumage de certains appareils s’allume ou s’éteint quelques instants après avoir
+   appuyé le bouton de mise sous tension. En cherchant à comprendre ce phénomène elle apprend que cela
+   est dû à l’auto-induction dans les bobines que ces appareils contiennent.
+   Toute contente, elle partage l’information avec ses camarades de classe. Sous la supervision de leur
+   professeur; la classe décide de s’informer sur le phénomène de l’auto-induction, de déterminer la f-é-m
+   d’auto-induction, la tension aux bornes d’une bobine, l’énergie emmagasinée dans une bobine et
+   d’appliquer la loi de l’auto-induction.
+
+         II)         CONTENU DE LA LECON
+
+
+              1- MISE EN ÉVIDENCE DE L’AUTO-INDUCTION
+                     1.1. Retard à l’allumage d’une ampoule
+                            1.1.1) Expérience
+
+    K
+
+                                    R           L1
+
+                                                        L1 et L2 sont identiques
+                                                        R est identique à la résistance de la
+                                     L;R                bobine
+                                                 L2
+
+                                1.1.2) Observations
+         ▪        K fermé : L1 s’allume instantanément tandis que L2 s’allume progressivement.
+
+         ▪        À l’ouverture de K, L1 s’éteint avant L2.
+
+                         1.1.3) Conclusion
+   La bobine s’oppose à l’installation et à l’annulation du courant électrique dans le circuit. Ce phénomène
+   porte le nom d’auto-induction.
+                            1.2. Visualisation à l’oscilloscope
+    YA                           1.2.1. Dispositif expérimental
+                              i
+              A
+                                                                               YA : Visualisation de la tension 𝑈𝐴𝑀 aux
+  uAM
+              GBF                                                              bornes du générateur
+                                        R                                      YB : Visualisation de la tension 𝑢𝐵𝑀 = Ri
+              M                                                                aux bornes du conducteur ohmique.
+                                                              B
+                                        uBM                           YB
+                                                               1
+N.B :𝑢𝐵𝑀 = Ri donc la courbe représentant 𝑢𝐵𝑀 à la même forme que i.
+
+                1.2.2. Observations
+                                 uAM (V)
+                         E
+
+
+
+                          0
+                      uBM                  T   T       3T      2T    t(s)
+                      (V)                  2            2
+                          E
+
+
+
+                             0             T   T       3T      2T   t(s)
+                                           2            2
+                 1.2.3. Interprétation
+   ▪     A la fermeture du circuit électrique :
+
+La tension aux bornes du générateur passe de 0 à E tandis que l’intensité du courant électrique dans le
+conducteur ohmique de résistance R croit progressivement pour atteindre sa valeur maximale qu’au
+bout d’un certain temps.
+
+    ▪ À l’ouverture du circuit électrique :
+La tension aux bornes du générateur s’annule tandis que l’intensité du courant électrique décroit
+progressivement pour s’annuler au bout d’un certain temps.
+
+Remarque :
+Le régime au cours duquel i varie (croit ou décroit) est appelé régime transitoire.
+Le régime où i est constant (i = Imax) est appelé régime permanent.
+              1.2.4. Conclusion
+La bobine s’oppose aux variations (installation ou annulation) du courant électrique i.
+Ce phénomène est appelé auto-induction.
+  L’auto-induction résulte de la variation du flux magnétique à travers la bobine.
+
+       2- FLUX PROPRE ET INDUCTANCE D’UNE BOBINE
+                2.1. Définition du flux magnétique propre
+On appelle flux magnétique propre ΦP , le flux créé par le champ magnétique ⃗B, dans la bobine à
+travers la surface fermée S. C’est une grandeur algébrique définie par : 𝛷p = ⃗B. ⃗S
+Où ⃗S = S n⃗ : vecteur surface. Il est normal au plan défini par le circuit.
+
+soit :             𝛷p= B S cos θ
+                                                   ⃗
+                                                   n
+              weber     T         m2
+              (Wb)
+
+
+L'expression du flux créé à travers une spire de la bobine est :
+                             N
+𝛷 p = ⃗B. ⃗S = B. S or B =𝜇 0 ℓ I
+               N
+Soit 𝛷p = 𝜇 0 ℓ I. S où S représente la surface d’une spire.
+
+                                                        2
+Pour les N spires de la bobine, on a :
+        N2
+Φp = 𝜇 0 ℓ I. S
+
+Exercice d’application 1 :
+Un solénoïde comporte N spires uniformément enroulées sur un cylindre de longueur L et de section S.
+1 – Donne les caractéristiques du champ ⃗B à l'intérieur de la bobine lorsqu'elle est parcourue par un
+courant d'intensité I = 100 mA.
+2 – Calcule le flux à travers les spires de la bobine.
+Données : N = 100 spires; ℓ =40 cm; S = 20 cm2 ; 𝜇 0 = 4π . 10 -7 S.I
+Solution :
+1. Donnons les caractéristiques du champ 𝐵    ⃗ à l’intérieur de la bobine :
+Point d’application : Centre du solénoïde
+Direction : L’axe du solénoïde
+Sens : De la face sud vers la face nord
+                 𝑁
+Norme : B =𝜇 0 ℓ I ; B = 3,14. 10−5T
+
+2. Calculons le flux à travers la bobine :
+𝛷 = B. S; 𝛷 = 6,28. 10−8 Wb
+                                                           S
+                   2.2. Inductance d’une bobine
+L’inductance L d’une bobine est égale au quotient du flux propre 𝛷p à l’intérieur de la bobine par
+l’intensité I du courant électrique qui la traverse.
+                                         𝛷p   N2
+                                 L = I =𝜇 0 ℓ . S
+
+                          henry (H)
+Remarque : L est le coefficient de proportionnalité entre le flux propre 𝛷p et l’intensité du courant
+électrique I.
+
+Exercice d’application 2
+Un solénoïde de longueur ℓ =0,5 m et de diamètre d = 5 cm comporte 2.104 spires. L'inductance L de ce
+solénoïde vaut :
+a) 0,97 H ;
+b) 1,5 H ;
+c) 1,97 H.
+Entoure la lettre correspondant à la bonne réponse.
+Solution
+c) 1,97 H.
+
+                 2.3. Force électromotrice d’auto-induction
+La variation du flux engendre un courant induit qui donne naissance à une force électromotrice induite
+d’induction e.
+La spire se comporte comme un générateur en opposition avec le générateur d’alimentation du circuit.
+La force électromotrice d’auto-induction e a pour expression :
+     dϕ
+e = - dt or𝛷p = L.i
+
+        di
+e = - L. dte s’exprime en volts (V).
+
+
+
+                                                     3
+Exercice d’application 3
+   Une bobine d’inductance L = 12 mH et de résistance négligeable est parcourue par un courant dont
+   les variations sont représentées ci-dessous
+               i (A)
+                                          Échelle : 1cm↔ 0,05s
+                                                    1cm ↔ 24ms
+                 0,6
+
+
+
+
+                       O         0,15       0,25       0,35      t(s)
+   1- Calcule la f.é.m. de la bobine dans chaque intervalle de temps.
+   2- Représente la fonction e = f(t) de la f.é.m. auto-induite aux bornes de la bobine.
+
+
+Solution
+                 𝑑𝑖 ∆𝑖                                                                   e(mV)
+* pour 0<t<0,15s 𝑑𝑡 =∆𝑡 =4 A/s ⇒ e = -48mV                                       72
+                                ∆𝑖
+* pour 0,15<t<0,25s ∆𝑡 =0 A/s ⇒ e = 0 V
+                                     ∆𝑖
+* pour 0,25<t<0,35ms ∆𝑡 = − 6 A/s ⇒ e = 72mV                                                   0,15                           t(s)
+(Voir schéma ci-dessus pour la représentation)
+                                                                                                            0,25       0,35
+
+                                                                                -48
+      3) - TENSION AUX BORNES D’UNE BOBINE
+                3.1. Schéma d’une bobine
+
+
+             A                                                                                   ur = r i
+                                               B                            A                                      B
+                                                                                   e    C
+                                                                                                                   B
+                            uAB = ri - e
+                                                                                uAB = ri - e
+
+                           3.2.Loi d’Ohm
+                                                di
+𝑢𝐴𝐵 = ri – e                    or e = - L dt
+
+                           𝐝𝐢
+d’où:𝒖𝑨𝑩 = r i + L𝐝𝐭.
+
+
+Remarques:
+       ▪ Si r = 0 : on a une inductance pure et 𝒖𝑨𝑩 = - e
+
+         ▪       En régime continu ou permanent, I est constante, la bobine se comporte comme une
+                 résistance pure : UAB = r I
+
+Activité d’application 4
+Une bobine d’auto-inductance L = 0,5 H et de résistance r = 8 Ω est parcourue par un courant dont
+l’intensité varie selon la loi i = 5 – 2,5 t (i en A).
+1) Détermine la tension à ses bornes.
+2) Calcule cette tension à la date t =1 s.
+Solution :
+
+                                                                        4
+1) u = 38,75 – 20 t
+2) u = 18,75 V
+
+
+4)- ÉNERGIE MAGNÉTIQUE EMMAGASINÉE DANS UNE BOBINE
+                    4.1. Puissance échangée
+La puissance électrique reçue par une bobine est :
+                       di                  di
+P = 𝑢𝐴𝐵 .i = r i2 + Li dt car 𝑢𝐴𝐵 = ri + L dt
+             𝐝 𝟏
+  P = r i2+𝐝𝐭(𝟐L i2)
+Avec :
+                    ▪       r i2 : puissance dissipée par effet joule
+                            𝐝 𝟏
+                    ▪           ( L i2) puissance emmagasinée par la bobine
+                            𝐝𝐭 𝟐
+
+
+                  4.2. Énergie emmagasinée
+
+                            t              t             t d 1
+                  𝜀 = ∫0 P. dt = ∫0 r i2 dt + ∫0 dt(2 L. i2 ) dt
+
+                               𝟏                     r i2 t ∶ énergie dissipée par effet joule
+                  E = r i2 t + L i2            avec {𝟏
+                                       𝟐                 𝐋 𝐢𝟐 : énergie emmagasinée par la bobine
+                                                     𝟐
+
+
+
+Activité d’application 6
+Calcule l’énergie emmagasinée E dans une bobine d’inductance L = 1,5 H parcourue par un courant
+d’intensité I = 2 A.
+Dis ce que devient cette énergie lorsque l’intensité du courant double.
+Solution
+     1
+ E = 2L𝑖 2 = 3 J ; E est multipliée par 4.
+
+
+SITUATION D’ÉVALUATION
+
+Lors d’une séance de TP, un groupe d’élèves est chargé de déterminer la tension 𝑢𝐴𝐵 aux bornes d’une
+bobine AB sans noyau, d’inductance L = 5mH et de résistance r = 2Ω.
+Dans une expérience, le groupe utilise un générateur de courant variable dont l’intensité visualisée est
+représenté comme l’indique la figure 1.
+           iAB(A)
+                                   Figure 1
+
+     0,2
+
+      0
+              1         2          3       4 t (10-2ms)
+   -0,2
+
+Appartenant au groupe, tu es désigné pour répondre aux consignes.
+
+1) Donne l'expression de l’inductance L de la bobine fonction du flux propre Φ et de l'intensité du
+   courant i.
+
+                                                                  5
+2) Calcule la valeur du flux propre à travers cette bobine quand elle est parcourue par un courant 𝑖𝐴𝐵 =
+   0,2A.
+3)
+ 3.1) Détermine les intervalles de temps durant lesquels il y a variation du flux propre Φ𝑃 à travers la
+       bobine dans l'intervalle 0 ≤ t ≤ 4.10-2 s.
+ 3.2)    Calcule cette variationΔΦ dans chaque cas.
+ 3.3) Détermine la force électromotrice d’auto induction e dans la bobine dans chaque intervalle de
+       temps.
+ 3.4) Établis l’expression littérale de la tension 𝑢𝐴𝐵 aux bornes de la bobine dans chaque intervalle.
+ 3.5) Représente-la graphiquement en fonction du temps. (Précise les échelles choisies)
+
+
+
+
+III. EXERCICES
+Exercice 1
+Réarrange les mots et groupe de mots ci-dessous de sorte à obtenir une phrase ayant un sens :
+   1) s’oppose/ ou à sa rupture;/ Une bobine/ à l’établissement d’un courant / placée dans un circuit/ le
+       nom d’auto-induction./ ce phénomène porte
+   2) comportant une bobine / une f.é.m. e/ du courant dans un circuit / appelé force électromotrice
+       d’auto-induction./ de l’intensité / fait apparaitre dans la bobine / La variation/
+Correction
+1) Une bobine placée dans un circuit s’oppose à l’établissement d’un courant ou à sa rupture ; ce
+phénomène porte le nom d’auto induction.
+2)La variation de l’intensité du courant dans un circuit comportant une bobine fait apparaitre dans la
+bobine une f.é.m. e appelé force électromotrice d’auto-induction
+Exercice 2
+Tu considères le circuit électrique suivant :
+                         générateur
+
+
+
+
+             Y1         (L , r=0)          M
+
+
+ Relie le générateur à l’oscillogramme qui lui correspond :
+
+                    générateur                            oscillogramme
+
+
+
+
+                                                     6
+Correction :
+
+                     générateur                                             oscillogramme
+
+
+
+
+Exercice 3 :
+Une bobine, de résistance R = 4  et d’inductance L = 0,5 H, est parcourue par un courant dont l’intensité
+varie selon la loi : i = 0,63.t (i en ampères) dans l’intervalle 0  t  2 s.
+    1)     Calculer la valeur u de la tension aux bornes de la bobine à la date t = 1 s.
+    2)     Calculer l’énergie emmagasinée dans la bobine à la date t=1s.
+Correction :
+                                                                                  𝑑𝑖
+       1). Valeur de la tension u aux bornes de la bobine à la date t=1s: u=ri + L𝑑𝑡= ri + 0,63L
+                                                                   AN : u= 4x0,63 + 0,63x0,5
+       u =2,835 V.
+                                                                                         1
+       2). Energie emmagasinée dans la bobine à la date t=1s : E= 2 𝐿𝑖 2
+
+                                                                    A.N :            E= 0,5 x 0,5 x (0,63)²
+                                                                                     E=9,92 .10-2 J
+Exercice 4
+L’intensité du courant dans une bobine d’inductance
+L= 0,1 H varie en fonction du temps selon la loi indiquée par la figure ci-contre :
+  1.) Ecris l’expression de la f.é.m. d’auto induction ;
+  2.) Calculer la f.é.m. dans les différents intervalles de temps.
+  3.) Représenter graphiquement la variation de la f.é.m. en fonction du temps.
+  4.) Calculer l’énergie maximale emmagasinée dans la bobine.
+                                       i (mA)
+                                  12
+
+
+
+                                                                                          t (ms)
+                                       0   1    2   3   4   5   6    7   8    9 10
+Correction :
+                                     𝑑𝑖
+   1) Expression de la f.e.m : e = -L𝑑𝑡
+
+   2) Calcul de le f.e.m dans les différents intervalles :
+                        𝑑𝑖 (12−0)
+      𝑡𝜖⌊0 ; 3⌋on a : 𝑑𝑡= (3−0) =4       => e = -0,1x (4)= - 0,4V
+                         𝑑𝑖    (0−12)
+       𝑡𝜖⌊3 ; 5⌋on a :     =      =-6               => e = -0,1x (-6)= + 0,6V
+                         𝑑𝑡 (5−3)
+                         𝑑𝑖    (12−0)
+       𝑡𝜖⌊5 ; 8⌋on a :        = (8−5) =4            => e = -0,1x (4)= - 0,4V
+                         𝑑𝑡
+
+
+
+                                                                    7
+                                𝑑𝑖       (0−12)
+          𝑡𝜖⌊8 ; 10⌋on a :           =            =-6 => e = -0,1x (-6)= + 0,6V
+                                𝑑𝑡 (10−8)
+
+       3) Representation graphique:
+                                                  e (V)
+
+                                            +6
+                                            -4
+                                            -2
+                                              0                                                t (ms)
+                                             -2       1   2   3   4   5       6   7   8 9 10
+                                            -4
+
+
+
+       4) L’énergie maximale emmagasinée
+           1
+        E=2 𝐿𝑖 2 => E= 0,5 x 0,1 x 12.(10-3)²=0,6mJ
+
+Exercice 5 :
+
+Au cours d’une séance de travaux pratiques, ton professeur de physique met à la disposition de ton
+groupe un solénoïde (A, C) de longueur ℓ= 41,2 cm et de résistance négligeable. Il comporte N = 400
+spires de rayon r = 2,5 cm. Il est orienté arbitrairement de A vers C.
+
+
+
+                I
+           A        Figure 1                 C
+
+
+
+Vous réalisez les expériences ci-dessous :
+- Expérience 1 :
+ le solénoïde est parcouru par un courant continue d’intensité I = 5 A.
+- expérience 2 :
+Le solénoïde est maintenant parcouru par un courant électrique 𝑖(𝑡) dont l’intensité varie avec le temps
+comme l’indique la figure 2. Un phénomène d’auto-induction y prend naissance.
+
+
+
+i(t)
+  2
+
+  1
+
+  0
+                    40   50                        90 100 t (ms)
+                     Figure 2
+
+Il vous est demandé de déterminer l’inductance de la bobine et de représenter la courbe uAC(t) aux
+bornes de la bobine dans la deuxième expérience.
+Données : μ0 = 4π.10-7 SI.
+Tu es le rapporteur de ton groupe. Tu utiliseras au besoin l’échelle suivante :
+   1 cm r⟷ 50 mV
+   1 cm ⟷ 10 ms
+
+1. Expérience 1.
+                                                                          8
+   1.1 Représente quelques lignes du champ magnétique à l’intérieur du solénoïde ainsi que le vecteur
+       champ B⃗ (direction et sens).
+   1.2 Donne l’expression littérale de l’intensité B du champ magnétique, à l’intérieur du solénoïde en
+       fonction de μ0, N, ℓ et I.
+   1.3 Calcule la valeur de B.
+   1.4 Donne l’expression littérale du flux propre Φ de la bobine en fonction de N, B et r, puis calcule
+       le.
+   1.5 Calcule la valeur de l’inductance L de la bobine.
+2. Expérience 2.
+                                                                di
+   2.1 Donne l’expression de la tension 𝑢𝐴𝐶 en fonction de L et dt (se référer à la figure 3).
+   2.2 Calcule 𝑢𝐴𝐶 sur une période : t 𝜖[0; 50𝑚𝑠] en prenant L = 10-3 H.
+   2.3 Trace la courbe uAC(t).
+
+CORRECTION
+
+
+                                                ⃗⃗
+                                                𝐁
+1.
+1.1                                𝑰
+            N
+1.2 B = μ0 ℓ I
+1.3 B = 6,1.10−3 T
+1.4
+1.5
+             di
+2.1 uAC = L dt
+2.2 t ϵ[0; 40ms]: on a i(t) = a t
+        2
+a = 40.10−3 = 50A/s
+uAC = 5.10−2 V
+t ϵ[40; 50ms]: on a i(t) = c t + d
+     −2       200A
+c = 10−2 = − s à t = 0 i(0) =2A
+⟹ i(t) = −200 t + 2 .
+uAC = −0,2V
+                                 UAC (10-3 V)
+2.3                        50a                       b
+
+
+
+                            0o   1    2   3          4       5 t (ms)
+                                 0 0 0               0       0
+
+
+                          -200
+                                                     c   d
+
+
+
+
+EXERCICE 6 :
+1. On considère une bobine assimilable à un solénoïde théorique ayant les caractéristiques suivantes :
+• Rayon moyen des spires R = 10 cm.
+• Nombre total des spires N = 500
+• Longueur de la bobine ℓ = 1 m
+a. Déterminer les caractéristiques du vecteur champ magnétique B créé à l’intérieur de ce solénoïde
+lorsqu’il est parcouru par un courant d’intensité I = 5A.
+b. Calculer l’inductance du solénoïde.
+c. Quelle est l’énergie magnétique emmagasinée dans la bobine
+2. L’intensité du courant qui circule dans la bobine est caractérisée successivement par les valeurs
+suivantes exprimées en ampères :
+
+                                                                        9
+ i1 = 2 ; i2 = 5t + 2;
+i3 = 2√2 sin (100𝜋.t)
+ i4 = √3 cos (50𝜋.t + 𝜑)
+
+Calculer la force électromotrice d’auto-induction produite dans chacun des cas.
+3. Un courant d’intensité i (t) traverse la bobine (voir graphique)
+
+
+                   i (mA)
+          +100
+
+
+
+
+              0
+                       10   20        30   40        50 t (ms)
+
+
+
+          - 100
+
+
+
+
+a- Exprimer la tension UMN aux bornes de la bobine en fonction du temps.
+b- Représenter graphiquement UMN. On prendra le sens positif du conducteur de M vers N et on
+négligera la résistance interne de la bobine.
+
+CORRECTION :
+1.a. Caractéristique du champ ⃗B :
+Direction : Axe du solénoïde
+Sens : De la face sud A vers la face nord vers C.
+                   N
+Intensité: 𝐵 = µ0. ℓ . 𝐼 ; 𝐵 = 3𝑚𝑇
+                  N2             N2
+1. b. 𝐿 = µ0 . ℓ . 𝑆 = µ0 . ℓ . 𝜋 𝑟 2 = 0, 01 𝐻;
+             1                                            di
+1. c. 𝐸𝑚 = 2 𝐿𝑖 2 = 375 𝑚𝐽 ; 2. 𝑒 = − L dt
+                       di
+Cas 1 : 𝑒1 = − L dt1 = 0𝑉; Cas 2: e = −0,15 V;                                          Cas 3: e =
+                                                                      𝜋
+6𝜋√2 cos (100𝜋 t) ; Cas 4: e = 1,5𝜋√3sin (50𝜋 t + 4 ) ;
+                  di
+3.a. 𝑢𝑀𝑁 = L dt ; 0 < t < 20ms : 𝑢𝑀𝑁 =0,15 V ; 20ms < t < 30ms :               𝑢𝑀𝑁 = - 0,06 V ; 30ms < t
+< 50ms : 𝑢𝑀𝑁 = 0,15 V
+                                                           𝑢𝐴𝐶 (𝑉)
+3.b. voir représentation ci-dessus
+
+                                                0,15
+
+
+
+
+                                                 0
+                                                                               𝑡 (ms)
+                                                                     20   50
+
+                                                -0,06
+                                                                     10
+IV. DOCUMENTATION
+
+L'étincelle de rupture
+Lorsqu'on débranche brusquement des appareils ménagers comportant des moteurs donc des bobines, Il
+apparait de fortes étincelles au niveau de la prise de courant. Ces étincelles de rupture sont utilisées dans
+les allumeurs. La plupart du temps ce phénomène doit être atténué, en particulier au niveau des balais et
+des lames du collecteur dans les dynamos et les moteurs et au niveau de l'interrupteur de haute tension.
+On remédie à cet inconvénient en plaçant en parallèle aux bornes de la bobine une résistance et une
+diode ou aux bornes de l'interrupteur, un condensateur. On supprime ainsi les parasites gênants pour les
+récepteurs radio: les étincelles de rupture provoquent des ondes électromagnétiques qui sont
+interceptées par l'antenne.
+
+Livre de PHYSIQUE: Collection EURIN. Terminales C, E
+
+
+
+
+                                                     11
+
