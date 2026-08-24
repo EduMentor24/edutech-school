@@ -582,3 +582,8 @@
 - [x] Vérifier les rattachements, les contenus, les questions, les réponses, les corrections et l’absence de doublon avant publication.
 - [x] Publier et activer uniquement les contenus Physique-Chimie C et D complets validés.
 - [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
+- [x] Redémarrer le serveur de développement après l’arrêt signalé et confirmer la disponibilité des services de prévisualisation.
+- [x] Auditer globalement les leçons, exercices et quiz non test encore en brouillon, en distinguant les ressources renseignées des structures vides.
+- [x] Vérifier les rattachements, contenus, questions, réponses, corrections et exclusions avant toute publication globale.
+- [x] Publier et activer uniquement les ressources complètes validées, sans publier de brouillon vide, incomplet ou de test (aucune ressource réelle restante à publier ; les deux brouillons détectés sont de test).
+- [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison (aucun changement de code, de schéma ou de contenu réel après les validations du checkpoint précédent).
