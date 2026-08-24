@@ -516,3 +516,10 @@
 - [x] Auditer les leçons communes ou manquantes de chimie organique Terminale C/D afin de définir le rattachement sans doublon.
 - [x] Créer les cours, exercices corrigés et quiz communs C/D sur les alcools, composés carbonylés et amines, tous en brouillon.
 - [x] Vérifier rattachements, contenus, statuts, RLS, TypeScript, lint, tests et export Android avant livraison.
+- [x] Auditer en lecture seule les leçons Mathématiques Terminale C/D afin d’identifier lesquelles sont vides et pourquoi.
+- [x] Comparer les leçons remplies aux lots de fichiers Mathématiques réellement traités, sans créer ni modifier de contenu.
+- [x] Présenter le diagnostic des contenus manquants et le périmètre exact à traiter ultérieurement.
+- [x] Lire intégralement les cinq PDF Mathématiques Terminale C et consigner les notions, méthodes, formules, exemples et limites de source.
+- [x] Auditer les structures Mathématiques Terminale C/D pour rattacher les cinq leçons sans doublon et créer uniquement les cibles explicitement manquantes.
+- [x] Créer les cours approfondis, exercices corrigés et quiz séparés des cinq leçons pour les rattachements C/D confirmés, tous en brouillon.
+- [x] Vérifier les contenus, statuts, RLS, TypeScript, lint, tests et export Android avant livraison.
