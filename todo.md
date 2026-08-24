@@ -550,3 +550,7 @@
 - [x] Vérifier les rattachements, la complétude et l’absence de doublon avant toute publication des contenus d’anglais.
 - [x] Publier et activer uniquement les contenus d’anglais validés afin de les rendre visibles aux élèves.
 - [x] Contrôler les statuts publiés, la RLS, les parcours, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
+- [x] Auditer en lecture seule les leçons, séances, exercices et quiz d’espagnol encore en brouillon.
+- [x] Vérifier les rattachements, la complétude pédagogique et l’absence de doublon avant toute publication.
+- [x] Publier et activer uniquement les contenus espagnols validés afin de les rendre visibles aux élèves.
+- [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
