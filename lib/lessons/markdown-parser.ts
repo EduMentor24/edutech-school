@@ -6,11 +6,12 @@ export type FormulaBlock = { type: "formula"; value: string };
 export type TableBlock = { type: "table"; headers: string[]; rows: string[][] };
 export type RuleBlock = { type: "rule" };
 export type ComputerVisualBlock = { type: "computer_visual"; visual: "hardware_diagram" | "ports" | "workspace" };
+export type PeripheralPortMatchBlock = { type: "peripheral_port_match" };
 
 export type LessonGlossaryTerm = { type: "glossary"; term: string; translation: string; definition: string };
 export type LessonInlineToken = { type: "text"; value: string } | { type: "bold"; value: string } | LessonGlossaryTerm;
 
-export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock;
+export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock | PeripheralPortMatchBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
 const isHeading = (line: string) => /^(#{2,3})\s+/.test(line);
@@ -25,6 +26,7 @@ const computerVisual = (line: string): ComputerVisualBlock["visual"] | null => {
   if (/^:::computer-workspace-visual\s*$/.test(line)) return "workspace";
   return null;
 };
+const isPeripheralPortMatch = (line: string) => /^:::peripheral-port-match\s*$/.test(line);
 
 function normalizeInline(text: string) {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 — $2");
@@ -73,6 +75,7 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     if (isRule(trimmed)) { blocks.push({ type: "rule" }); index += 1; continue; }
     const visual = computerVisual(trimmed);
     if (visual) { blocks.push({ type: "computer_visual", visual }); index += 1; continue; }
+    if (isPeripheralPortMatch(trimmed)) { blocks.push({ type: "peripheral_port_match" }); index += 1; continue; }
 
     if (isFormulaFence(trimmed)) {
       const formulaLines: string[] = [];
@@ -128,7 +131,7 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const paragraphLines: string[] = [];
     while (index < lines.length) {
       const candidate = lines[index].trim();
-      if (!candidate || isRule(candidate) || computerVisual(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
+      if (!candidate || isRule(candidate) || computerVisual(candidate) || isPeripheralPortMatch(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
       paragraphLines.push(candidate);
       index += 1;
     }

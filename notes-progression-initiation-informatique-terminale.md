@@ -153,6 +153,19 @@ Les quatre brouillons de la leçon **« Découvrir l’ordinateur »** incluent 
 
 L’audit Supabase confirme les quatre séries, les schémas attendus et **zéro anomalie d’activation ou de publication**. La RLS reste active. TypeScript, lint, **292 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, ont réussi.
 
+## Bilan d’intégration — Association périphériques et ports
+
+La leçon brouillon **« Connecter les périphériques : ports, réseaux et compatibilité »** possède désormais une activité d’association interactive pour les quatre séries. L’élève peut glisser une souris ou une clé USB vers un port USB, un écran externe vers HDMI et un casque vers la prise audio. Une alternative entièrement accessible permet de sélectionner un périphérique puis de toucher le port choisi ; le lecteur annonce chaque résultat, permet de recommencer et le PDF présente l’équivalent textuel de l’activité.
+
+| Contrôle | Résultat |
+|---|---|
+| Cours annotés | 4 sur 4, uniquement les brouillons Périphériques inactifs. |
+| Exercices séparés conservés | 2 par cours, soit 8 au total, sans publication. |
+| Quiz séparés conservés | 2 par cours, soit 8 au total, sans publication. |
+| Statuts accidentels | 0 cours actif, 0 exercice publié, 0 quiz publié. |
+
+La RLS reste active. TypeScript, lint, **296 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.
+
 ## Références de conception
 
 [1] [UNESCO-UNEVOC, *Digital Literacy Global Framework*](https://connect.unevoc.unesco.org/home/Digital+Competence+Frameworks/lang=en/id=5) — sept domaines, incluant information et données, communication, création, sécurité, résolution de problèmes et opérations appareils/logiciels.

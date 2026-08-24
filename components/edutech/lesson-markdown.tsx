@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Image } from "expo-image";
-import { Pressable, Platform, StyleSheet, Text, View, type StyleProp, type TextStyle } from "react-native";
+import { useRef } from "react";
+import { Animated, PanResponder, Pressable, Platform, StyleSheet, Text, View, type StyleProp, type TextStyle } from "react-native";
 
 import { type LessonGlossaryTerm, type TableBlock, parseLessonInline, parseLessonMarkdown } from "@/lib/lessons/markdown-parser";
 import { useEduTheme } from "@/lib/edutech/theme-context";
@@ -21,6 +22,35 @@ const HARDWARE_COMPONENTS = [
   { id: "webcam", label: "Webcam", role: "Peut capter une image ou une vidéo lorsqu’elle est autorisée et utile." },
   { id: "usb", label: "Clé USB", role: "Peut transporter des fichiers ; son contenu doit être vérifié et rangé avec prudence." },
 ] as const;
+
+const PERIPHERALS = [
+  { id: "mouse", label: "Souris filaire", target: "usb" },
+  { id: "drive", label: "Clé USB", target: "usb" },
+  { id: "screen", label: "Écran externe", target: "hdmi" },
+  { id: "headset", label: "Casque", target: "audio" },
+] as const;
+const PORTS = [
+  { id: "usb", label: "Port USB", hint: "Pour la souris ou la clé USB." },
+  { id: "hdmi", label: "Port HDMI", hint: "Pour un écran externe." },
+  { id: "audio", label: "Prise audio", hint: "Pour un casque filaire." },
+] as const;
+
+function DraggablePeripheral({ peripheral, onDrop, onSelect, selected, styles }: { peripheral: (typeof PERIPHERALS)[number]; onDrop: (id: string, x: number, y: number) => void; onSelect: (id: string) => void; selected: boolean; styles: ReturnType<typeof createStyles> }) {
+  const pan = useRef(new Animated.ValueXY()).current;
+  const responder = useMemo(() => PanResponder.create({ onMoveShouldSetPanResponder: (_, gesture) => Math.abs(gesture.dx) + Math.abs(gesture.dy) > 4, onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], { useNativeDriver: false }), onPanResponderRelease: (event) => { onDrop(peripheral.id, event.nativeEvent.pageX, event.nativeEvent.pageY); Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: false, friction: 7 }).start(); }, onPanResponderTerminate: () => Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start() }), [onDrop, pan, peripheral.id]);
+  return <Animated.View {...responder.panHandlers} style={[styles.dragItem, selected && styles.dragItemSelected, { transform: pan.getTranslateTransform() }]}><Pressable accessibilityRole="button" accessibilityState={{ selected }} accessibilityLabel={`${peripheral.label}. Glissez vers un port ou touchez pour le sélectionner.`} onPress={() => onSelect(peripheral.id)} style={styles.dragPressable}><Text style={[styles.dragItemText, selected && styles.dragItemTextSelected]}>{peripheral.label}</Text></Pressable></Animated.View>;
+}
+
+function PeripheralPortMatch({ styles }: { styles: ReturnType<typeof createStyles> }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [matches, setMatches] = useState<Record<string, string>>({});
+  const [feedback, setFeedback] = useState("Glissez un périphérique vers le bon port ou sélectionnez-le puis touchez un port.");
+  const targets = useRef<Record<string, View | null>>({});
+  const applyMatch = (peripheralId: string, targetId: string) => { const peripheral = PERIPHERALS.find((item) => item.id === peripheralId); if (!peripheral) return; if (peripheral.target === targetId) { setMatches((current) => ({ ...current, [peripheralId]: targetId })); setFeedback(`${peripheral.label} est correctement associé au ${PORTS.find((port) => port.id === targetId)?.label}.`); } else setFeedback(`Ce port ne convient pas à ${peripheral.label}. Relis l’indice et réessaie.`); setSelected(null); };
+  const drop = (peripheralId: string, x: number, y: number) => { setSelected(peripheralId); setFeedback("Périphérique sélectionné. Touchez maintenant le port que vous pensez correct."); PORTS.forEach((port) => targets.current[port.id]?.measureInWindow((left: number, top: number, width: number, height: number) => { if (x >= left && x <= left + width && y >= top && y <= top + height) applyMatch(peripheralId, port.id); })); };
+  const solved = PERIPHERALS.every((item) => matches[item.id] === item.target);
+  return <View style={styles.matchCard} accessibilityLabel="Exercice interactif d’association entre périphériques et ports"><Text style={styles.matchTitle}>Défi interactif : connecter les périphériques</Text><Text style={styles.matchHint}>Glissez chaque étiquette vers son port. Alternative accessible : touchez une étiquette, puis le port choisi.</Text><View style={styles.matchGrid}><View style={styles.matchColumn}><Text style={styles.matchLabel}>Périphériques</Text>{PERIPHERALS.map((item) => <DraggablePeripheral key={item.id} peripheral={item} onDrop={drop} onSelect={setSelected} selected={selected === item.id} styles={styles} />)}</View><View style={styles.matchColumn}><Text style={styles.matchLabel}>Ports</Text>{PORTS.map((port) => <View key={port.id} ref={(node) => { targets.current[port.id] = node; }}><Pressable accessibilityRole="button" accessibilityLabel={`${port.label}. ${port.hint}`} onPress={() => selected ? applyMatch(selected, port.id) : setFeedback("Sélectionnez d’abord un périphérique ou glissez-en un vers ce port.")} style={({ pressed }) => [styles.portTarget, pressed && styles.portTargetPressed]}><Text style={styles.portTargetTitle}>{port.label}</Text><Text style={styles.portTargetHint}>{port.hint}</Text></Pressable></View>)}</View></View><View style={styles.matchFeedback} accessibilityLiveRegion="polite"><Text style={styles.matchFeedbackText}>{solved ? "Bravo : toutes les associations sont correctes." : feedback}</Text></View><Pressable accessibilityRole="button" accessibilityLabel="Recommencer l’exercice" onPress={() => { setMatches({}); setSelected(null); setFeedback("Exercice réinitialisé. Glissez ou sélectionnez un périphérique."); }} style={({ pressed }) => [styles.matchReset, pressed && styles.portTargetPressed]}><Text style={styles.matchResetText}>Recommencer</Text></Pressable></View>;
+}
 
 function ComputerVisual({ visual, styles }: { visual: "ports" | "workspace"; styles: ReturnType<typeof createStyles> }) {
   const caption = visual === "ports" ? "Périphériques et ports : observer avant de connecter." : "Poste de travail organisé : stabilité, rangement et gestes utiles.";
@@ -74,6 +104,7 @@ export function LessonMarkdown({ content }: { content: string }) {
     }
     if (block.type === "formula") return <View key={key} style={styles.formulaCard}><Text accessibilityLabel={`Formule mathématique : ${block.value}`} selectable style={styles.formulaText}>{block.value}</Text></View>;
     if (block.type === "computer_visual") return block.visual === "hardware_diagram" ? <HardwareDiagram key={key} styles={styles} /> : <ComputerVisual key={key} visual={block.visual} styles={styles} />;
+    if (block.type === "peripheral_port_match") return <PeripheralPortMatch key={key} styles={styles} />;
     if (block.type === "unordered" || block.type === "ordered") return <View key={key} style={styles.list}>{block.items.map((item, itemIndex) => <View key={`${key}-item-${itemIndex}`} style={styles.listItem}><Text style={styles.listMarker}>{block.type === "ordered" ? `${itemIndex + 1}.` : "•"}</Text><InlineText value={item} style={styles.listText} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>;
     const table = block as TableBlock;
     return <View key={key} style={styles.tableCard}>{table.rows.map((row, rowIndex) => <View key={`${key}-row-${rowIndex}`} style={styles.tableRow}>{row.map((cell, cellIndex) => <View key={`${key}-cell-${rowIndex}-${cellIndex}`} style={styles.tableCell}><Text style={styles.tableLabel}>{table.headers[cellIndex] ?? `Élément ${cellIndex + 1}`}</Text><InlineText value={cell} style={styles.tableValue} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>)}</View>;
@@ -127,6 +158,25 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => Style
   hardwareDetailTitle: { color: colors.primary, fontSize: 14, lineHeight: 19, fontWeight: "900" },
   hardwareDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
   hardwareFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  matchCard: { gap: 11, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  matchTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  matchHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  matchGrid: { flexDirection: "row", gap: 10 },
+  matchColumn: { flex: 1, gap: 8 },
+  matchLabel: { color: colors.muted, fontSize: 11, lineHeight: 15, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0.4 },
+  dragItem: { borderWidth: 1, borderColor: colors.border, borderRadius: 12, backgroundColor: colors.background, zIndex: 2 },
+  dragItemSelected: { borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  dragPressable: { paddingHorizontal: 10, paddingVertical: 10 },
+  dragItemText: { color: colors.text, fontSize: 13, lineHeight: 18, fontWeight: "800" },
+  dragItemTextSelected: { color: colors.primary },
+  portTarget: { gap: 3, minHeight: 62, padding: 10, borderRadius: 12, borderWidth: 1, borderStyle: "dashed", borderColor: colors.primary, backgroundColor: colors.background },
+  portTargetPressed: { opacity: 0.78, transform: [{ scale: 0.98 }] },
+  portTargetTitle: { color: colors.primary, fontSize: 13, lineHeight: 18, fontWeight: "900" },
+  portTargetHint: { color: colors.text, fontSize: 11, lineHeight: 16 },
+  matchFeedback: { padding: 10, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4, borderColor: colors.success },
+  matchFeedbackText: { color: colors.text, fontSize: 13, lineHeight: 19, fontWeight: "700" },
+  matchReset: { alignSelf: "flex-start", paddingHorizontal: 12, paddingVertical: 9, borderRadius: 10, backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
+  matchResetText: { color: colors.primary, fontSize: 13, lineHeight: 18, fontWeight: "900" },
   list: { gap: 9, paddingVertical: 2 },
   listItem: { flexDirection: "row", gap: 10, alignItems: "flex-start" },
   listMarker: { minWidth: 21, color: colors.primary, fontSize: 15, lineHeight: 24, fontWeight: "900" },

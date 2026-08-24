@@ -39,4 +39,8 @@ describe("parseLessonMarkdown", () => {
       { type: "computer_visual", visual: "workspace" },
     ]);
   });
+
+  it("reconnaît l’activité d’association périphériques-ports", () => {
+    expect(parseLessonMarkdown(":::peripheral-port-match")).toEqual([{ type: "peripheral_port_match" }]);
+  });
 });

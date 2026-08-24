@@ -475,3 +475,8 @@
 - [x] Implémenter un schéma du matériel cliquable sur web et mobile, avec explications accessibles par composant et solution de repli textuelle.
 - [x] Créer trois nouveaux cours approfondis, leurs exercices corrigés et leurs quiz séparés en brouillon, inactifs et non publiés pour A1, A2, C et D.
 - [x] Contrôler l’accessibilité, les visuels, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Définir une activité d’association périphériques-ports avec glisser-déposer, sélection tactile et solution de repli accessible.
+- [x] Auditer le cours Connecter les périphériques, ses évaluations séparées et le lecteur avant d’ajouter l’activité uniquement au brouillon compatible.
+- [x] Implémenter l’activité glisser-déposer dans le lecteur, avec correction explicative, remise à zéro et compatibilité web/mobile.
+- [x] Annoter le cours brouillon concerné sans écraser un contenu publié, en conservant les exercices et quiz séparés des trois cours approfondis.
+- [x] Contrôler l’interaction, l’accessibilité, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.

@@ -52,6 +52,8 @@ export function buildLessonPdfHtml({ title, description, content }: LessonPdfInp
         return "<hr />";
       case "computer_visual":
         return `<aside class="callout example"><h4>Repère visuel dans l’application</h4><p>${block.visual === "hardware_diagram" ? "Le schéma interactif des composants est disponible dans le lecteur de cours." : "Un visuel pédagogique est disponible dans le lecteur de cours."}</p></aside>`;
+      case "peripheral_port_match":
+        return "<aside class=\"callout example\"><h4>Activité interactive dans l’application</h4><p>Associez la souris et la clé USB au port USB, l’écran au port HDMI et le casque à la prise audio. La version glisser-déposer est disponible dans le lecteur de cours.</p></aside>";
       default:
         return "";
     }
