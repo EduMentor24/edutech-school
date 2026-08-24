@@ -504,3 +504,6 @@
 - [x] Créer les séances méthodologiques du Résumé de texte argumentatif avec cours approfondis, exercices corrigés et quiz séparés, tous en brouillon.
 - [x] Ajouter une publication groupée réservée à l’administration pour une leçon à séances, incluant les séances, les exercices et les quiz associés, avec aperçu et confirmation.
 - [x] Vérifier les contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Diagnostiquer pourquoi les leçons Français Terminale à séances affichent uniquement leur titre sans les séances ni le contenu dans le lecteur.
+- [x] Corriger l’affichage des séances et contenus pour l’administrateur, sans activer ni publier les brouillons.
+- [x] Vérifier l’accès au lecteur, les statuts, TypeScript, lint, tests et l’export Android après le correctif.
