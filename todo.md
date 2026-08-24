@@ -546,3 +546,7 @@
 - [x] Ajouter un simulateur de trajectoire interactif à la leçon sur les champs uniformes, avec solution de repli accessible.
 - [x] Intégrer des schémas de forces interactifs aux exercices de mécanique concernés, sans modifier leurs corrections ni les contenus existants hors périmètre.
 - [x] Publier et activer explicitement les contenus validés, puis contrôler les données, TypeScript, lint, tests, export Android et préparer le checkpoint.
+- [x] Auditer en lecture seule le nombre exact de leçons, séances, exercices et quiz d’anglais encore en brouillon.
+- [x] Vérifier les rattachements, la complétude et l’absence de doublon avant toute publication des contenus d’anglais.
+- [x] Publier et activer uniquement les contenus d’anglais validés afin de les rendre visibles aux élèves.
+- [x] Contrôler les statuts publiés, la RLS, les parcours, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
