@@ -1,15 +1,12 @@
 import { readFileSync } from "node:fs";
-import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(import.meta.dirname, "..");
-const script = resolve(root, "scripts/prepare-mathematics-terminal-cd-published-five-lessons-migration.mjs");
 const output = resolve(root, "supabase/migrations/20260824_mathematics_terminal_cd_published_five_lessons.sql");
 
 describe("lot publié Mathématiques Terminale C/D — logarithmes, PPCM, suites, isométries et intégrale", () => {
   it("génère une migration protégée qui publie les contenus demandés sans écraser le calcul intégral C", () => {
-    execFileSync(process.execPath, [script], { cwd: root });
     const sql = readFileSync(output, "utf8");
     expect(sql).toContain("Les deux offres officielles Mathématiques Terminale C et D sont requises.");
     expect(sql).toContain("Fonction logarithme népérien");

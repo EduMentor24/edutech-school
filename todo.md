@@ -528,3 +528,9 @@
 - [x] Préparer les cours approfondis, exercices corrigés et quiz séparés des cinq leçons en respectant les sources PDF.
 - [x] Créer et publier les structures et contenus explicitement demandés, sans écraser de contenu existant.
 - [x] Vérifier les contenus publiés, la RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Lire intégralement les six PDF Physique-Chimie Terminale C/D sur les acides carboxyliques, le savon, le pH et l’acido-basicité.
+- [x] Auditer les structures C/D existantes et rattacher sans doublon les six leçons aux chapitres Chimie organique et Chimie générale.
+- [x] Préparer pour chaque leçon un cours approfondi, deux exercices corrigés et deux quiz distincts, sans mélanger les contenus.
+- [x] Créer seulement les structures nécessaires et publier/activer explicitement les contenus Physique-Chimie demandés.
+- [x] Réconcilier localement la traçabilité et les tests du lot déjà publié après la réinitialisation du sandbox, sans réappliquer les insertions.
+- [x] Exécuter les validations finales à faible consommation mémoire, l’export Android et sauvegarder un checkpoint de livraison.
