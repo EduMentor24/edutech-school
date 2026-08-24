@@ -12,10 +12,10 @@ export type ContentPublicationPreview = {
   willActivateSubject: boolean;
   willPublishOffering: boolean;
   willActivateChapter: boolean;
-  publishable: { lessons: number; exercises: number; quizzes: number };
+  publishable: { lessons: number; sessions: number; exercises: number; quizzes: number };
   skipped: { exercisesWithoutQuestion: number; quizzesWithoutQuestion: number };
   applied: boolean;
-  changed: { lessons: number; exercises: number; quizzes: number };
+  changed: { lessons: number; sessions: number; exercises: number; quizzes: number };
 };
 
 function message(error: unknown) {

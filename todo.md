@@ -499,3 +499,8 @@
 - [x] Ajouter à chaque séance des exercices corrigés et quiz séparés, tous en brouillon, inactifs et non publiés.
 - [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
 - [x] Créer uniquement la leçon Commentaire composé manquante en Français Terminale A2, dans le chapitre Expression écrite existant et au même ordre pédagogique que la leçon 2 A1.
+- [x] Lire intégralement les trois PDF reçus et déterminer lesquels relèvent du chapitre Résumé de texte argumentatif, sans présumer de leur rattachement.
+- [x] Auditer la structure Français Terminale du Résumé de texte argumentatif pour A1, A2, C et D, ainsi que l’absence de doublon et les contenus existants.
+- [x] Créer les séances méthodologiques du Résumé de texte argumentatif avec cours approfondis, exercices corrigés et quiz séparés, tous en brouillon.
+- [x] Ajouter une publication groupée réservée à l’administration pour une leçon à séances, incluant les séances, les exercices et les quiz associés, avec aperçu et confirmation.
+- [x] Vérifier les contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
