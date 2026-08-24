@@ -17,4 +17,11 @@ describe("vocabulaire Reading interactif", () => {
     expect(html).toContain("A slum can grow.");
     expect(html).not.toContain("[[slum|");
   });
+
+  it("accepte les termes techniques français et ne laisse pas les marqueurs dans le PDF", () => {
+    const content = "Une [[variable|repère de valeur|nom associé à une valeur qui peut évoluer pendant un programme]] est utile.";
+    expect(parseLessonInline(content)).toContainEqual({ type: "glossary", term: "variable", translation: "repère de valeur", definition: "nom associé à une valeur qui peut évoluer pendant un programme" });
+    expect(stripLessonGlossary(content)).toBe("Une variable est utile.");
+    expect(buildLessonPdfHtml({ title: "Informatique", content })).not.toContain("[[variable|");
+  });
 });

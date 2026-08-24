@@ -464,3 +464,8 @@
 - [x] Auditer les chapitres, leçons, exercices et quiz Informatique / TICE Terminale A1, A2, C et D afin d’éviter tout doublon ou écrasement.
 - [x] Créer le chapitre Bases de l’informatique, ses trois cours, mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
 - [x] Contrôler les rattachements, la progression pédagogique, les statuts, RLS, TypeScript, lint, tests et l’export Android du chapitre Bases de l’informatique.
+- [x] Définir une progression débutant de maîtrise de l’ordinateur, couvrant matériel, système, applications, fichiers, bonnes pratiques et résolution de problèmes simples.
+- [x] Auditer les cours Informatique existants, leurs statuts et le mécanisme d’infobulles afin d’annoter uniquement les brouillons compatibles sans modifier de contenu publié.
+- [x] Ajouter des infobulles explicatives accessibles aux termes techniques des cours Informatique concernés, notamment variable, boucle, algorithme et pseudo-code.
+- [x] Créer le chapitre Maîtriser son ordinateur, ses leçons, mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés pour A1, A2, C et D.
+- [x] Contrôler les annotations, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.

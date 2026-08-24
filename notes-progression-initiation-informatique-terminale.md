@@ -108,6 +108,35 @@ La migration atomique a ajouté le chapitre **« Bases de l’informatique : rai
 
 L’audit Supabase confirme que les douze leçons et toutes leurs évaluations restent brouillons : aucune anomalie d’activation ou de publication n’est relevée. La RLS est active sur les tables concernées. TypeScript, lint, **283 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.
 
+## Chapitre suivant — Maîtriser son ordinateur
+
+Le prochain chapitre complémentaire, **« Maîtriser son ordinateur : comprendre, utiliser et s’organiser »**, s’adresse à des débutants et reste commun aux séries Terminale A1, A2, C et D. Il ne promet pas de rendre un élève « professionnel » au sens d’une qualification ; il lui donne plutôt des bases pratiques, sûres et réutilisables pour utiliser un ordinateur avec autonomie progressive.
+
+| Leçon proposée | Objectif concret | Mise en situation pédagogique |
+|---|---|---|
+| **1. Découvrir l’ordinateur : matériel, logiciels et système** | Identifier les composants et périphériques, distinguer matériel, logiciel, système d’exploitation, application, mémoire et stockage. | Choisir les éléments nécessaires pour préparer un poste de travail fictif. |
+| **2. Se repérer dans le système et utiliser les applications** | Comprendre bureau, fenêtre, dossier, menu, barre d’outils, application, navigation au clavier et ouverture/fermeture correcte d’un travail. | Réaliser une tâche scolaire fictive en alternant navigateur, traitement de texte et dossier de travail. |
+| **3. Organiser, enregistrer et retrouver ses fichiers** | Créer une arborescence simple, nommer un fichier, enregistrer, distinguer copie/déplacement, repérer un format et effectuer une sauvegarde raisonnable. | Retrouver et corriger l’organisation d’un dossier fictif d’exposé. |
+| **4. Entretenir son poste et résoudre les problèmes simples** | Adopter les gestes fiables : mises à jour officielles, batterie et stockage, connexion, redémarrage raisonné, demande d’aide et limites de l’auto-dépannage. | Suivre une grille de décision devant un ordinateur lent ou une application qui ne répond plus. |
+
+Le cadrage s’appuie sur une conception de la culture numérique qui comprend l’accès, la gestion, la compréhension, l’évaluation et la création d’information de manière sûre et appropriée [10]. La source souligne aussi qu’une maîtrise de base inclut l’usage confiant, sûr et efficace d’un ordinateur, des logiciels bureautiques, du navigateur et de la recherche [10]. Ces repères guident le parcours, sans le présenter comme un programme officiel national.
+
+## Bilan d’intégration — Infobulles et maîtrise de l’ordinateur
+
+Les **douze brouillons** du chapitre « Bases de l’informatique » ont reçu des infobulles pour les notions techniques essentielles, dont algorithme, pseudo-code, donnée, colonne, bit, variable, condition et boucle. Le lecteur affiche désormais un message générique « Vocabulaire interactif » : survol d’un terme sur le web ou appui sur mobile. L’accessibilité expose l’explication au lecteur d’écran ; le PDF conserve uniquement le terme visible, sans syntaxe technique.
+
+| Ressource créée | Par série | Total sur A1, A2, C et D | État contrôlé |
+|---|---:|---:|---|
+| Chapitres | 1 | 4 | Inactifs, non test. |
+| Leçons débutant | 4 | 16 | Inactives, non test ; 3 327 à 4 110 caractères par leçon. |
+| Exercices corrigés | 8 | 32 | Inactifs et non publiés. |
+| Questions d’exercice | 32 | 128 | Situations simples et explications associées. |
+| Quiz | 8 | 32 | Inactifs et non publiés. |
+| Questions de quiz | 32 | 128 | Repères de maîtrise de l’ordinateur. |
+| Réponses de quiz | 96 | 384 | Trois options par question, avec correction. |
+
+L’audit Supabase confirme les quatre séries, les annotations prévues, l’absence de doublon et **zéro anomalie de statut**. La RLS reste active sur toutes les tables concernées. TypeScript, lint, **288 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.
+
 ## Références de conception
 
 [1] [UNESCO-UNEVOC, *Digital Literacy Global Framework*](https://connect.unevoc.unesco.org/home/Digital+Competence+Frameworks/lang=en/id=5) — sept domaines, incluant information et données, communication, création, sécurité, résolution de problèmes et opérations appareils/logiciels.
@@ -127,3 +156,5 @@ L’audit Supabase confirme que les douze leçons et toutes leurs évaluations r
 [8] [CSTA, *PK–12 Computer Science Standards*](https://csteachers.org/pk12standards/) — définition de l’informatique et cinq concepts : algorithmes et conception, programmation, données et analyse, systèmes et sécurité, informatique et société.
 
 [9] [K–12 Computer Science Framework, *Framework Statements by Concept*](https://k12cs.org/framework-statements-by-concept/) — décomposition de problèmes, abstraction, création, test et amélioration de productions informatiques.
+
+[10] [UNESCO-UNEVOC, *Digital literacy*](https://connect.unevoc.unesco.org/home/TVETipedia+Glossary/show=term/term=Digital+literacy) — définitions de la culture numérique, incluant l’usage confiant, sûr et efficace de l’ordinateur, des logiciels, du navigateur et de la recherche.
