@@ -578,3 +578,7 @@
 - [x] Vérifier les rattachements, la complétude pédagogique, les questions, réponses, corrections et l’absence de doublon avant toute publication.
 - [x] Publier et activer uniquement les évaluations Histoire-Géographie A1 et les contenus Informatique complets validés.
 - [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
+- [x] Auditer les leçons, exercices et quiz Physique-Chimie en brouillon pour Terminale C et D, sans modifier les contenus déjà actifs.
+- [x] Vérifier les rattachements, les contenus, les questions, les réponses, les corrections et l’absence de doublon avant publication.
+- [x] Publier et activer uniquement les contenus Physique-Chimie C et D complets validés.
+- [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
