@@ -493,3 +493,9 @@
 - [x] Créer la séance 4 « Rédiger l’introduction et la conclusion » et la séance 5 « Rédiger une partie de développement » avec une méthode approfondie.
 - [x] Ajouter à chaque nouvelle séance des exercices corrigés et quiz séparés, tous inactifs et non publiés.
 - [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Lire intégralement les PDF de Commentaire composé Terminale et consigner fidèlement les notions, étapes, exemples et limites de source des séances 1 à 3.
+- [x] Auditer la structure existante du chapitre Commentaire composé pour déterminer le mécanisme de séances, leur ordre et l’absence de doublon.
+- [x] Créer les séances ordonnées « Analyser la construction et l’organisation », « Rédiger les centres d’intérêt » et « Rédiger un commentaire composé » avec une méthodologie approfondie.
+- [x] Ajouter à chaque séance des exercices corrigés et quiz séparés, tous en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Créer uniquement la leçon Commentaire composé manquante en Français Terminale A2, dans le chapitre Expression écrite existant et au même ordre pédagogique que la leçon 2 A1.
