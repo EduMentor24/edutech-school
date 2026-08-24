@@ -460,3 +460,7 @@
 - [x] Auditer les chapitres, leçons, exercices et quiz Informatique / TICE Terminale A1, A2, C et D pour éviter tout doublon ou écrasement.
 - [x] Créer le chapitre Sécurité numérique, ses trois cours, leurs mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
 - [x] Contrôler les rattachements, la sécurité pédagogique, les statuts, RLS, TypeScript, lint, tests et l’export Android du chapitre Sécurité numérique.
+- [x] Définir trois cours fondamentaux pour des élèves souhaitant poursuivre en informatique : pensée algorithmique, représentation des données et bases de programmation.
+- [x] Auditer les chapitres, leçons, exercices et quiz Informatique / TICE Terminale A1, A2, C et D afin d’éviter tout doublon ou écrasement.
+- [x] Créer le chapitre Bases de l’informatique, ses trois cours, mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, la progression pédagogique, les statuts, RLS, TypeScript, lint, tests et l’export Android du chapitre Bases de l’informatique.

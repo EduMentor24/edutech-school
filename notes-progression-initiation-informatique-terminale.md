@@ -80,6 +80,34 @@ La migration atomique a créé le chapitre **« Sécurité numérique : protége
 
 L’audit Supabase confirme que les douze leçons sont inactives, que tous les compteurs sont complets et qu’aucun chapitre, cours, exercice ou quiz de ce lot n’a été activé ou publié par erreur. La RLS reste active sur les tables concernées. TypeScript, lint, **279 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, ont réussi.
 
+## Chapitre suivant — Bases de l’informatique
+
+Le prochain chapitre complémentaire, **« Bases de l’informatique : raisonner, représenter et programmer »**, prépare les élèves qui souhaitent aller plus loin dans l’étude de l’informatique. Il reste non officiel et commun aux séries Terminale A1, A2, C et D. Les trois cours retenus suivent une progression :
+
+| Leçon proposée | Compétence fondamentale | Mise en situation | Évaluation séparée |
+|---|---|---|---|
+| **1. Penser comme un informaticien : algorithmes et pseudo-code** | Décomposer un problème, définir entrées, traitement et résultat, ordonner des instructions, utiliser une condition et tester un cas simple. | Organiser automatiquement une liste de tâches scolaires fictives à partir de règles explicites. | Exercice de raisonnement, exercice de pseudo-code et deux quiz. |
+| **2. Représenter et comprendre les données** | Distinguer donnée, type, unité, table, codage binaire élémentaire et qualité d’une donnée. | Construire un tableau fictif de résultats de révision et repérer une donnée manquante ou incohérente. | Exercice d’analyse, exercice de représentation et deux quiz. |
+| **3. Premiers programmes : variables, conditions et boucles** | Comprendre une variable, une entrée, une sortie, une condition, une répétition et le débogage de base sans dépendre d’un langage précis. | Concevoir un petit programme fictif qui calcule une moyenne de révision et affiche un conseil adapté. | Exercice de lecture de programme, exercice de correction et deux quiz. |
+
+Les domaines retenus constituent des repères largement utilisés dans l’éducation à l’informatique : algorithmes et conception, programmation, données et analyse, systèmes et sécurité, ainsi que les impacts sociaux de l’informatique [8]. Le cadre K–12 Computer Science souligne également la décomposition, l’abstraction, le test et l’amélioration progressive de solutions [9]. Ces sources guident le parcours mais ne le transforment pas en programme officiel national.
+
+## Bilan d’intégration — Bases de l’informatique
+
+La migration atomique a ajouté le chapitre **« Bases de l’informatique : raisonner, représenter et programmer »** dans les quatre offres Terminale A1, A2, C et D. Elle n’a modifié ni les chapitres précédents ni leurs ressources. Chaque cours est conçu sans dépendre d’un langage ou d’un logiciel particulier et utilise seulement des données scolaires fictives.
+
+| Ressource créée | Par série | Total sur A1, A2, C et D | État contrôlé |
+|---|---:|---:|---|
+| Chapitres | 1 | 4 | Inactifs, non test. |
+| Leçons fondamentales | 3 | 12 | Inactives, non test ; 5 411 à 5 581 caractères par leçon. |
+| Exercices corrigés | 6 | 24 | Inactifs et non publiés. |
+| Questions d’exercice | 24 | 96 | Raisonnement, données et débogage de base. |
+| Quiz | 6 | 24 | Inactifs et non publiés. |
+| Questions de quiz | 24 | 96 | Notions et application de méthode. |
+| Réponses de quiz | 72 | 288 | Trois options par question, avec correction. |
+
+L’audit Supabase confirme que les douze leçons et toutes leurs évaluations restent brouillons : aucune anomalie d’activation ou de publication n’est relevée. La RLS est active sur les tables concernées. TypeScript, lint, **283 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.
+
 ## Références de conception
 
 [1] [UNESCO-UNEVOC, *Digital Literacy Global Framework*](https://connect.unevoc.unesco.org/home/Digital+Competence+Frameworks/lang=en/id=5) — sept domaines, incluant information et données, communication, création, sécurité, résolution de problèmes et opérations appareils/logiciels.
@@ -95,3 +123,7 @@ L’audit Supabase confirme que les douze leçons sont inactives, que tous les c
 [6] [UNICEF, *Keeping children safe online*](https://www.unicef.org/protection/keeping-children-safe-online) — risques de violence entre pairs, de harcèlement et d’atteintes à la vie privée, ainsi que la nécessité de compétences de sécurité en ligne.
 
 [7] [UNICEF, *How to keep your child safe online*](https://www.unicef.org/parenting/child-care/keep-your-child-safe-online) — prudence avant le partage, protection des informations personnelles et recours à un adulte de confiance en cas de malaise ou de peur.
+
+[8] [CSTA, *PK–12 Computer Science Standards*](https://csteachers.org/pk12standards/) — définition de l’informatique et cinq concepts : algorithmes et conception, programmation, données et analyse, systèmes et sécurité, informatique et société.
+
+[9] [K–12 Computer Science Framework, *Framework Statements by Concept*](https://k12cs.org/framework-statements-by-concept/) — décomposition de problèmes, abstraction, création, test et amélioration de productions informatiques.
