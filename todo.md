@@ -480,3 +480,11 @@
 - [x] Implémenter l’activité glisser-déposer dans le lecteur, avec correction explicative, remise à zéro et compatibilité web/mobile.
 - [x] Annoter le cours brouillon concerné sans écraser un contenu publié, en conservant les exercices et quiz séparés des trois cours approfondis.
 - [x] Contrôler l’interaction, l’accessibilité, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Lire intégralement les PDF de Dissertation littéraire Terminale et consigner fidèlement les notions, étapes, exemples et limites de source des séances 1 à 3.
+- [x] Auditer la structure existante de la leçon Dissertation littéraire pour déterminer le mécanisme de séances, leur ordre et l’absence de doublon.
+- [x] Créer les séances ordonnées « Analyser le sujet », « Rechercher les idées » et « Élaborer un plan » avec une méthodologie approfondie.
+- [x] Ajouter à chaque séance des exercices corrigés et quiz séparés, tous en brouillon, inactifs et non publiés.
+- [x] Contrôler les rattachements, les contenus, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Créer le modèle sécurisé de séances rattachées à une leçon, avec RLS et ordre pédagogique, afin de respecter la structure particulière de la dissertation littéraire.
+- [x] Créer uniquement la structure Française Terminale A2 manquante nécessaire à Dissertation littéraire, en reprenant l’ordre pédagogique existant et sans doublon.
+- [x] Adapter le lecteur de cours pour sélectionner et consulter les séances d’une leçon de manière lisible et accessible sur mobile et web.
