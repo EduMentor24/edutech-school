@@ -558,3 +558,8 @@
 - [x] Vérifier les rattachements, la complétude pédagogique et l’absence de doublon avant toute publication.
 - [x] Publier et activer uniquement les contenus de SVT validés afin de les rendre visibles aux élèves.
 - [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
+- [x] Auditer en lecture seule les leçons, séances, exercices et quiz d’Histoire-Géographie encore en brouillon : aucun brouillon publiable n’a été trouvé.
+- [x] Vérifier les rattachements, la complétude pédagogique et l’absence de doublon avant toute publication : aucun contenu Histoire-Géographie ne nécessite de publication.
+- [x] Concevoir des schémas anatomiques et animations biologiques interactifs accessibles pour les leçons de SVT concernées.
+- [x] Confirmer qu’aucun brouillon Histoire-Géographie ne nécessite de publication et intégrer les aides SVT demandées aux sept leçons ciblées.
+- [x] Contrôler les statuts, la RLS, les interactions, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.

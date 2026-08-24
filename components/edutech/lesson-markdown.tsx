@@ -76,6 +76,10 @@ type ChemistryReactionPart = { id: string; label: string; detail: string };
 
 type ForceDiagramKind = "solid" | "satellite" | "projectile" | "oscillator" | "laplace";
 type ForceVector = { id: string; label: string; detail: string; color: string; to: [number, number] };
+type AnatomyDiagramKind = "brain" | "neuron" | "heart";
+type AnatomyPart = { id: string; label: string; detail: string; color: string; point: [number, number] };
+type BiologyAnimationKind = "neural_signal" | "protein_synthesis" | "immune_response";
+type BiologyAnimationStep = { label: string; detail: string; color: string };
 
 const FORCE_DIAGRAMS: Record<ForceDiagramKind, { title: string; description: string; body: string; forces: ForceVector[] }> = {
   solid: { title: "Schéma interactif : solide soumis à des forces", description: "Sélectionnez une force pour relier son sens à son rôle dans le mouvement du centre d’inertie.", body: "Solide", forces: [{ id: "weight", label: "Poids P", detail: "Le poids est l’action gravitationnelle de la Terre sur le solide. Il est vertical et dirigé vers le bas.", color: "#D92D20", to: [110, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction du support s’exerce au contact du solide. Sa direction dépend du support étudié.", color: "#2563EB", to: [110, 36] }, { id: "drive", label: "Force motrice", detail: "Une force motrice peut entraîner le solide dans le sens du déplacement choisi.", color: "#15803D", to: [196, 94] }, { id: "friction", label: "Frottement", detail: "Une force de frottement s’oppose au glissement ou au mouvement relatif sur le support.", color: "#B45309", to: [25, 94] }] },
@@ -83,6 +87,18 @@ const FORCE_DIAGRAMS: Record<ForceDiagramKind, { title: string; description: str
   projectile: { title: "Schéma interactif : projectile sans frottement", description: "Le modèle utilisé dans le cours néglige la résistance de l’air : le projectile est alors soumis à son poids.", body: "Projectile", forces: [{ id: "weight", label: "Poids P", detail: "Le poids est orienté verticalement vers le bas et produit l’accélération \(\vec g\) du projectile.", color: "#D92D20", to: [125, 154] }] },
   oscillator: { title: "Schéma interactif : masse-ressort", description: "La force de rappel du ressort est dirigée vers la position d’équilibre. Touchez les étiquettes pour distinguer les forces du modèle.", body: "Masse", forces: [{ id: "spring", label: "Force de rappel", detail: "La force du ressort est opposée à l’élongation. Elle ramène la masse vers la position d’équilibre.", color: "#15803D", to: [38, 94] }, { id: "weight", label: "Poids P", detail: "Le poids agit verticalement vers le bas ; il est compensé par la réaction dans le modèle horizontal.", color: "#D92D20", to: [118, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction du support équilibre l’action verticale du poids dans le modèle de pendule élastique horizontal.", color: "#2563EB", to: [118, 34] }] },
   laplace: { title: "Schéma interactif : tige de Laplace", description: "La tige est soumise à son poids, à la réaction du support et à la force de Laplace lorsque courant et champ magnétique sont présents.", body: "Tige", forces: [{ id: "laplace", label: "Force de Laplace F", detail: "La force de Laplace est perpendiculaire au plan défini par le conducteur et le champ. Son sens dépend du courant et de \(\vec B\).", color: "#7C3AED", to: [198, 90] }, { id: "weight", label: "Poids P", detail: "Le poids de la tige est vertical et dirigé vers le bas.", color: "#D92D20", to: [110, 152] }, { id: "reaction", label: "Réaction R", detail: "La réaction est l’action du support ou de l’axe de rotation sur la tige.", color: "#2563EB", to: [110, 34] }] },
+};
+
+const ANATOMY_DIAGRAMS: Record<AnatomyDiagramKind, { title: string; description: string; parts: AnatomyPart[] }> = {
+  brain: { title: "Schéma anatomique interactif : cerveau", description: "Touchez une étiquette pour relier une zone du schéma à son rôle dans l’activité cérébrale étudiée.", parts: [{ id: "cortex", label: "Cortex cérébral", detail: "La couche externe du cerveau participe notamment au traitement d’informations et à des activités conscientes évoquées dans le cours.", color: "#7C3AED", point: [104, 53] }, { id: "cerebellum", label: "Cervelet", detail: "Cette zone située vers l’arrière contribue à la coordination des mouvements dans une présentation simplifiée.", color: "#2563EB", point: [152, 120] }, { id: "brainstem", label: "Tronc cérébral", detail: "Il relie l’encéphale à la moelle épinière et appartient aux voies de communication nerveuse.", color: "#15803D", point: [111, 140] }] },
+  neuron: { title: "Schéma anatomique interactif : neurone", description: "Le neurone est représenté de façon simplifiée. Touchez les éléments pour suivre le trajet d’une information nerveuse.", parts: [{ id: "dendrites", label: "Dendrites", detail: "Les dendrites reçoivent des informations provenant d’autres cellules dans le modèle étudié.", color: "#7C3AED", point: [46, 90] }, { id: "body", label: "Corps cellulaire", detail: "Le corps cellulaire contient le noyau et participe à l’intégration des signaux reçus.", color: "#D92D20", point: [90, 90] }, { id: "axon", label: "Axone", detail: "L’axone conduit le message nerveux du corps cellulaire vers ses terminaisons.", color: "#2563EB", point: [152, 90] }, { id: "synapse", label: "Terminaisons synaptiques", detail: "Ces extrémités permettent la communication avec une autre cellule au niveau d’une synapse.", color: "#15803D", point: [194, 90] }] },
+  heart: { title: "Schéma anatomique interactif : cœur", description: "Ce repère simplifié aide à situer les cavités et les grands vaisseaux utiles pour comprendre le fonctionnement du cœur.", parts: [{ id: "atria", label: "Oreillettes", detail: "Les oreillettes reçoivent le sang avant son passage vers les ventricules dans le modèle simplifié.", color: "#7C3AED", point: [87, 64] }, { id: "ventricles", label: "Ventricules", detail: "Les ventricules éjectent le sang hors du cœur ; leur contraction intervient dans le cycle cardiaque.", color: "#D92D20", point: [112, 119] }, { id: "vessels", label: "Grands vaisseaux", detail: "Les grands vaisseaux assurent les entrées et sorties de sang associées à la circulation présentée par le cours.", color: "#2563EB", point: [141, 43] }] },
+};
+
+const BIOLOGY_ANIMATIONS: Record<BiologyAnimationKind, { title: string; description: string; steps: BiologyAnimationStep[] }> = {
+  neural_signal: { title: "Animation pédagogique : trajet d’un message nerveux", description: "L’animation montre une succession simplifiée d’étapes. Elle ne remplace pas l’étude détaillée du mécanisme électrique et chimique.", steps: [{ label: "Réception", detail: "Une cellule nerveuse reçoit une information par ses zones de contact.", color: "#7C3AED" }, { label: "Conduction", detail: "Le message se propage le long de l’axone dans le modèle présenté.", color: "#2563EB" }, { label: "Transmission", detail: "La terminaison nerveuse communique ensuite l’information à une autre cellule au niveau d’une synapse.", color: "#15803D" }] },
+  protein_synthesis: { title: "Animation pédagogique : biosynthèse des protéines", description: "La séquence visualise le passage de l’information génétique à une protéine, dans un modèle volontairement simplifié.", steps: [{ label: "Information", detail: "L’ADN porte l’information utilisée par la cellule dans le cadre du cours.", color: "#7C3AED" }, { label: "ARN messager", detail: "Un ARN messager transporte une copie utilisable de cette information vers le lieu de synthèse.", color: "#2563EB" }, { label: "Assemblage", detail: "Le ribosome assemble des acides aminés selon l’information lue pour former une protéine.", color: "#15803D" }] },
+  immune_response: { title: "Animation pédagogique : réponse de défense", description: "Cette animation présente un déroulement simplifié de la défense de l’organisme face à un agent infectieux.", steps: [{ label: "Détection", detail: "L’organisme reconnaît un élément étranger ou une situation d’infection dans le modèle étudié.", color: "#D92D20" }, { label: "Mobilisation", detail: "Des cellules et molécules de défense interviennent dans la réponse de l’organisme.", color: "#F59E0B" }, { label: "Élimination", detail: "La réponse contribue à limiter ou éliminer l’agent infectieux selon le cas étudié.", color: "#15803D" }] },
 };
 
 function VectorArrow({ to, color, label }: { to: [number, number]; color: string; label: string }) {
@@ -140,6 +156,30 @@ function TrajectorySimulator({ styles }: { styles: ReturnType<typeof createStyle
     </View>
     <Text style={styles.trajectoryFallback}>Repère de lecture : les calculs utilisent g = 10 m·s⁻², une hauteur de départ nulle et une arrivée à la même hauteur.</Text>
   </View>;
+}
+
+function AnatomyIllustration({ diagram, selected }: { diagram: AnatomyDiagramKind; selected: AnatomyPart }) {
+  const marker = (part: AnatomyPart) => <Circle key={part.id} cx={part.point[0]} cy={part.point[1]} r={selected.id === part.id ? 8 : 5} fill={part.color} stroke="#FFFFFF" strokeWidth="2" />;
+  if (diagram === "brain") return <Svg width="100%" height={185} viewBox="0 0 220 180" accessibilityLabel="Représentation simplifiée du cerveau"><Path d="M43 104 C17 94 22 53 53 43 C68 22 105 20 125 38 C159 31 188 53 180 85 C187 112 162 138 132 132 C111 151 75 143 68 121 C56 121 47 115 43 104 Z" fill="#FBCFE8" stroke="#BE185D" strokeWidth="3" /><Line x1="109" y1="39" x2="111" y2="132" stroke="#BE185D" strokeWidth="2" opacity="0.55" /><Path d="M131 112 C152 104 164 113 161 130 C149 143 131 137 127 123 Z" fill="#BFDBFE" stroke="#2563EB" strokeWidth="2" />{ANATOMY_DIAGRAMS.brain.parts.map(marker)}</Svg>;
+  if (diagram === "neuron") return <Svg width="100%" height={185} viewBox="0 0 220 180" accessibilityLabel="Représentation simplifiée d’un neurone"><Path d="M20 90 L56 60 M20 90 L56 76 M20 90 L56 104 M20 90 L56 122" stroke="#7C3AED" strokeWidth="3" /><Circle cx="90" cy="90" r="24" fill="#FDE68A" stroke="#B45309" strokeWidth="3" /><Circle cx="90" cy="90" r="8" fill="#7C3AED" /><Line x1="114" y1="90" x2="183" y2="90" stroke="#2563EB" strokeWidth="7" strokeLinecap="round" /><Line x1="183" y1="90" x2="204" y2="63" stroke="#15803D" strokeWidth="3" /><Line x1="183" y1="90" x2="208" y2="89" stroke="#15803D" strokeWidth="3" /><Line x1="183" y1="90" x2="204" y2="116" stroke="#15803D" strokeWidth="3" />{ANATOMY_DIAGRAMS.neuron.parts.map(marker)}</Svg>;
+  return <Svg width="100%" height={185} viewBox="0 0 220 180" accessibilityLabel="Représentation simplifiée du cœur"><Path d="M111 148 C85 127 54 103 54 75 C54 52 84 42 104 61 C120 40 154 50 158 75 C163 104 134 128 111 148 Z" fill="#FB7185" stroke="#BE123C" strokeWidth="3" /><Path d="M111 63 L111 143" stroke="#BE123C" strokeWidth="2" opacity="0.65" /><Path d="M129 47 L145 23" stroke="#2563EB" strokeWidth="8" strokeLinecap="round" /><Path d="M92 54 L77 31" stroke="#2563EB" strokeWidth="8" strokeLinecap="round" />{ANATOMY_DIAGRAMS.heart.parts.map(marker)}</Svg>;
+}
+
+function AnatomyDiagram({ diagram, styles }: { diagram: AnatomyDiagramKind; styles: ReturnType<typeof createStyles> }) {
+  const schema = ANATOMY_DIAGRAMS[diagram];
+  const [selected, setSelected] = useState<AnatomyPart>(schema.parts[0]);
+  return <View style={styles.anatomyCard} accessibilityLabel={schema.title}><Text style={styles.anatomyTitle}>{schema.title}</Text><Text style={styles.anatomyHint}>{schema.description}</Text><View style={styles.anatomyCanvas}><AnatomyIllustration diagram={diagram} selected={selected} /></View><View style={styles.anatomyChoices}>{schema.parts.map((part) => <Pressable key={part.id} accessibilityRole="button" accessibilityState={{ selected: selected.id === part.id }} accessibilityLabel={`${part.label}. ${part.detail}`} onPress={() => setSelected(part)} style={({ pressed }) => [styles.anatomyChoice, selected.id === part.id && { borderColor: part.color, backgroundColor: `${part.color}15` }, pressed && styles.anatomyChoicePressed]}><View style={[styles.anatomyDot, { backgroundColor: part.color }]} /><Text style={styles.anatomyChoiceText}>{part.label}</Text></Pressable>)}</View><View style={[styles.anatomyDetail, { borderColor: selected.color }]} accessibilityLiveRegion="polite"><Text style={[styles.anatomyDetailTitle, { color: selected.color }]}>{selected.label}</Text><Text style={styles.anatomyDetailText}>{selected.detail}</Text></View><Text style={styles.anatomyFallback}>Repère de lecture : chaque élément est aussi expliqué par du texte ; le schéma sert d’aide à la localisation et non de modèle à l’échelle.</Text></View>;
+}
+
+function BiologyAnimation({ animation, styles }: { animation: BiologyAnimationKind; styles: ReturnType<typeof createStyles> }) {
+  const schema = BIOLOGY_ANIMATIONS[animation];
+  const [selectedStep, setSelectedStep] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const progress = useRef(new Animated.Value(0)).current;
+  const translation = progress.interpolate({ inputRange: [0, 1], outputRange: [0, 172] });
+  const play = () => { progress.stopAnimation(); progress.setValue(0); setPlaying(true); Animated.timing(progress, { toValue: 1, duration: 1600, useNativeDriver: true }).start(({ finished }) => { setPlaying(false); if (finished) setSelectedStep(schema.steps.length - 1); }); };
+  const selected = schema.steps[selectedStep];
+  return <View style={styles.animationCard} accessibilityLabel={schema.title}><Text style={styles.animationTitle}>{schema.title}</Text><Text style={styles.animationHint}>{schema.description}</Text><View style={styles.animationTimeline} accessibilityLabel={`Étapes : ${schema.steps.map((step) => step.label).join(', ')}`}><View style={styles.animationTrack} />{schema.steps.map((step, index) => <View key={step.label} style={[styles.animationStage, { left: index * 86 }]}><View style={[styles.animationStageDot, { backgroundColor: step.color }]} /><Text style={styles.animationStageText}>{step.label}</Text></View>)}<Animated.View style={[styles.animationPulse, { transform: [{ translateX: translation }] }]} /></View><View style={styles.animationControls}><Pressable accessibilityRole="button" accessibilityLabel={playing ? "Animation en cours" : "Lancer l’animation"} disabled={playing} onPress={play} style={({ pressed }) => [styles.animationButton, playing && styles.animationButtonDisabled, pressed && styles.animationButtonPressed]}><Text style={styles.animationButtonText}>{playing ? "Lecture…" : "Lancer"}</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel="Revenir à la première étape" onPress={() => { progress.stopAnimation(); progress.setValue(0); setPlaying(false); setSelectedStep(0); }} style={({ pressed }) => [styles.animationReset, pressed && styles.animationButtonPressed]}><Text style={styles.animationResetText}>Recommencer</Text></Pressable></View><View style={styles.animationChoices}>{schema.steps.map((step, index) => <Pressable key={step.label} accessibilityRole="button" accessibilityState={{ selected: selectedStep === index }} accessibilityLabel={`${step.label}. ${step.detail}`} onPress={() => setSelectedStep(index)} style={({ pressed }) => [styles.animationChoice, selectedStep === index && { borderColor: step.color, backgroundColor: `${step.color}15` }, pressed && styles.animationChoicePressed]}><Text style={styles.animationChoiceText}>{index + 1}. {step.label}</Text></Pressable>)}</View><View style={[styles.animationDetail, { borderColor: selected.color }]} accessibilityLiveRegion="polite"><Text style={[styles.animationDetailTitle, { color: selected.color }]}>{selected.label}</Text><Text style={styles.animationDetailText}>{selected.detail}</Text></View><Text style={styles.animationFallback}>Repère de lecture : utilisez les étapes numérotées pour étudier la séquence même si l’animation n’est pas lancée.</Text></View>;
 }
 
 function ChemistryReactionDiagram({ reaction, styles }: { reaction: ChemistryReactionKind; styles: ReturnType<typeof createStyles> }) {
@@ -221,6 +261,8 @@ export function LessonMarkdown({ content }: { content: string }) {
     if (block.type === "chemistry_reaction") return <ChemistryReactionDiagram key={key} reaction={block.reaction} styles={styles} />;
     if (block.type === "trajectory_simulator") return <TrajectorySimulator key={key} styles={styles} />;
     if (block.type === "force_diagram") return <ForceDiagram key={key} diagram={block.diagram} styles={styles} />;
+    if (block.type === "anatomy_diagram") return <AnatomyDiagram key={key} diagram={block.diagram} styles={styles} />;
+    if (block.type === "biology_animation") return <BiologyAnimation key={key} animation={block.animation} styles={styles} />;
     if (block.type === "unordered" || block.type === "ordered") return <View key={key} style={styles.list}>{block.items.map((item, itemIndex) => <View key={`${key}-item-${itemIndex}`} style={styles.listItem}><Text style={styles.listMarker}>{block.type === "ordered" ? `${itemIndex + 1}.` : "•"}</Text><InlineText value={item} style={styles.listText} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>;
     const table = block as TableBlock;
     return <View key={key} style={styles.tableCard}>{table.rows.map((row, rowIndex) => <View key={`${key}-row-${rowIndex}`} style={styles.tableRow}>{row.map((cell, cellIndex) => <View key={`${key}-cell-${rowIndex}-${cellIndex}`} style={styles.tableCell}><Text style={styles.tableLabel}>{table.headers[cellIndex] ?? `Élément ${cellIndex + 1}`}</Text><InlineText value={cell} style={styles.tableValue} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>)}</View>;
@@ -316,6 +358,43 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => Style
   trajectoryResultTitle: { color: colors.success, fontSize: 14, lineHeight: 19, fontWeight: "900" },
   trajectoryResultText: { color: colors.text, fontSize: 13, lineHeight: 19 },
   trajectoryFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  anatomyCard: { gap: 10, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  anatomyTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  anatomyHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  anatomyCanvas: { height: 185, borderRadius: 14, overflow: "hidden", backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
+  anatomyChoices: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  anatomyChoice: { flexDirection: "row", alignItems: "center", gap: 7, borderRadius: 999, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, paddingHorizontal: 10, paddingVertical: 8 },
+  anatomyChoicePressed: { opacity: 0.76, transform: [{ scale: 0.98 }] },
+  anatomyDot: { width: 9, height: 9, borderRadius: 5 },
+  anatomyChoiceText: { color: colors.text, fontSize: 12, lineHeight: 16, fontWeight: "800" },
+  anatomyDetail: { gap: 3, padding: 11, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4 },
+  anatomyDetailTitle: { fontSize: 14, lineHeight: 19, fontWeight: "900" },
+  anatomyDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  anatomyFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  animationCard: { gap: 10, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.success, backgroundColor: colors.surfaceMuted },
+  animationTitle: { color: colors.success, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  animationHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  animationTimeline: { height: 70, position: "relative", overflow: "hidden", borderRadius: 14, backgroundColor: colors.background, borderWidth: 1, borderColor: colors.border },
+  animationTrack: { position: "absolute", left: 17, right: 17, top: 25, height: 4, borderRadius: 3, backgroundColor: colors.border },
+  animationStage: { position: "absolute", top: 13, width: 74, alignItems: "center", gap: 4 },
+  animationStageDot: { width: 18, height: 18, borderRadius: 10, borderWidth: 2, borderColor: colors.background },
+  animationStageText: { color: colors.text, fontSize: 10, lineHeight: 14, textAlign: "center", fontWeight: "800" },
+  animationPulse: { position: "absolute", top: 18, left: 17, width: 13, height: 13, borderRadius: 8, backgroundColor: colors.primary, borderWidth: 2, borderColor: colors.background },
+  animationControls: { flexDirection: "row", gap: 9 },
+  animationButton: { flex: 1, minHeight: 38, alignItems: "center", justifyContent: "center", borderRadius: 10, backgroundColor: colors.success },
+  animationButtonDisabled: { opacity: 0.64 },
+  animationButtonPressed: { opacity: 0.76, transform: [{ scale: 0.98 }] },
+  animationButtonText: { color: colors.background, fontSize: 13, lineHeight: 18, fontWeight: "900" },
+  animationReset: { minHeight: 38, alignItems: "center", justifyContent: "center", borderRadius: 10, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, paddingHorizontal: 12 },
+  animationResetText: { color: colors.primary, fontSize: 13, lineHeight: 18, fontWeight: "900" },
+  animationChoices: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  animationChoice: { borderWidth: 1, borderColor: colors.border, borderRadius: 999, backgroundColor: colors.background, paddingHorizontal: 10, paddingVertical: 8 },
+  animationChoicePressed: { opacity: 0.76, transform: [{ scale: 0.98 }] },
+  animationChoiceText: { color: colors.text, fontSize: 12, lineHeight: 16, fontWeight: "800" },
+  animationDetail: { gap: 3, padding: 11, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4 },
+  animationDetailTitle: { fontSize: 14, lineHeight: 19, fontWeight: "900" },
+  animationDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  animationFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
   matchCard: { gap: 11, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
   matchTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
   matchHint: { color: colors.text, fontSize: 13, lineHeight: 20 },

@@ -10,11 +10,13 @@ export type PeripheralPortMatchBlock = { type: "peripheral_port_match" };
 export type ChemistryReactionBlock = { type: "chemistry_reaction"; reaction: "carboxylic" | "soap" | "acid_base" };
 export type TrajectorySimulatorBlock = { type: "trajectory_simulator" };
 export type ForceDiagramBlock = { type: "force_diagram"; diagram: "solid" | "satellite" | "projectile" | "oscillator" | "laplace" };
+export type AnatomyDiagramBlock = { type: "anatomy_diagram"; diagram: "brain" | "neuron" | "heart" };
+export type BiologyAnimationBlock = { type: "biology_animation"; animation: "neural_signal" | "protein_synthesis" | "immune_response" };
 
 export type LessonGlossaryTerm = { type: "glossary"; term: string; translation: string; definition: string };
 export type LessonInlineToken = { type: "text"; value: string } | { type: "bold"; value: string } | LessonGlossaryTerm;
 
-export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock | PeripheralPortMatchBlock | ChemistryReactionBlock | TrajectorySimulatorBlock | ForceDiagramBlock;
+export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock | PeripheralPortMatchBlock | ChemistryReactionBlock | TrajectorySimulatorBlock | ForceDiagramBlock | AnatomyDiagramBlock | BiologyAnimationBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
 const isHeading = (line: string) => /^(#{2,3})\s+/.test(line);
@@ -43,6 +45,18 @@ const forceDiagram = (line: string): ForceDiagramBlock["diagram"] | null => {
   if (/^:::force-diagram-projectile\s*$/.test(line)) return "projectile";
   if (/^:::force-diagram-oscillator\s*$/.test(line)) return "oscillator";
   if (/^:::force-diagram-laplace\s*$/.test(line)) return "laplace";
+  return null;
+};
+const anatomyDiagram = (line: string): AnatomyDiagramBlock["diagram"] | null => {
+  if (/^:::anatomy-diagram-brain\s*$/.test(line)) return "brain";
+  if (/^:::anatomy-diagram-neuron\s*$/.test(line)) return "neuron";
+  if (/^:::anatomy-diagram-heart\s*$/.test(line)) return "heart";
+  return null;
+};
+const biologyAnimation = (line: string): BiologyAnimationBlock["animation"] | null => {
+  if (/^:::biology-animation-neural-signal\s*$/.test(line)) return "neural_signal";
+  if (/^:::biology-animation-protein-synthesis\s*$/.test(line)) return "protein_synthesis";
+  if (/^:::biology-animation-immune-response\s*$/.test(line)) return "immune_response";
   return null;
 };
 
@@ -99,6 +113,10 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     if (isTrajectorySimulator(trimmed)) { blocks.push({ type: "trajectory_simulator" }); index += 1; continue; }
     const diagram = forceDiagram(trimmed);
     if (diagram) { blocks.push({ type: "force_diagram", diagram }); index += 1; continue; }
+    const anatomy = anatomyDiagram(trimmed);
+    if (anatomy) { blocks.push({ type: "anatomy_diagram", diagram: anatomy }); index += 1; continue; }
+    const animation = biologyAnimation(trimmed);
+    if (animation) { blocks.push({ type: "biology_animation", animation }); index += 1; continue; }
 
     if (isFormulaFence(trimmed)) {
       const formulaLines: string[] = [];
@@ -154,7 +172,7 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const paragraphLines: string[] = [];
     while (index < lines.length) {
       const candidate = lines[index].trim();
-      if (!candidate || isRule(candidate) || computerVisual(candidate) || isPeripheralPortMatch(candidate) || chemistryReaction(candidate) || isTrajectorySimulator(candidate) || forceDiagram(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
+      if (!candidate || isRule(candidate) || computerVisual(candidate) || isPeripheralPortMatch(candidate) || chemistryReaction(candidate) || isTrajectorySimulator(candidate) || forceDiagram(candidate) || anatomyDiagram(candidate) || biologyAnimation(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
       paragraphLines.push(candidate);
       index += 1;
     }

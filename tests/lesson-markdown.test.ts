@@ -43,4 +43,20 @@ describe("parseLessonMarkdown", () => {
   it("reconnaît l’activité d’association périphériques-ports", () => {
     expect(parseLessonMarkdown(":::peripheral-port-match")).toEqual([{ type: "peripheral_port_match" }]);
   });
+
+  it("reconnaît les schémas anatomiques interactifs de SVT", () => {
+    expect(parseLessonMarkdown(":::anatomy-diagram-brain\n\n:::anatomy-diagram-neuron\n\n:::anatomy-diagram-heart")).toEqual([
+      { type: "anatomy_diagram", diagram: "brain" },
+      { type: "anatomy_diagram", diagram: "neuron" },
+      { type: "anatomy_diagram", diagram: "heart" },
+    ]);
+  });
+
+  it("reconnaît les animations biologiques sans les confondre avec des paragraphes", () => {
+    expect(parseLessonMarkdown(":::biology-animation-neural-signal\n\n:::biology-animation-protein-synthesis\n\n:::biology-animation-immune-response")).toEqual([
+      { type: "biology_animation", animation: "neural_signal" },
+      { type: "biology_animation", animation: "protein_synthesis" },
+      { type: "biology_animation", animation: "immune_response" },
+    ]);
+  });
 });
