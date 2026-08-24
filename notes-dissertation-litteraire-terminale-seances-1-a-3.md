@@ -340,3 +340,28 @@ Les trois PDF ont été intégralement analysés puis intégrés comme **séance
 L’audit direct confirme, dans chaque série, les séances **Analyser le sujet**, **Rechercher les idées** et **Élaborer un plan** dans l’ordre requis. Il relève zéro séance active, zéro exercice publié et zéro quiz publié. La RLS est active sur `lesson_sessions` avec deux politiques : lecture selon les droits effectifs du parent pour l’élève et gestion réservée à l’administrateur. La première application de migration s’est arrêtée avant écriture, car elle cherchait à tort un chapitre « Expression écrite » dans C-D ; le générateur a été corrigé pour retrouver d’abord la leçon existante dans la progression C-D, puis l’application atomique a réussi.
 
 Les validations finales ont réussi : TypeScript, lint, **299 tests réussis et 1 ignoré**, puis export Android `Exported: dist`.
+
+## Analyse source — Séances 4 et 5 à intégrer
+
+L’utilisateur a confirmé l’ordre pédagogique : le PDF `Tle_EE_Dissert_litt_S4_Rédiger_Intro_et_concl.PDF` devient la **séance 4**, consacrée à la rédaction de l’introduction et de la conclusion ; le PDF `Tle_EE_Dissert_litt_S4_Rédiger_une_partie_dvpt.PDF` devient la **séance 5**, consacrée à la rédaction d’une partie du développement. Le premier PDF comporte huit pages ; les pages 1 à 5 ont été examinées à ce stade et les pages 6 à 8 restent à lire avant toute production.
+
+La séance 4 source présente l’introduction comme un seul paragraphe en quatre moments : perspective générale liée au thème ou constat pertinent, annonce du sujet, problématique et annonce du plan. Elle présente la conclusion comme un seul paragraphe comprenant bilan, opinion personnelle ou dépassement des thèses, puis ouverture. Les exemples exploités concernent notamment le rôle de l’écrivain, l’inspiration poétique, puis une dissertation sur la création littéraire ; ils seront reformulés et clairement identifiés comme modèles guidés, sans les faire passer pour des réponses uniques.
+
+La séance 5 source présente le paragraphe argumentatif selon la progression suivante : présentation de l’idée directrice, explication ou démonstration, insertion et explication d’illustrations, phrase conclusive annonçant l’argument suivant. Elle précise qu’une transition est nécessaire entre deux grandes parties et qu’elle résume l’idée précédente en annonçant la suivante. Les exemples de méthode proviennent du sujet Le Clézio et de l’inspiration poétique ; ils doivent rester liés à leur idée directrice, aux œuvres citées dans le support et à l’explication de leur pertinence.
+
+La lecture complète de la séance 4 confirme aussi un approfondissement sur le roman fécond ou stérile pour le lecteur. Le support présente une thèse, un dépassement de thèse et une conclusion organisée par bilan, jugement personnel et ouverture. Les dernières pages proposent cinq sujets d’entraînement de type BAC. Les sujets et les œuvres citées servent de matériaux méthodologiques ; le contenu EduTech les reformulera et les utilisera pour des activités guidées, sans présenter une production modèle comme la seule réponse possible. La page 8 est vide.
+
+## Bilan d’intégration — Séances 4 et 5
+
+Les deux PDF ont été intégrés à la suite des séances existantes, sans modifier les séances 1 à 3. La séance 4 porte sur l’introduction et la conclusion : perspective générale, annonce du sujet, problématique, annonce du plan, bilan, dépassement et ouverture. La séance 5 porte sur le paragraphe argumentatif : idée directrice, démonstration, illustration expliquée, phrase conclusive et transition. Les exemples issus des supports sont reformulés comme modèles guidés et non comme des réponses à recopier.
+
+| Ressource ajoutée | Par série | Total A1, A2, C, D | État contrôlé |
+|---|---:|---:|---|
+| Séances approfondies | 2 | 8 | Ordres 40 et 50 ; 9 459 caractères par série ; toutes inactives. |
+| Exercices corrigés | 4 | 16 | Deux par séance, inactifs et non publiés. |
+| Questions d’exercice | 16 | 64 | Rattachées aux méthodes d’introduction, conclusion et développement. |
+| Quiz | 4 | 16 | Deux par séance, inactifs et non publiés. |
+| Questions de quiz | 16 | 64 | Trois réponses par question. |
+| Réponses de quiz | 48 | 192 | Corrections explicatives rattachées. |
+
+L’audit Supabase confirme, dans les quatre séries, les titres, ordres, longueurs et statuts attendus : aucune séance, aucun exercice et aucun quiz du lot n’est actif ou publié. La RLS de `lesson_sessions` demeure active avec ses deux politiques contrôlées. TypeScript, lint, **302 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.

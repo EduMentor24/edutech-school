@@ -488,3 +488,8 @@
 - [x] Créer le modèle sécurisé de séances rattachées à une leçon, avec RLS et ordre pédagogique, afin de respecter la structure particulière de la dissertation littéraire.
 - [x] Créer uniquement la structure Française Terminale A2 manquante nécessaire à Dissertation littéraire, en reprenant l’ordre pédagogique existant et sans doublon.
 - [x] Adapter le lecteur de cours pour sélectionner et consulter les séances d’une leçon de manière lisible et accessible sur mobile et web.
+- [x] Lire intégralement les PDF de Dissertation littéraire Terminale des séances 4 et 5 et consigner fidèlement leurs étapes, exemples et limites de source.
+- [x] Auditer les séances Dissertation existantes pour confirmer les ordres 40 et 50, l’absence de doublon et les rattachements A1, A2, C et D.
+- [x] Créer la séance 4 « Rédiger l’introduction et la conclusion » et la séance 5 « Rédiger une partie de développement » avec une méthode approfondie.
+- [x] Ajouter à chaque nouvelle séance des exercices corrigés et quiz séparés, tous inactifs et non publiés.
+- [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
