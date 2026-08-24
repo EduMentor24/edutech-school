@@ -511,3 +511,8 @@
 - [x] Auditer les séances Résumé de texte existantes pour confirmer les ordres 40, 50 et 60 disponibles dans les quatre séries Terminale.
 - [x] Créer les séances 4 à 6 avec des explications méthodologiques approfondies, exercices corrigés et quiz séparés, tous en brouillon.
 - [x] Contrôler les rattachements, contenus, statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Vérifier en lecture seule si les leçons Physique-Chimie Terminale C et D possèdent la même structure et les mêmes titres.
+- [x] Lire intégralement les trois PDF de chimie et consigner leurs notions, méthodes, formules, exemples et limites de source.
+- [x] Auditer les leçons communes ou manquantes de chimie organique Terminale C/D afin de définir le rattachement sans doublon.
+- [x] Créer les cours, exercices corrigés et quiz communs C/D sur les alcools, composés carbonylés et amines, tous en brouillon.
+- [x] Vérifier rattachements, contenus, statuts, RLS, TypeScript, lint, tests et export Android avant livraison.
