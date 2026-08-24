@@ -1,0 +1,70 @@
+-- Publie les exercices et quiz complets en brouillon de Philosophie, Mathématiques et Français, sans modifier les leçons.
+do $publish_terminal_core_subject_evaluations_do$
+declare
+  exercise_count integer;
+  quiz_count integer;
+begin
+  select count(*) into exercise_count
+  from public.exercises exercise
+  join public.lessons lesson on lesson.id=exercise.lesson_id
+  join public.chapters chapter on chapter.id=lesson.chapter_id
+  join public.course_subject_offerings offering on offering.id=chapter.subject_offering_id
+  join public.subjects subject on subject.id=offering.subject_id
+  join public.levels level on level.id=offering.level_id
+  join public.series ser on ser.id=offering.series_id
+  where level.name='Terminale'
+    and ser.name in ('A1','A2','C','D')
+    and subject.name in ('Philosophie','Mathématiques','Français')
+    and lesson.is_active
+    and not lesson.is_test_data
+    and (coalesce(lesson.content,'') <> '' or exists(select 1 from public.lesson_sessions session where session.lesson_id=lesson.id and coalesce(session.content,'') <> ''))
+    and (not exercise.is_published or not exercise.is_active)
+    and not exercise.is_test_data
+    and exists(select 1 from public.exercise_questions question where question.exercise_id=exercise.id);
+
+  select count(*) into quiz_count
+  from public.quizzes quiz
+  join public.lessons lesson on lesson.id=quiz.lesson_id
+  join public.chapters chapter on chapter.id=lesson.chapter_id
+  join public.course_subject_offerings offering on offering.id=chapter.subject_offering_id
+  join public.subjects subject on subject.id=offering.subject_id
+  join public.levels level on level.id=offering.level_id
+  join public.series ser on ser.id=offering.series_id
+  where level.name='Terminale'
+    and ser.name in ('A1','A2','C','D')
+    and subject.name in ('Philosophie','Mathématiques','Français')
+    and lesson.is_active
+    and not lesson.is_test_data
+    and (coalesce(lesson.content,'') <> '' or exists(select 1 from public.lesson_sessions session where session.lesson_id=lesson.id and coalesce(session.content,'') <> ''))
+    and (not quiz.is_published or not quiz.is_active)
+    and not quiz.is_test_data
+    and exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id)
+    and not exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id and not exists(select 1 from public.quiz_answers response where response.question_id=question.id))
+    and not exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id and not exists(select 1 from public.quiz_answers response where response.question_id=question.id and response.is_correct));
+
+  if exercise_count <> 205 or quiz_count <> 179 then
+    raise exception 'Publication des évaluations refusée : attendues 205 exercices et 179 quiz, trouvés % et %.', exercise_count, quiz_count;
+  end if;
+
+  update public.exercises exercise
+  set is_published=true,is_active=true,is_test_data=false
+  from public.lessons lesson, public.chapters chapter, public.course_subject_offerings offering, public.subjects subject, public.levels level, public.series ser
+  where exercise.lesson_id=lesson.id and lesson.chapter_id=chapter.id and chapter.subject_offering_id=offering.id and offering.subject_id=subject.id and offering.level_id=level.id and offering.series_id=ser.id
+    and level.name='Terminale' and ser.name in ('A1','A2','C','D') and subject.name in ('Philosophie','Mathématiques','Français')
+    and lesson.is_active and not lesson.is_test_data
+    and (coalesce(lesson.content,'') <> '' or exists(select 1 from public.lesson_sessions session where session.lesson_id=lesson.id and coalesce(session.content,'') <> ''))
+    and (not exercise.is_published or not exercise.is_active) and not exercise.is_test_data
+    and exists(select 1 from public.exercise_questions question where question.exercise_id=exercise.id);
+
+  update public.quizzes quiz
+  set is_published=true,is_active=true,is_test_data=false
+  from public.lessons lesson, public.chapters chapter, public.course_subject_offerings offering, public.subjects subject, public.levels level, public.series ser
+  where quiz.lesson_id=lesson.id and lesson.chapter_id=chapter.id and chapter.subject_offering_id=offering.id and offering.subject_id=subject.id and offering.level_id=level.id and offering.series_id=ser.id
+    and level.name='Terminale' and ser.name in ('A1','A2','C','D') and subject.name in ('Philosophie','Mathématiques','Français')
+    and lesson.is_active and not lesson.is_test_data
+    and (coalesce(lesson.content,'') <> '' or exists(select 1 from public.lesson_sessions session where session.lesson_id=lesson.id and coalesce(session.content,'') <> ''))
+    and (not quiz.is_published or not quiz.is_active) and not quiz.is_test_data
+    and exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id)
+    and not exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id and not exists(select 1 from public.quiz_answers response where response.question_id=question.id))
+    and not exists(select 1 from public.quiz_questions question where question.quiz_id=quiz.id and not exists(select 1 from public.quiz_answers response where response.question_id=question.id and response.is_correct));
+end $publish_terminal_core_subject_evaluations_do$;

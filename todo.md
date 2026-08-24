@@ -563,3 +563,8 @@
 - [x] Concevoir des schémas anatomiques et animations biologiques interactifs accessibles pour les leçons de SVT concernées.
 - [x] Confirmer qu’aucun brouillon Histoire-Géographie ne nécessite de publication et intégrer les aides SVT demandées aux sept leçons ciblées.
 - [x] Contrôler les statuts, la RLS, les interactions, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
+- [x] Redémarrer le serveur de développement après l’arrêt signalé et vérifier le retour de la prévisualisation.
+- [x] Auditer en lecture seule les exercices et quiz de Philosophie, Mathématiques et Français encore en brouillon pour Terminale A1, A2, C et D.
+- [x] Vérifier les rattachements aux leçons actives, les questions, réponses et corrections avant toute publication.
+- [x] Publier et activer uniquement les exercices et quiz complets validés afin de les rendre visibles aux élèves.
+- [x] Contrôler les statuts, la RLS, TypeScript, lint, tests, export Android et préparer le checkpoint de livraison.
