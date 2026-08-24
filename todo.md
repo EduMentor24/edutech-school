@@ -534,3 +534,9 @@
 - [x] Créer seulement les structures nécessaires et publier/activer explicitement les contenus Physique-Chimie demandés.
 - [x] Réconcilier localement la traçabilité et les tests du lot déjà publié après la réinitialisation du sandbox, sans réappliquer les insertions.
 - [x] Exécuter les validations finales à faible consommation mémoire, l’export Android et sauvegarder un checkpoint de livraison.
+- [x] Lire intégralement les cinq PDF Physique-Chimie Terminale C/D de mécanique et consigner leurs notions, méthodes, formules et exemples.
+- [x] Auditer les structures Physique-Chimie Terminale C/D pour rattacher les cinq leçons de mécanique sans doublon et créer uniquement les cibles absentes.
+- [x] Préparer les cours approfondis, deux exercices corrigés et deux quiz distincts par leçon de mécanique en respectant les sources PDF.
+- [x] Concevoir et intégrer des schémas interactifs accessibles aux leçons de chimie concernées, sans mélanger les contenus de mécanique.
+- [x] Publier et activer explicitement les structures, leçons, exercices, quiz et schémas demandés, sans écraser les contenus existants.
+- [x] Vérifier les données, les interactions, TypeScript, lint, tests, l’export Android et préparer le checkpoint de livraison.

@@ -35,6 +35,51 @@ const PORTS = [
   { id: "audio", label: "Prise audio", hint: "Pour un casque filaire." },
 ] as const;
 
+const CHEMISTRY_REACTIONS = {
+  carboxylic: {
+    title: "Schéma interactif : formation d’un dérivé ester",
+    formula: "R–COOH + R′–OH ⇌ R–COOR′ + H₂O",
+    description: "Un acide carboxylique et un alcool peuvent former un ester et de l’eau. Touchez chaque étape pour lire son rôle.",
+    parts: [
+      { id: "acid", label: "Acide carboxylique", detail: "Il porte le groupe fonctionnel carboxyle –COOH." },
+      { id: "alcohol", label: "Alcool", detail: "Il apporte le groupe –OH associé à sa chaîne carbonée R′." },
+      { id: "ester", label: "Ester", detail: "Le produit porte la liaison caractéristique –COO– entre les deux chaînes." },
+      { id: "water", label: "Eau", detail: "L’eau est formée lors de cette transformation représentée par une double flèche." },
+    ],
+  },
+  soap: {
+    title: "Schéma interactif : saponification",
+    formula: "Triglycéride + 3 HO⁻ → Glycérol + 3 R–COO⁻",
+    description: "La saponification transforme un corps gras en glycérol et en ions carboxylates, base chimique d’un savon.",
+    parts: [
+      { id: "fat", label: "Corps gras", detail: "Le triglycéride est le réactif organique dont les liaisons ester sont transformées." },
+      { id: "hydroxide", label: "Ions hydroxyde", detail: "Ils participent à la transformation chimique en milieu basique." },
+      { id: "glycerol", label: "Glycérol", detail: "Le glycérol est l’un des produits issus de la transformation." },
+      { id: "soap", label: "Ions carboxylates", detail: "Associés à un cation métallique, ils constituent la partie ionique d’un savon." },
+    ],
+  },
+  acid_base: {
+    title: "Schéma interactif : neutralisation acido-basique",
+    formula: "H₃O⁺ + HO⁻ → 2 H₂O",
+    description: "Cette écriture simplifiée met en évidence la réaction entre l’ion oxonium d’une solution acide et l’ion hydroxyde d’une solution basique.",
+    parts: [
+      { id: "oxonium", label: "Ion oxonium H₃O⁺", detail: "Il caractérise une solution acide et intervient dans les calculs liés au pH." },
+      { id: "hydroxide", label: "Ion hydroxyde HO⁻", detail: "Il caractérise une solution basique dans le modèle présenté par le cours." },
+      { id: "reaction", label: "Neutralisation", detail: "Les deux ions réagissent ; l’écriture bilan indique la formation d’eau." },
+      { id: "water", label: "Eau H₂O", detail: "L’eau est le produit représenté dans ce bilan ionique de neutralisation." },
+    ],
+  },
+} as const;
+
+type ChemistryReactionKind = keyof typeof CHEMISTRY_REACTIONS;
+type ChemistryReactionPart = { id: string; label: string; detail: string };
+
+function ChemistryReactionDiagram({ reaction, styles }: { reaction: ChemistryReactionKind; styles: ReturnType<typeof createStyles> }) {
+  const schema = CHEMISTRY_REACTIONS[reaction];
+  const [selected, setSelected] = useState<ChemistryReactionPart>(schema.parts[0]);
+  return <View style={styles.chemistryCard} accessibilityLabel={schema.title}><Text style={styles.chemistryTitle}>{schema.title}</Text><Text style={styles.chemistryHint}>{schema.description}</Text><View style={styles.chemistryFormula}><Text selectable accessibilityLabel={`Équation chimique : ${schema.formula}`} style={styles.chemistryFormulaText}>{schema.formula}</Text></View><View style={styles.chemistryChoices}>{schema.parts.map((part) => <Pressable key={part.id} accessibilityRole="button" accessibilityState={{ selected: selected.id === part.id }} accessibilityLabel={`${part.label}. ${part.detail}`} onPress={() => setSelected(part)} style={({ pressed }) => [styles.chemistryChoice, selected.id === part.id && styles.chemistryChoiceActive, pressed && styles.chemistryChoicePressed]}><Text style={[styles.chemistryChoiceText, selected.id === part.id && styles.chemistryChoiceTextActive]}>{part.label}</Text></Pressable>)}</View><View style={styles.chemistryDetail} accessibilityLiveRegion="polite"><Text style={styles.chemistryDetailTitle}>{selected.label}</Text><Text style={styles.chemistryDetailText}>{selected.detail}</Text></View><Text style={styles.chemistryFallback}>Repère de lecture : les étiquettes sont interactives ; l’équation et toutes les explications restent disponibles sous forme textuelle.</Text></View>;
+}
+
 function DraggablePeripheral({ peripheral, onDrop, onSelect, selected, styles }: { peripheral: (typeof PERIPHERALS)[number]; onDrop: (id: string, x: number, y: number) => void; onSelect: (id: string) => void; selected: boolean; styles: ReturnType<typeof createStyles> }) {
   const pan = useRef(new Animated.ValueXY()).current;
   const responder = useMemo(() => PanResponder.create({ onMoveShouldSetPanResponder: (_, gesture) => Math.abs(gesture.dx) + Math.abs(gesture.dy) > 4, onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], { useNativeDriver: false }), onPanResponderRelease: (event) => { onDrop(peripheral.id, event.nativeEvent.pageX, event.nativeEvent.pageY); Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: false, friction: 7 }).start(); }, onPanResponderTerminate: () => Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start() }), [onDrop, pan, peripheral.id]);
@@ -105,6 +150,7 @@ export function LessonMarkdown({ content }: { content: string }) {
     if (block.type === "formula") return <View key={key} style={styles.formulaCard}><Text accessibilityLabel={`Formule mathématique : ${block.value}`} selectable style={styles.formulaText}>{block.value}</Text></View>;
     if (block.type === "computer_visual") return block.visual === "hardware_diagram" ? <HardwareDiagram key={key} styles={styles} /> : <ComputerVisual key={key} visual={block.visual} styles={styles} />;
     if (block.type === "peripheral_port_match") return <PeripheralPortMatch key={key} styles={styles} />;
+    if (block.type === "chemistry_reaction") return <ChemistryReactionDiagram key={key} reaction={block.reaction} styles={styles} />;
     if (block.type === "unordered" || block.type === "ordered") return <View key={key} style={styles.list}>{block.items.map((item, itemIndex) => <View key={`${key}-item-${itemIndex}`} style={styles.listItem}><Text style={styles.listMarker}>{block.type === "ordered" ? `${itemIndex + 1}.` : "•"}</Text><InlineText value={item} style={styles.listText} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>;
     const table = block as TableBlock;
     return <View key={key} style={styles.tableCard}>{table.rows.map((row, rowIndex) => <View key={`${key}-row-${rowIndex}`} style={styles.tableRow}>{row.map((cell, cellIndex) => <View key={`${key}-cell-${rowIndex}-${cellIndex}`} style={styles.tableCell}><Text style={styles.tableLabel}>{table.headers[cellIndex] ?? `Élément ${cellIndex + 1}`}</Text><InlineText value={cell} style={styles.tableValue} glossaryStyle={styles.glossaryInline} onGlossaryFocus={setActiveGlossary} /></View>)}</View>)}</View>;
@@ -158,6 +204,21 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) => Style
   hardwareDetailTitle: { color: colors.primary, fontSize: 14, lineHeight: 19, fontWeight: "900" },
   hardwareDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
   hardwareFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
+  chemistryCard: { gap: 10, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.success, backgroundColor: colors.surfaceMuted },
+  chemistryTitle: { color: colors.success, fontSize: 17, lineHeight: 24, fontWeight: "900" },
+  chemistryHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  chemistryFormula: { paddingHorizontal: 12, paddingVertical: 14, borderRadius: 14, backgroundColor: colors.background, borderWidth: 1, borderColor: colors.success },
+  chemistryFormulaText: { color: colors.text, fontSize: 16, lineHeight: 24, fontWeight: "900", textAlign: "center", fontFamily: Platform.select({ ios: "Menlo", android: "monospace", web: "monospace" }) },
+  chemistryChoices: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  chemistryChoice: { borderWidth: 1, borderColor: colors.border, borderRadius: 999, backgroundColor: colors.background, paddingHorizontal: 11, paddingVertical: 8 },
+  chemistryChoiceActive: { backgroundColor: colors.success, borderColor: colors.success },
+  chemistryChoicePressed: { opacity: 0.76, transform: [{ scale: 0.98 }] },
+  chemistryChoiceText: { color: colors.text, fontSize: 12, lineHeight: 16, fontWeight: "800" },
+  chemistryChoiceTextActive: { color: colors.background },
+  chemistryDetail: { gap: 3, padding: 11, borderRadius: 12, backgroundColor: colors.background, borderLeftWidth: 4, borderColor: colors.success },
+  chemistryDetailTitle: { color: colors.success, fontSize: 14, lineHeight: 19, fontWeight: "900" },
+  chemistryDetailText: { color: colors.text, fontSize: 13, lineHeight: 20 },
+  chemistryFallback: { color: colors.muted, fontSize: 12, lineHeight: 18, fontStyle: "italic" },
   matchCard: { gap: 11, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: colors.primary, backgroundColor: colors.primarySoft },
   matchTitle: { color: colors.primary, fontSize: 17, lineHeight: 24, fontWeight: "900" },
   matchHint: { color: colors.text, fontSize: 13, lineHeight: 20 },
