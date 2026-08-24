@@ -137,6 +137,22 @@ Les **douze brouillons** du chapitre « Bases de l’informatique » ont reçu d
 
 L’audit Supabase confirme les quatre séries, les annotations prévues, l’absence de doublon et **zéro anomalie de statut**. La RLS reste active sur toutes les tables concernées. TypeScript, lint, **288 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, sont validés.
 
+## Bilan d’intégration — Schéma matériel et approfondissement
+
+Les quatre brouillons de la leçon **« Découvrir l’ordinateur »** incluent désormais le schéma interactif de matériel. Il présente, avec illustration et explication accessible, l’écran, l’unité centrale, le clavier, la souris, la webcam et la clé USB. Chaque repère est sélectionnable au clic ou à l’appui, annonce son rôle au lecteur d’écran et dispose d’un repli textuel ; le PDF affiche une indication non interactive plutôt que la syntaxe technique. Trois visuels pédagogiques originaux complètent les cours sur le matériel, les ports et le poste de travail.
+
+| Ressource ajoutée | Par série | Total sur A1, A2, C et D | État contrôlé |
+|---|---:|---:|---|
+| Schémas matériels interactifs | 1 | 4 | Dans les brouillons de la leçon Matériel, avec repli textuel. |
+| Nouveaux cours approfondis | 3 | 12 | Inactifs, non test ; 2 415 à 2 990 caractères par leçon. |
+| Exercices corrigés | 6 | 24 | Inactifs et non publiés. |
+| Questions d’exercice | 24 | 96 | Situations fictives et corrections explicatives. |
+| Quiz | 6 | 24 | Inactifs et non publiés. |
+| Questions de quiz | 24 | 96 | Trois options par question. |
+| Réponses de quiz | 72 | 288 | Corrections rattachées aux notions du cours. |
+
+L’audit Supabase confirme les quatre séries, les schémas attendus et **zéro anomalie d’activation ou de publication**. La RLS reste active. TypeScript, lint, **292 tests réussis et 1 ignoré**, ainsi que l’export Android `Exported: dist`, ont réussi.
+
 ## Références de conception
 
 [1] [UNESCO-UNEVOC, *Digital Literacy Global Framework*](https://connect.unevoc.unesco.org/home/Digital+Competence+Frameworks/lang=en/id=5) — sept domaines, incluant information et données, communication, création, sécurité, résolution de problèmes et opérations appareils/logiciels.

@@ -5,11 +5,12 @@ export type CalloutBlock = { type: "callout"; title: string | null; lines: strin
 export type FormulaBlock = { type: "formula"; value: string };
 export type TableBlock = { type: "table"; headers: string[]; rows: string[][] };
 export type RuleBlock = { type: "rule" };
+export type ComputerVisualBlock = { type: "computer_visual"; visual: "hardware_diagram" | "ports" | "workspace" };
 
 export type LessonGlossaryTerm = { type: "glossary"; term: string; translation: string; definition: string };
 export type LessonInlineToken = { type: "text"; value: string } | { type: "bold"; value: string } | LessonGlossaryTerm;
 
-export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock;
+export type LessonMarkdownBlock = HeadingBlock | ParagraphBlock | ListBlock | CalloutBlock | FormulaBlock | TableBlock | RuleBlock | ComputerVisualBlock;
 
 const isRule = (line: string) => /^\s*---\s*$/.test(line);
 const isHeading = (line: string) => /^(#{2,3})\s+/.test(line);
@@ -18,6 +19,12 @@ const isOrdered = (line: string) => /^\s*\d+\.\s+/.test(line);
 const isTableLine = (line: string) => /^\s*\|.*\|\s*$/.test(line);
 const isTableSeparator = (line: string) => /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
 const isFormulaFence = (line: string) => /^\$\$\s*$/.test(line);
+const computerVisual = (line: string): ComputerVisualBlock["visual"] | null => {
+  if (/^:::computer-hardware-diagram\s*$/.test(line)) return "hardware_diagram";
+  if (/^:::computer-ports-visual\s*$/.test(line)) return "ports";
+  if (/^:::computer-workspace-visual\s*$/.test(line)) return "workspace";
+  return null;
+};
 
 function normalizeInline(text: string) {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 — $2");
@@ -64,6 +71,8 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const trimmed = lines[index].trim();
     if (!trimmed) { index += 1; continue; }
     if (isRule(trimmed)) { blocks.push({ type: "rule" }); index += 1; continue; }
+    const visual = computerVisual(trimmed);
+    if (visual) { blocks.push({ type: "computer_visual", visual }); index += 1; continue; }
 
     if (isFormulaFence(trimmed)) {
       const formulaLines: string[] = [];
@@ -119,7 +128,7 @@ export function parseLessonMarkdown(markdown: string): LessonMarkdownBlock[] {
     const paragraphLines: string[] = [];
     while (index < lines.length) {
       const candidate = lines[index].trim();
-      if (!candidate || isRule(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
+      if (!candidate || isRule(candidate) || computerVisual(candidate) || isHeading(candidate) || candidate.startsWith(">") || isTableLine(candidate) || isUnordered(candidate) || isOrdered(candidate)) break;
       paragraphLines.push(candidate);
       index += 1;
     }

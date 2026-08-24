@@ -469,3 +469,9 @@
 - [x] Ajouter des infobulles explicatives accessibles aux termes techniques des cours Informatique concernés, notamment variable, boucle, algorithme et pseudo-code.
 - [x] Créer le chapitre Maîtriser son ordinateur, ses leçons, mises en situation, exercices corrigés et quiz séparés en brouillon, inactifs et non publiés pour A1, A2, C et D.
 - [x] Contrôler les annotations, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.
+- [x] Définir trois cours approfondis de maîtrise pratique de l’ordinateur, avec objectifs, mises en situation et progression complémentaire pour débutants.
+- [x] Auditer la leçon Matériel existante, ses statuts et le lecteur afin d’ajouter un schéma interactif uniquement au contenu brouillon compatible.
+- [x] Générer des visuels pédagogiques originaux permettant de reconnaître les composants, puis les rattacher de façon accessible aux cours concernés.
+- [x] Implémenter un schéma du matériel cliquable sur web et mobile, avec explications accessibles par composant et solution de repli textuelle.
+- [x] Créer trois nouveaux cours approfondis, leurs exercices corrigés et leurs quiz séparés en brouillon, inactifs et non publiés pour A1, A2, C et D.
+- [x] Contrôler l’accessibilité, les visuels, les rattachements, les statuts, RLS, TypeScript, lint, tests et l’export Android avant livraison.

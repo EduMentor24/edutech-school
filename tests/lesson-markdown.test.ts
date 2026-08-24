@@ -29,4 +29,14 @@ describe("parseLessonMarkdown", () => {
     expect(blocks.map((block) => block.type)).toEqual(["heading", "formula", "callout"]);
     expect(blocks[1]).toMatchObject({ type: "formula", value: "\\lim_{x\\to +\\infty} \\frac{\\ln x}{x}=0" });
   });
+
+  it("reconnaît les visuels pédagogiques Computer sans les confondre avec un paragraphe", () => {
+    const blocks = parseLessonMarkdown(":::computer-hardware-diagram\n\n:::computer-ports-visual\n\n:::computer-workspace-visual");
+
+    expect(blocks).toEqual([
+      { type: "computer_visual", visual: "hardware_diagram" },
+      { type: "computer_visual", visual: "ports" },
+      { type: "computer_visual", visual: "workspace" },
+    ]);
+  });
 });

@@ -50,6 +50,8 @@ export function buildLessonPdfHtml({ title, description, content }: LessonPdfInp
         return `<div class="table-wrap"><table><thead><tr>${block.headers.map((header) => `<th>${formatInline(header)}</th>`).join("")}</tr></thead><tbody>${block.rows.map((row) => `<tr>${row.map((cell) => `<td>${formatInline(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
       case "rule":
         return "<hr />";
+      case "computer_visual":
+        return `<aside class="callout example"><h4>Repère visuel dans l’application</h4><p>${block.visual === "hardware_diagram" ? "Le schéma interactif des composants est disponible dans le lecteur de cours." : "Un visuel pédagogique est disponible dans le lecteur de cours."}</p></aside>`;
       default:
         return "";
     }
