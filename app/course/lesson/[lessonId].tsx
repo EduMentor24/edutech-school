@@ -22,7 +22,7 @@ export default function LessonReaderScreen() {
   const { lessonId } = useLocalSearchParams<{ lessonId: string }>();
   const router = useRouter();
   const { colors } = useEduTheme();
-  const { profile, isAdmin } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile);
+  const { profile, isAdmin } = useSupabaseAuth(); const { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole } = profile ?? {}; const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId && schoolLevel && profileSeries && profileRole ? { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole } : null), [profileId, schoolLevel, profileSeries, profileRole]);
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [lesson, setLesson] = useState<CourseLesson | null>(null);

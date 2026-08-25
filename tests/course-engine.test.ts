@@ -42,4 +42,13 @@ describe("moteur de cours progressif", () => {
     expect(reader).toContain("Aperçu administrateur : cette leçon est inactive");
     expect(reader).toContain("const canTrack = profile?.role === \"student\"");
   });
+
+  it("garde stables les dépendances du parcours Cours pour éviter les rechargements en boucle", () => {
+    const subject = readFileSync("app/course/[offeringId].tsx", "utf8");
+    const chapter = readFileSync("app/course/chapter/[chapterId].tsx", "utf8");
+    expect(courses).not.toContain("void refreshProfile()");
+    expect(subject).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
+    expect(chapter).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
+    expect(reader).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
+  });
 });

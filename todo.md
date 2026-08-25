@@ -622,3 +622,6 @@
 - [x] Retirer EXECUTE du rôle anon uniquement pour les RPC sensibles ciblées, sans modifier les RLS ni les données.
 - [x] Vérifier les ACL post-migration, les contrôles administratifs et la continuité des RLS.
 - [x] Rejouer les validations de non-régression et produire le rapport final de sécurité Supabase.
+- [x] Diagnostiquer le cycle de rendu et de chargement responsable du clignotement du module Cours.
+- [x] Corriger durablement le clignotement du module Cours sans modifier les contenus ni les règles pédagogiques.
+- [x] Tester le parcours Cours, les flux de profil/cache associés et les non-régressions avant livraison.

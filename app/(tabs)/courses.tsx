@@ -1,5 +1,5 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -17,7 +17,7 @@ const emptyDashboard: LearningProgressDashboard = { subjects: [], completedLesso
 export default function CoursesScreen() {
   const router = useRouter();
   const { colors } = useEduTheme();
-  const { profile, isProfileLoading, refreshProfile } = useSupabaseAuth();
+  const { profile, isProfileLoading } = useSupabaseAuth();
   const [items, setItems] = useState<CourseSubject[]>([]);
   const [dashboard, setDashboard] = useState<LearningProgressDashboard>(emptyDashboard);
   const [loading, setLoading] = useState(true);
@@ -35,10 +35,6 @@ export default function CoursesScreen() {
       setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue.");
     } finally { setLoading(false); }
   }, [profile]);
-
-  useFocusEffect(useCallback(() => {
-    void refreshProfile();
-  }, [refreshProfile]));
 
   useEffect(() => {
     if (profile) {
