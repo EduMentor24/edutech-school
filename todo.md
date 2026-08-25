@@ -667,3 +667,9 @@ Le 25 août 2026 — validation finale demandée dans pasted_content_7.txt, sans
 - [x] Exécuter TypeScript, lint, la suite de tests et les vérifications de configuration Android version/versionCode.
 - [x] Préparer le bundle Android de validation à partir de l’état complet actuel, sans déclencher de build EAS manuelle.
 - [x] Produire le rapport de build, signaler les anomalies réelles et séparer les tests nécessitant un appareil Android réel.
+
+Le 25 août 2026 — synchronisation complète demandée vers GitHub `EduMentor24/edutech-school`.
+- [ ] Vérifier l’état du dépôt local, le dépôt distant et les différences avant synchronisation.
+- [ ] Préparer un commit cohérent de tous les fichiers applicatifs, rapports et configurations utiles.
+- [ ] Pousser la branche validée vers GitHub sans écraser de modifications distantes non examinées.
+- [ ] Confirmer le commit et la synchronisation distante.
