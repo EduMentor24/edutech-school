@@ -645,3 +645,13 @@ Le 25 août 2026 — nouveau signal utilisateur : le bouton « Commencer l’exe
 - [x] Valider TypeScript, lint, suite complète, logs, export Android et absence de modification des données ou règles métier.
 
 Le 25 août 2026 — l’utilisateur signale que « Commencer un quiz » reproduit le blocage corrigé dans l’écran d’exercice et demande un audit de prévention dans toute l’application.
+- [x] Lire intégralement le fichier pasted_content_6.txt et recenser toutes ses consignes.
+- [x] Vérifier les prérequis, l’impact et les contraintes des actions demandées.
+- [x] Exécuter les tâches applicables du fichier sans compromettre les données ni les fonctionnalités existantes.
+- [x] Valider les résultats, les non-régressions et documenter les limites de vérification.
+
+Le 25 août 2026 — priorité utilisateur : corriger avant toute autre finalisation les douze clones Quiz Informatique et les douze leçons Français Terminale actives sans contenu ni séance.
+- [x] Identifier et restaurer uniquement les contenus Français réels déjà disponibles pour les douze leçons incomplètes, sans génération fictive.
+- [x] Désactiver sans suppression les douze clones stricts de Quiz Informatique, en conservant une copie valide par leçon.
+- [x] Recontrôler les relations Terminale, les contenus, les questions, les réponses et les tentatives après correction.
+- [x] Relancer les validations locales et l’export Android après les corrections prioritaires.
