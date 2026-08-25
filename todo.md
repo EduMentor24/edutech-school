@@ -673,3 +673,14 @@ Le 25 août 2026 — synchronisation complète demandée vers GitHub `EduMentor2
 - [x] Préparer un commit cohérent de tous les fichiers applicatifs, rapports et configurations utiles.
 - [x] Pousser la branche validée vers GitHub sans écraser de modifications distantes non examinées.
 - [x] Confirmer le commit et la synchronisation distante.
+
+Le 25 août 2026 — audit demandé de la structure GitHub et des fichiers de configuration, sans modification avant validation.
+- [x] Inventorier la structure suivie, les fichiers de configuration et les automatisations du dépôt GitHub.
+- [x] Identifier les configurations manquantes, les optimisations justifiées et les éléments déjà correctement couverts.
+- [x] Présenter les recommandations priorisées sans modifier le projet.
+
+Le 25 août 2026 — ajout confirmé des configurations GitHub et démonstration du connecteur Supabase en lecture seule.
+- [x] Tester le connecteur Supabase sur le projet officiel et présenter des données agrégées non sensibles.
+- [x] Ajouter CI, README, politique de sécurité, Dependabot et modèles GitHub sans exposer de secret.
+- [x] Renforcer les exclusions Git pour les fichiers d’environnement locaux et de build, sans modifier de secret existant.
+- [ ] Valider les configurations, les contrôles locaux et synchroniser l’ensemble vers GitHub.

@@ -1,0 +1,49 @@
+name: Validation
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: TypeScript, lint et tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPO_NO_TELEMETRY: "1"
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - name: Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Installer les dépendances verrouillées
+        run: pnpm install --frozen-lockfile
+
+      - name: Vérifier TypeScript
+        run: pnpm check
+
+      - name: Vérifier le lint
+        run: pnpm lint
+
+      - name: Exécuter les tests
+        run: pnpm exec vitest run --pool=forks --poolOptions.forks.singleFork=true
