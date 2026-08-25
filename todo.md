@@ -638,6 +638,7 @@
 - [x] Ajouter les tests anti-régression et valider TypeScript, lint, tests, logs et export Android avant livraison.
 
 Le 25 août 2026 — nouveau signal utilisateur : le bouton « Commencer l’exercice » bloque après ouverture d’un exercice lié à un cours d’Histoire-Géographie.
+
 - [x] Auditer les parcours d’action de Quiz, Cours, Citations, Mentor IA, Exercices, Administration et Profil.
 - [x] Identifier les causes communes de blocage : dépendances instables, boucles de chargement, appels concurrents, états saving/loading et absence de garde.
 - [x] Corriger le démarrage des quiz et appliquer les corrections communes uniquement aux modules présentant la même cause démontrée.
@@ -645,48 +646,63 @@ Le 25 août 2026 — nouveau signal utilisateur : le bouton « Commencer l’exe
 - [x] Valider TypeScript, lint, suite complète, logs, export Android et absence de modification des données ou règles métier.
 
 Le 25 août 2026 — l’utilisateur signale que « Commencer un quiz » reproduit le blocage corrigé dans l’écran d’exercice et demande un audit de prévention dans toute l’application.
+
 - [x] Lire intégralement le fichier pasted_content_6.txt et recenser toutes ses consignes.
 - [x] Vérifier les prérequis, l’impact et les contraintes des actions demandées.
 - [x] Exécuter les tâches applicables du fichier sans compromettre les données ni les fonctionnalités existantes.
 - [x] Valider les résultats, les non-régressions et documenter les limites de vérification.
 
 Le 25 août 2026 — priorité utilisateur : corriger avant toute autre finalisation les douze clones Quiz Informatique et les douze leçons Français Terminale actives sans contenu ni séance.
+
 - [x] Identifier et restaurer uniquement les contenus Français réels déjà disponibles pour les douze leçons incomplètes, sans génération fictive.
 - [x] Désactiver sans suppression les douze clones stricts de Quiz Informatique, en conservant une copie valide par leçon.
 - [x] Recontrôler les relations Terminale, les contenus, les questions, les réponses et les tentatives après correction.
 - [x] Relancer les validations locales et l’export Android après les corrections prioritaires.
 
 Le 25 août 2026 — l’utilisateur précise que les cours Français sont structurés en séances et demande leur publication après vérification.
+
 - [x] Auditer les séances Français réelles et leurs rattachements aux leçons, chapitres, séries et niveaux.
 - [x] Restaurer sans invention la visibilité des leçons Français dont les séances et contenus sont complets.
 - [x] Publier et activer uniquement les cours, séances, exercices et quiz Français vérifiés et complets.
 - [x] Valider les statuts, relations, affichage administrateur/élève, TypeScript, tests et export Android.
 
 Le 25 août 2026 — validation finale demandée dans pasted_content_7.txt, sans évolution fonctionnelle ni modification des contenus validés.
+
 - [x] Contrôler l’intégrité Terminale, les 12 leçons Français en séances, la sécurité, le cache et la navigation sans modifier les données.
 - [x] Exécuter TypeScript, lint, la suite de tests et les vérifications de configuration Android version/versionCode.
 - [x] Préparer le bundle Android de validation à partir de l’état complet actuel, sans déclencher de build EAS manuelle.
 - [x] Produire le rapport de build, signaler les anomalies réelles et séparer les tests nécessitant un appareil Android réel.
 
 Le 25 août 2026 — synchronisation complète demandée vers GitHub `EduMentor24/edutech-school`.
+
 - [x] Vérifier l’état du dépôt local, le dépôt distant et les différences avant synchronisation.
 - [x] Préparer un commit cohérent de tous les fichiers applicatifs, rapports et configurations utiles.
 - [x] Pousser la branche validée vers GitHub sans écraser de modifications distantes non examinées.
 - [x] Confirmer le commit et la synchronisation distante.
 
 Le 25 août 2026 — audit demandé de la structure GitHub et des fichiers de configuration, sans modification avant validation.
+
 - [x] Inventorier la structure suivie, les fichiers de configuration et les automatisations du dépôt GitHub.
 - [x] Identifier les configurations manquantes, les optimisations justifiées et les éléments déjà correctement couverts.
 - [x] Présenter les recommandations priorisées sans modifier le projet.
 
 Le 25 août 2026 — ajout confirmé des configurations GitHub et démonstration du connecteur Supabase en lecture seule.
+
 - [x] Tester le connecteur Supabase sur le projet officiel et présenter des données agrégées non sensibles.
 - [x] Ajouter CI, README, politique de sécurité, Dependabot et modèles GitHub sans exposer de secret.
 - [x] Renforcer les exclusions Git pour les fichiers d’environnement locaux et de build, sans modifier de secret existant.
 - [x] Valider les configurations, les contrôles locaux et synchroniser l’ensemble vers GitHub.
 
 Le 25 août 2026 — dépôt GitHub devenu public : compléter le dépôt avec les éléments applicatifs nécessaires sans exposer de secrets ni d’artefacts générés.
+
 - [x] Comparer les fichiers sources locaux, l’état GitHub public et les exclusions de sécurité.
 - [x] Identifier les fichiers nécessaires à la reproductibilité complète de l’application et les éléments à conserver exclus.
 - [x] Ajouter la documentation ou les fichiers publics sûrs réellement manquants.
 - [x] Valider l’intégrité du dépôt public puis synchroniser les modifications vers GitHub.
+
+Le 25 août 2026 — lecture complète et traitement des consignes de `pasted_content_8.txt` confirmés par l’utilisateur.
+
+- [x] Lire intégralement le fichier et recenser toutes ses demandes.
+- [x] Vérifier les prérequis, les risques et les contraintes de chaque action demandée.
+- [x] Exécuter les évolutions applicables sans compromettre les données ni les fonctionnalités existantes.
+- [x] Valider les résultats, les non-régressions et les limites de vérification.
