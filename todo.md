@@ -717,3 +717,10 @@ Le 25 août 2026 — l’utilisateur autorise la création du projet EAS `edutec
 
 - [x] Créer l’association EAS compatible avec le slug existant `edutech-school`.
 - [x] Soumettre et suivre la build EAS du profil APK interne.
+
+Le 25 août 2026 — audit de préparation Expo/EAS demandé dans `pasted_content_2.txt`, sans nouvelle build.
+
+- [x] Recontrôler l’association Expo/EAS, l’identité Android et les variables par nom uniquement.
+- [x] Vérifier Supabase, backend HTTPS, Mentor IA et absence de secret en lecture seule.
+- [x] Rejouer les validations techniques nécessaires sans soumettre de nouvelle build.
+- [x] Produire le rapport 🟢/🟡/🔴 et attendre toute nouvelle autorisation de build.
