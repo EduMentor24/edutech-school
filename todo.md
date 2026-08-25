@@ -683,4 +683,4 @@ Le 25 août 2026 — ajout confirmé des configurations GitHub et démonstration
 - [x] Tester le connecteur Supabase sur le projet officiel et présenter des données agrégées non sensibles.
 - [x] Ajouter CI, README, politique de sécurité, Dependabot et modèles GitHub sans exposer de secret.
 - [x] Renforcer les exclusions Git pour les fichiers d’environnement locaux et de build, sans modifier de secret existant.
-- [ ] Valider les configurations, les contrôles locaux et synchroniser l’ensemble vers GitHub.
+- [x] Valider les configurations, les contrôles locaux et synchroniser l’ensemble vers GitHub.
