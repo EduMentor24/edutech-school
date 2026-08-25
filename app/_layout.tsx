@@ -24,6 +24,14 @@ const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
 export const unstable_settings = { anchor: "(tabs)" };
 
+function sameInsets(left: EdgeInsets, right: EdgeInsets) {
+  return left.top === right.top && left.right === right.right && left.bottom === right.bottom && left.left === right.left;
+}
+
+function sameFrame(left: Rect, right: Rect) {
+  return left.x === right.x && left.y === right.y && left.width === right.width && left.height === right.height;
+}
+
 function RootNavigator() {
   const { isReady, isAuthenticated, isPasswordRecovery, isAdmin } = useSupabaseAuth();
   if (!isReady) return <AuthLoadingScreen />;
@@ -44,7 +52,10 @@ export default function RootLayout() {
   const [insets, setInsets] = useState<EdgeInsets>(initialInsets);
   const [frame, setFrame] = useState<Rect>(initialFrame);
   useEffect(() => { initManusRuntime(); }, []);
-  const handleSafeAreaUpdate = useCallback((metrics: Metrics) => { setInsets(metrics.insets); setFrame(metrics.frame); }, []);
+  const handleSafeAreaUpdate = useCallback((metrics: Metrics) => {
+    setInsets((current) => sameInsets(current, metrics.insets) ? current : metrics.insets);
+    setFrame((current) => sameFrame(current, metrics.frame) ? current : metrics.frame);
+  }, []);
   useEffect(() => { if (Platform.OS !== "web") return; return subscribeSafeAreaInsets(handleSafeAreaUpdate); }, [handleSafeAreaUpdate]);
   const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } } }));
   const [trpcClient] = useState(() => createTRPCClient());

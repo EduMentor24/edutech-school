@@ -629,3 +629,6 @@
 - [x] Corriger le mécanisme commun responsable de la perte de position sans contourner le cache local-first.
 - [x] Ajouter des tests anti-régression pour les listes Quiz et Exercices, le scroll et le rechargement.
 - [x] Vérifier les parcours Quiz et Exercices ainsi que les non-régressions globales avant livraison.
+- [x] Diagnostiquer les blocages généralisés en distinguant prévisualisation, serveur et application mobile.
+- [x] Corriger la cause confirmée des blocages sans modifier les données pédagogiques ni les règles métier.
+- [x] Valider les modules concernés, les performances et les non-régressions avant livraison.
