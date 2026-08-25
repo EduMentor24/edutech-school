@@ -724,3 +724,14 @@ Le 25 août 2026 — audit de préparation Expo/EAS demandé dans `pasted_conten
 - [x] Vérifier Supabase, backend HTTPS, Mentor IA et absence de secret en lecture seule.
 - [x] Rejouer les validations techniques nécessaires sans soumettre de nouvelle build.
 - [x] Produire le rapport 🟢/🟡/🔴 et attendre toute nouvelle autorisation de build.
+
+Le 25 août 2026 — audit demandé du backend HTTPS, strictement en lecture seule et sans déploiement.
+- [x] Identifier le backend, ses URLs publiques et son mode d’exécution actuel.
+- [x] Cartographier les dépendances API, authentification, Mentor IA et APK Android.
+- [x] Vérifier la compatibilité HTTPS hors réseau local et produire le rapport demandé.
+
+Le 25 août 2026 — diagnostic prioritaire du mode hors ligne réel demandé, sans modification ni build.
+- [x] Analyser le cache complet du parcours Matière → Chapitre → Leçon → Contenu.
+- [x] Analyser le stockage, les calculs et la lecture hors ligne du Bulletin.
+- [x] Vérifier le flux local-first, la synchronisation et les gardes réseau.
+- [x] Produire les causes exactes et les corrections recommandées sans modifier le code.
