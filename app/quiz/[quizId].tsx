@@ -17,7 +17,15 @@ export default function QuizDetailScreen() {
   const router = useRouter();
   const { colors } = useEduTheme();
   const { profile } = useSupabaseAuth();
-  const cacheContext = pedagogicalCacheContextFromProfile(profile);
+  const { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole } = profile ?? {};
+  const cacheContext = useMemo(
+    () => pedagogicalCacheContextFromProfile(
+      profileId && schoolLevel && profileSeries && profileRole
+        ? { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole }
+        : null,
+    ),
+    [profileId, schoolLevel, profileSeries, profileRole],
+  );
   const styles = useMemo(() => createStyles(colors), [colors]);
   const [quiz, setQuiz] = useState<QuizDetail | null>(null);
   const [attempt, setAttempt] = useState<QuizAttempt | null>(null);

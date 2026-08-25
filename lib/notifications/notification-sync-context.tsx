@@ -1,5 +1,5 @@
 import * as Network from "expo-network";
-import { PropsWithChildren, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { PropsWithChildren, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { AppState } from "react-native";
 
 import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
@@ -23,13 +23,16 @@ export function NotificationSyncProvider({ children }: PropsWithChildren) {
   const { user, profile, isReady } = useSupabaseAuth();
   const network = Network.useNetworkState();
   const [inbox, setInbox] = useState<NotificationInboxCache>(emptyNotificationInboxCache());
+  const inboxRef = useRef(inbox);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isOffline = network.isConnected === false || network.isInternetReachable === false;
 
+  useEffect(() => { inboxRef.current = inbox; }, [inbox]);
+
   const refresh = useCallback(async () => {
     if (!user || !profile) { setInbox(emptyNotificationInboxCache()); setError(null); return; }
-    setIsLoading((current) => current || inbox.items.length === 0);
+    setIsLoading((current) => current || inboxRef.current.items.length === 0);
     setError(null);
     const cached = await loadNotificationInboxCache(user.id);
     if (cached.items.length || cached.pendingReadIds.length) setInbox(cached);
@@ -41,7 +44,7 @@ export function NotificationSyncProvider({ children }: PropsWithChildren) {
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "La synchronisation des notifications a échoué.");
     } finally { setIsLoading(false); }
-  }, [inbox.items.length, isOffline, profile, user]);
+  }, [isOffline, profile, user]);
 
   useEffect(() => { if (isReady) void refresh(); }, [isReady, refresh]);
   useEffect(() => {

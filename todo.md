@@ -638,3 +638,10 @@
 - [x] Ajouter les tests anti-régression et valider TypeScript, lint, tests, logs et export Android avant livraison.
 
 Le 25 août 2026 — nouveau signal utilisateur : le bouton « Commencer l’exercice » bloque après ouverture d’un exercice lié à un cours d’Histoire-Géographie.
+- [x] Auditer les parcours d’action de Quiz, Cours, Citations, Mentor IA, Exercices, Administration et Profil.
+- [x] Identifier les causes communes de blocage : dépendances instables, boucles de chargement, appels concurrents, états saving/loading et absence de garde.
+- [x] Corriger le démarrage des quiz et appliquer les corrections communes uniquement aux modules présentant la même cause démontrée.
+- [x] Ajouter des tests anti-régression couvrant les actions et chargements des modules concernés.
+- [x] Valider TypeScript, lint, suite complète, logs, export Android et absence de modification des données ou règles métier.
+
+Le 25 août 2026 — l’utilisateur signale que « Commencer un quiz » reproduit le blocage corrigé dans l’écran d’exercice et demande un audit de prévention dans toute l’application.
