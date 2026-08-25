@@ -50,9 +50,9 @@ const config: ExpoConfig = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: env.iosBundleId,
-    "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+    infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     adaptiveIcon: {
@@ -96,13 +96,14 @@ const config: ExpoConfig = {
     [
       "expo-secure-store",
       {
-        "configureAndroidBackup": true,
+        configureAndroidBackup: true,
       },
     ],
     [
       "expo-audio",
       {
-        microphonePermission: "Allow $(PRODUCT_NAME) to access your microphone.",
+        microphonePermission:
+          "Allow $(PRODUCT_NAME) to access your microphone.",
       },
     ],
     [
@@ -136,8 +137,10 @@ const config: ExpoConfig = {
     [
       "expo-image-picker",
       {
-        cameraPermission: "Autoriser EduTech School à utiliser l’appareil photo pour analyser un exercice ou un cours.",
-        photosPermission: "Autoriser EduTech School à accéder aux images choisies pour le Mentor IA ou votre photo de profil.",
+        cameraPermission:
+          "Autoriser EduTech School à utiliser l’appareil photo pour analyser un exercice ou un cours.",
+        photosPermission:
+          "Autoriser EduTech School à accéder aux images choisies pour le Mentor IA ou votre photo de profil.",
       },
     ],
     "expo-document-picker",
@@ -145,6 +148,11 @@ const config: ExpoConfig = {
   experiments: {
     typedRoutes: true,
     reactCompiler: true,
+  },
+  extra: {
+    eas: {
+      projectId: "46e8d983-81a2-453e-9b04-7ceaaa24e37a",
+    },
   },
 };
 

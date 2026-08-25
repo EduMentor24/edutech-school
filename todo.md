@@ -706,3 +706,14 @@ Le 25 août 2026 — lecture complète et traitement des consignes de `pasted_co
 - [x] Vérifier les prérequis, les risques et les contraintes de chaque action demandée.
 - [x] Exécuter les évolutions applicables sans compromettre les données ni les fonctionnalités existantes.
 - [x] Valider les résultats, les non-régressions et les limites de vérification.
+
+Le 25 août 2026 — test du connecteur Supabase demandé et lancement explicite d’une build EAS APK Android.
+
+- [x] Vérifier Supabase en lecture seule et présenter un aperçu des capacités du connecteur.
+- [x] Vérifier les prérequis Expo/EAS et lancer la build APK Android réelle demandée.
+- [x] Suivre la build, vérifier l’artefact si disponible et consigner les résultats sans exposer de secret.
+
+Le 25 août 2026 — l’utilisateur autorise la création du projet EAS `edutech-school` dans le compte Expo authentifié.
+
+- [x] Créer l’association EAS compatible avec le slug existant `edutech-school`.
+- [x] Soumettre et suivre la build EAS du profil APK interne.
