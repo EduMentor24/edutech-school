@@ -598,3 +598,8 @@
 - [x] Auditer les structures existantes du chapitre Notions de méthodologie pour Terminale A1, A2, C et D et exclure tout doublon.
 - [x] Créer les cours méthodologiques approfondis en brouillon, inactifs et non publiés, sans modifier les contenus existants.
 - [x] Vérifier les rattachements, la qualité du Markdown et les données créées avant validation technique et checkpoint.
+- [x] Auditer les huit cours méthodologiques Histoire-Géographie et leurs évaluations avant enrichissement et publication.
+- [x] Ajouter des exemples d’application guidés dans les cours de commentaire de document et dissertation.
+- [x] Créer les exercices corrigés et quiz interactifs séparés pour les huit leçons de méthodologie en brouillon.
+- [x] Vérifier la complétude puis publier et activer immédiatement les cours, chapitres, exercices et quiz validés.
+- [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
