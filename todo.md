@@ -726,12 +726,23 @@ Le 25 août 2026 — audit de préparation Expo/EAS demandé dans `pasted_conten
 - [x] Produire le rapport 🟢/🟡/🔴 et attendre toute nouvelle autorisation de build.
 
 Le 25 août 2026 — audit demandé du backend HTTPS, strictement en lecture seule et sans déploiement.
+
 - [x] Identifier le backend, ses URLs publiques et son mode d’exécution actuel.
 - [x] Cartographier les dépendances API, authentification, Mentor IA et APK Android.
 - [x] Vérifier la compatibilité HTTPS hors réseau local et produire le rapport demandé.
 
 Le 25 août 2026 — diagnostic prioritaire du mode hors ligne réel demandé, sans modification ni build.
+
 - [x] Analyser le cache complet du parcours Matière → Chapitre → Leçon → Contenu.
 - [x] Analyser le stockage, les calculs et la lecture hors ligne du Bulletin.
 - [x] Vérifier le flux local-first, la synchronisation et les gardes réseau.
 - [x] Produire les causes exactes et les corrections recommandées sans modifier le code.
+
+Le 25 août 2026 — correction prioritaire du mode hors ligne réel demandée dans `pasted_content_9.txt`, sans build APK.
+
+- [x] Concevoir le préchargement ciblé du parcours pédagogique et la lecture cache-first.
+- [x] Mettre en cache les contenus, séances, exercices, quiz et leurs données nécessaires au profil connecté.
+- [x] Supprimer les gardes réseau inutiles des Cours déjà synchronisés et de la progression locale.
+- [x] Rendre le Bulletin lisible et modifiable hors ligne avec l’identité locale persistée.
+- [x] Vérifier persistance, file de synchronisation, conflits et non-régressions.
+- [x] Produire le rapport final sans générer de nouvelle APK.

@@ -7,29 +7,37 @@ describe("moteur de cours progressif", () => {
   const reader = readFileSync("app/course/lesson/[lessonId].tsx", "utf8");
 
   it("cible les requêtes de matières selon le niveau et la série du profil", () => {
-    expect(service).toContain('eq("level_id", level.id).eq("series_id", series.id)');
+    expect(service).toMatch(
+      /eq\("level_id", level\.id\)\s*\.eq\("series_id", series\.id\)/,
+    );
     expect(service).toContain('eq("is_published", true)');
     expect(service).toContain('eq("subject.is_active", true)');
     expect(service).toContain('eq("is_active", true)');
-    expect(service).toContain('chapters(id,is_active)');
+    expect(service).toContain("chapters(id,is_active)");
     expect(service).toContain("activeChapterCount");
     expect(service).toContain("activeChapterCount > 0");
     expect(service).toContain('order("display_order", { ascending: true })');
-    expect(service).toContain('getChaptersForOffering');
-    expect(service).toContain('getLessonsForChapter');
+    expect(service).toContain("getChaptersForOffering");
+    expect(service).toContain("getLessonsForChapter");
   });
 
   it("remplace l’état indisponible par des états réels et une liste Supabase", () => {
     expect(courses).toContain("getCoursesForProfile(profile)");
-    expect(courses).toContain("Aucun cours disponible pour votre niveau et votre série pour le moment.");
+    expect(courses).toContain(
+      "Aucun cours disponible pour votre niveau et votre série pour le moment.",
+    );
     expect(courses).toContain("CourseLoading");
     expect(courses).toContain("CourseError");
     expect(courses).toContain("Matière disponible, contenu à venir");
-    expect(courses).toContain("Aucun cours disponible pour votre niveau et votre série pour le moment.");
+    expect(courses).toContain(
+      "Aucun cours disponible pour votre niveau et votre série pour le moment.",
+    );
   });
 
   it("prévoit la lecture et la navigation entre les leçons du même chapitre", () => {
-    expect(reader).toContain("getLesson(lessonId, { includeInactive: isAdmin, cacheContext })");
+    expect(reader).toMatch(
+      /getLesson\(\s*lessonId,\s*{\s*includeInactive: isAdmin,\s*cacheContext,?\s*}\s*\)/,
+    );
     expect(reader).toContain("getLessonsForChapter");
     expect(reader).toContain("Leçon précédente");
     expect(reader).toContain("Leçon suivante");
@@ -37,18 +45,24 @@ describe("moteur de cours progressif", () => {
 
   it("autorise seulement le parcours administrateur à demander une leçon inactive", () => {
     expect(service).toContain("includeInactive?: boolean");
-    expect(service).toContain('if (!options.includeInactive) request = request.eq("is_active", true);');
+    expect(service).toContain(
+      'if (!options.includeInactive) request = request.eq("is_active", true);',
+    );
     expect(reader).toContain("const { profile, isAdmin } = useSupabaseAuth()");
-    expect(reader).toContain("Aperçu administrateur : cette leçon est inactive");
-    expect(reader).toContain("const canTrack = profile?.role === \"student\"");
+    expect(reader).toContain(
+      "Aperçu administrateur : cette leçon est inactive",
+    );
+    expect(reader).toContain('const canTrack = profile?.role === "student"');
   });
 
   it("garde stables les dépendances du parcours Cours pour éviter les rechargements en boucle", () => {
     const subject = readFileSync("app/course/[offeringId].tsx", "utf8");
     const chapter = readFileSync("app/course/chapter/[chapterId].tsx", "utf8");
     expect(courses).not.toContain("void refreshProfile()");
-    expect(subject).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
-    expect(chapter).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
-    expect(reader).toContain("const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId");
+    const cacheContextPattern =
+      /const cacheContext = useMemo\(\s*\(\)\s*=>\s*pedagogicalCacheContextFromProfile\(\s*profileId/;
+    expect(subject).toMatch(cacheContextPattern);
+    expect(chapter).toMatch(cacheContextPattern);
+    expect(reader).toMatch(cacheContextPattern);
   });
 });

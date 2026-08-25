@@ -1,6 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { getLocalData, removeLocalData, saveLocalData } from "./offline-storage-service";
+import {
+  getLocalData,
+  removeLocalData,
+  saveLocalData,
+} from "./offline-storage-service";
 
 const CACHE_VERSION = 1;
 const STALE_AFTER_MS = 6 * 60 * 60 * 1000;
@@ -22,6 +26,11 @@ type ProfileCacheIdentity = {
 
 export type PedagogicalCacheState = "synced" | "stale";
 
+export type PedagogicalReadOptions = {
+  /** Force une actualisation distante lorsque le réseau est disponible, tout en conservant le cache en cas d’échec. */
+  refresh?: boolean;
+};
+
 export type PedagogicalCacheSnapshot<T> = {
   schemaVersion: number;
   fetchedAt: number;
@@ -30,7 +39,9 @@ export type PedagogicalCacheSnapshot<T> = {
   payload: T;
 };
 
-export function pedagogicalCacheContextFromProfile(profile: ProfileCacheIdentity | null | undefined): PedagogicalCacheContext | null {
+export function pedagogicalCacheContextFromProfile(
+  profile: ProfileCacheIdentity | null | undefined,
+): PedagogicalCacheContext | null {
   if (!profile?.id || !profile.school_level || !profile.series) return null;
   return {
     userId: profile.id,
@@ -55,7 +66,8 @@ function cacheIndexKey(context: PedagogicalCacheContext) {
 function fingerprint(value: unknown) {
   const text = JSON.stringify(value);
   let hash = 5381;
-  for (let index = 0; index < text.length; index += 1) hash = ((hash << 5) + hash) ^ text.charCodeAt(index);
+  for (let index = 0; index < text.length; index += 1)
+    hash = ((hash << 5) + hash) ^ text.charCodeAt(index);
   return `v${CACHE_VERSION}-${(hash >>> 0).toString(36)}`;
 }
 
@@ -63,14 +75,23 @@ function stale(snapshot: PedagogicalCacheSnapshot<unknown>) {
   return Date.now() - snapshot.fetchedAt > STALE_AFTER_MS;
 }
 
-export async function readPedagogicalCache<T>(context: PedagogicalCacheContext | null | undefined, resource: string): Promise<PedagogicalCacheSnapshot<T> | null> {
+export async function readPedagogicalCache<T>(
+  context: PedagogicalCacheContext | null | undefined,
+  resource: string,
+): Promise<PedagogicalCacheSnapshot<T> | null> {
   if (!context) return null;
-  const snapshot = await getLocalData<PedagogicalCacheSnapshot<T>>(cacheKey(context, resource));
+  const snapshot = await getLocalData<PedagogicalCacheSnapshot<T>>(
+    cacheKey(context, resource),
+  );
   if (!snapshot || snapshot.schemaVersion !== CACHE_VERSION) return null;
   return { ...snapshot, state: stale(snapshot) ? "stale" : "synced" };
 }
 
-export async function writePedagogicalCache<T>(context: PedagogicalCacheContext, resource: string, payload: T): Promise<PedagogicalCacheSnapshot<T>> {
+export async function writePedagogicalCache<T>(
+  context: PedagogicalCacheContext,
+  resource: string,
+  payload: T,
+): Promise<PedagogicalCacheSnapshot<T>> {
   const snapshot: PedagogicalCacheSnapshot<T> = {
     schemaVersion: CACHE_VERSION,
     fetchedAt: Date.now(),
@@ -91,13 +112,27 @@ export async function writePedagogicalCache<T>(context: PedagogicalCacheContext,
  * Retourne immédiatement un snapshot local compatible lorsque disponible. Un cache périmé est
  * rafraîchi en arrière-plan ; l’échec du rafraîchissement ne retire jamais le contenu déjà lu.
  */
-export async function readPedagogicalLocalFirst<T>(context: PedagogicalCacheContext | null | undefined, resource: string, fetchRemote: () => Promise<T>): Promise<T> {
+export async function readPedagogicalLocalFirst<T>(
+  context: PedagogicalCacheContext | null | undefined,
+  resource: string,
+  fetchRemote: () => Promise<T>,
+  options: PedagogicalReadOptions = {},
+): Promise<T> {
   if (!context) return fetchRemote();
   const cached = await readPedagogicalCache<T>(context, resource);
   if (cached) {
-    if (cached.state === "stale") {
-      void fetchRemote().then((payload) => writePedagogicalCache(context, resource, payload)).catch(() => undefined);
+    if (options.refresh) {
+      try {
+        const payload = await fetchRemote();
+        await writePedagogicalCache(context, resource, payload);
+        return payload;
+      } catch {
+        return cached.payload;
+      }
     }
+    void fetchRemote()
+      .then((payload) => writePedagogicalCache(context, resource, payload))
+      .catch(() => undefined);
     return cached.payload;
   }
   const payload = await fetchRemote();
@@ -116,7 +151,9 @@ export async function clearPedagogicalCache(userId: string): Promise<void> {
     // La déconnexion reste valide même si le stockage local est indisponible.
   }
   const indexes = await Promise.all([
-    getLocalData<string[]>(`${KEY_PREFIX}/v${CACHE_VERSION}/${segment(userId)}/index`),
+    getLocalData<string[]>(
+      `${KEY_PREFIX}/v${CACHE_VERSION}/${segment(userId)}/index`,
+    ),
   ]);
   const knownKeys = indexes.flatMap((items) => items ?? []);
   await Promise.allSettled([
