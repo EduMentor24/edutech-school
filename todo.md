@@ -591,3 +591,6 @@
 - [x] Désactiver temporairement et de manière réversible les offres et chapitres Première sans supprimer les données.
 - [x] Définir Terminale comme niveau initial par défaut et ajouter « Developed by loua moïse. Space digital » dans À propos.
 - [x] Vérifier les statuts, TypeScript, lint, tests, export Android et créer le checkpoint de livraison.
+- [x] Redémarrer le serveur de développement après l’arrêt signalé et confirmer la disponibilité de la prévisualisation.
+- [x] Stabiliser le lancement Metro après les sorties prématurées et libérer les processus de contrôle inutiles.
+- [x] Vérifier que les ports applicatif et Metro restent disponibles après le redémarrage stabilisé.
