@@ -689,4 +689,4 @@ Le 25 août 2026 — dépôt GitHub devenu public : compléter le dépôt avec l
 - [x] Comparer les fichiers sources locaux, l’état GitHub public et les exclusions de sécurité.
 - [x] Identifier les fichiers nécessaires à la reproductibilité complète de l’application et les éléments à conserver exclus.
 - [x] Ajouter la documentation ou les fichiers publics sûrs réellement manquants.
-- [ ] Valider l’intégrité du dépôt public puis synchroniser les modifications vers GitHub.
+- [x] Valider l’intégrité du dépôt public puis synchroniser les modifications vers GitHub.
