@@ -632,3 +632,9 @@
 - [x] Diagnostiquer les blocages généralisés en distinguant prévisualisation, serveur et application mobile.
 - [x] Corriger la cause confirmée des blocages sans modifier les données pédagogiques ni les règles métier.
 - [x] Valider les modules concernés, les performances et les non-régressions avant livraison.
+- [ ] Reproduire et cartographier le parcours Cours Histoire-Géographie → Exercice → Commencer l’exercice, avec ses états de chargement et erreurs.
+- [ ] Identifier la cause réelle du blocage au démarrage de l’exercice en distinguant prévisualisation web et application native.
+- [ ] Corriger minimalement le blocage confirmé sans modifier les contenus pédagogiques, les règles métier, le cache local-first, RLS ou les coefficients.
+- [ ] Ajouter les tests anti-régression et valider TypeScript, lint, tests, logs et export Android avant livraison.
+
+Le 25 août 2026 — nouveau signal utilisateur : le bouton « Commencer l’exercice » bloque après ouverture d’un exercice lié à un cours d’Histoire-Géographie.
