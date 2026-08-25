@@ -587,3 +587,7 @@
 - [x] Vérifier les rattachements, contenus, questions, réponses, corrections et exclusions avant toute publication globale.
 - [x] Publier et activer uniquement les ressources complètes validées, sans publier de brouillon vide, incomplet ou de test (aucune ressource réelle restante à publier ; les deux brouillons détectés sont de test).
 - [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison (aucun changement de code, de schéma ou de contenu réel après les validations du checkpoint précédent).
+- [x] Auditer les offres, chapitres et leçons Première ainsi que les réglages actuels de niveau par défaut et la page À propos.
+- [x] Désactiver temporairement et de manière réversible les offres et chapitres Première sans supprimer les données.
+- [x] Définir Terminale comme niveau initial par défaut et ajouter « Developed by loua moïse. Space digital » dans À propos.
+- [x] Vérifier les statuts, TypeScript, lint, tests, export Android et créer le checkpoint de livraison.
