@@ -661,3 +661,9 @@ Le 25 août 2026 — l’utilisateur précise que les cours Français sont struc
 - [x] Restaurer sans invention la visibilité des leçons Français dont les séances et contenus sont complets.
 - [x] Publier et activer uniquement les cours, séances, exercices et quiz Français vérifiés et complets.
 - [x] Valider les statuts, relations, affichage administrateur/élève, TypeScript, tests et export Android.
+
+Le 25 août 2026 — validation finale demandée dans pasted_content_7.txt, sans évolution fonctionnelle ni modification des contenus validés.
+- [x] Contrôler l’intégrité Terminale, les 12 leçons Français en séances, la sécurité, le cache et la navigation sans modifier les données.
+- [x] Exécuter TypeScript, lint, la suite de tests et les vérifications de configuration Android version/versionCode.
+- [x] Préparer le bundle Android de validation à partir de l’état complet actuel, sans déclencher de build EAS manuelle.
+- [x] Produire le rapport de build, signaler les anomalies réelles et séparer les tests nécessitant un appareil Android réel.
