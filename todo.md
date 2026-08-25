@@ -625,3 +625,7 @@
 - [x] Diagnostiquer le cycle de rendu et de chargement responsable du clignotement du module Cours.
 - [x] Corriger durablement le clignotement du module Cours sans modifier les contenus ni les règles pédagogiques.
 - [x] Tester le parcours Cours, les flux de profil/cache associés et les non-régressions avant livraison.
+- [x] Reproduire et identifier la cause racine du rechargement des listes Quiz et Exercices lors du scroll.
+- [x] Corriger le mécanisme commun responsable de la perte de position sans contourner le cache local-first.
+- [x] Ajouter des tests anti-régression pour les listes Quiz et Exercices, le scroll et le rechargement.
+- [x] Vérifier les parcours Quiz et Exercices ainsi que les non-régressions globales avant livraison.
