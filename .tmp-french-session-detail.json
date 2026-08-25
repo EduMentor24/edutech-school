@@ -1,0 +1,4 @@
+{
+  "project_id": "nnshioowwniursnozicg",
+  "query": "SELECT ls.id, ls.lesson_id, ls.title, ls.display_order, ls.is_active, ls.is_test_data, length(btrim(COALESCE(ls.content, ''))) AS content_length, length(btrim(COALESCE(ls.description, ''))) AS description_length FROM public.lesson_sessions ls WHERE ls.lesson_id IN ('35742bfa-2280-4748-b23b-5a2372c35b3d'::uuid, '21cfc0fc-e816-4dcf-b51c-ba6674d4482d'::uuid, 'c59df565-2412-4f7a-84cd-50283d666247'::uuid, '2a6fe84d-0f03-456a-9091-546e933a9216'::uuid, 'd5644bc5-0762-4eb6-bf89-635a1aef165c'::uuid, 'c4997820-713b-47cd-b69d-de8d678a68fa'::uuid, 'f8a2ad20-2ebb-4cb0-bf28-b9d394dbc258'::uuid, '0249d2e2-61ab-4fbb-ad6e-f92a475b4bc8'::uuid, 'bd98a0ba-9f5e-4ee2-aa75-6fdcbe8fa6e7'::uuid, '480171e8-72da-49b5-883a-6eabbff41fd0'::uuid, '0ba99a28-9859-4897-a072-66daf4d8661a'::uuid, '4fc683c4-e776-4fe6-a2ab-8647ecb6760f'::uuid) ORDER BY ls.lesson_id, ls.display_order LIMIT 100;"
+}

@@ -655,3 +655,9 @@ Le 25 août 2026 — priorité utilisateur : corriger avant toute autre finalisa
 - [x] Désactiver sans suppression les douze clones stricts de Quiz Informatique, en conservant une copie valide par leçon.
 - [x] Recontrôler les relations Terminale, les contenus, les questions, les réponses et les tentatives après correction.
 - [x] Relancer les validations locales et l’export Android après les corrections prioritaires.
+
+Le 25 août 2026 — l’utilisateur précise que les cours Français sont structurés en séances et demande leur publication après vérification.
+- [x] Auditer les séances Français réelles et leurs rattachements aux leçons, chapitres, séries et niveaux.
+- [x] Restaurer sans invention la visibilité des leçons Français dont les séances et contenus sont complets.
+- [x] Publier et activer uniquement les cours, séances, exercices et quiz Français vérifiés et complets.
+- [x] Valider les statuts, relations, affichage administrateur/élève, TypeScript, tests et export Android.
