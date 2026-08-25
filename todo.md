@@ -746,3 +746,17 @@ Le 25 août 2026 — correction prioritaire du mode hors ligne réel demandée d
 - [x] Rendre le Bulletin lisible et modifiable hors ligne avec l’identité locale persistée.
 - [x] Vérifier persistance, file de synchronisation, conflits et non-régressions.
 - [x] Produire le rapport final sans générer de nouvelle APK.
+
+Le 25 août 2026 — correction de l’icône Android demandée dans `pasted_content_10.txt`, sans nouvelle build EAS.
+
+- [x] Diagnostiquer la configuration Expo/Android/EAS et les ressources d’icône existantes.
+- [x] Identifier l’absence de fichier logo officiel utilisable sans modifier son design.
+- [x] Configurer uniquement l’icône Android et les ressources adaptive icon nécessaires.
+- [x] Valider TypeScript, lint, tests, Expo, Android et EAS sans générer d’APK.
+- [x] Produire le rapport de diagnostic et attendre la ressource officielle ou son autorisation explicite de dérivation.
+
+Le 25 août 2026 — autorisation reçue de dériver exactement les ressources Android depuis le Brand Mark existant, sans modifier son identité.
+
+- [x] Créer les ressources d’icône Android à partir du symbole `menu-book` et des couleurs déjà utilisées par BrandMark.
+- [x] Remplacer uniquement les références d’icône Expo/Android devenues génériques.
+- [x] Comparer visuellement l’icône créée au Brand Mark et valider Expo, EAS, TypeScript, lint et tests sans build.
