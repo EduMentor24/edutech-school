@@ -616,3 +616,9 @@
 - [x] Ajouter les tests automatisés de cache, synchronisation, administration et sécurité, puis préparer le protocole de tests réels.
 - [ ] Revalider Terminale A1/A2/C/D, Première suspendue, coefficients et Mentor IA, puis produire le rapport final de la commande 18.
 - [x] Documenter le blocage temporaire de restriction EXECUTE des RPC après trois échecs du connecteur Supabase, sans le présenter comme corrigé.
+- [x] Vérifier en lecture seule l’identité, les lectures répétées et l’accès aux métadonnées du connecteur Supabase EduMentor.
+- [x] Vérifier en lecture seule que l’URL Supabase configurée dans l’application correspond au projet EduMentor et que le connecteur est stable.
+- [x] Confirmer les RPC sensibles et leurs privilèges actuels avant la migration REVOKE EXECUTE.
+- [x] Retirer EXECUTE du rôle anon uniquement pour les RPC sensibles ciblées, sans modifier les RLS ni les données.
+- [x] Vérifier les ACL post-migration, les contrôles administratifs et la continuité des RLS.
+- [x] Rejouer les validations de non-régression et produire le rapport final de sécurité Supabase.
