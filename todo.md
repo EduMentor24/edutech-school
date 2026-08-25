@@ -594,3 +594,7 @@
 - [x] Redémarrer le serveur de développement après l’arrêt signalé et confirmer la disponibilité de la prévisualisation.
 - [x] Stabiliser le lancement Metro après les sorties prématurées et libérer les processus de contrôle inutiles.
 - [x] Vérifier que les ports applicatif et Metro restent disponibles après le redémarrage stabilisé.
+- [x] Analyser intégralement le PDF de méthodologie Histoire-Géographie et en extraire les techniques de commentaire de document et dissertation.
+- [x] Auditer les structures existantes du chapitre Notions de méthodologie pour Terminale A1, A2, C et D et exclure tout doublon.
+- [x] Créer les cours méthodologiques approfondis en brouillon, inactifs et non publiés, sans modifier les contenus existants.
+- [x] Vérifier les rattachements, la qualité du Markdown et les données créées avant validation technique et checkpoint.
