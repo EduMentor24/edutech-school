@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
+import { readPedagogicalLocalFirst, type PedagogicalCacheContext } from "@/lib/offline/pedagogical-cache";
 
 export type LessonSession = {
   id: string;
@@ -17,21 +18,24 @@ function messageFrom(error: unknown) {
 }
 
 /** Charge les séances de la leçon, dans leur ordre pédagogique. Les brouillons restent réservés à l’aperçu administrateur. */
-export async function getLessonSessions(lessonId: string, options: { includeInactive?: boolean } = {}): Promise<LessonSession[]> {
-  let request = supabase
-    .from("lesson_sessions")
-    .select("id,lesson_id,title,description,content,display_order,is_active")
-    .eq("lesson_id", lessonId);
-  if (!options.includeInactive) request = request.eq("is_active", true);
-  const { data, error } = await request.order("display_order", { ascending: true });
-  if (error) throw new Error(messageFrom(error));
-  return (data ?? []).map((session: any) => ({
-    id: session.id,
-    lessonId: session.lesson_id,
-    title: session.title,
-    description: session.description,
-    content: session.content,
-    displayOrder: session.display_order,
-    isActive: Boolean(session.is_active),
-  }));
+export async function getLessonSessions(lessonId: string, options: { includeInactive?: boolean; cacheContext?: PedagogicalCacheContext | null } = {}): Promise<LessonSession[]> {
+  const resource = `lesson/${encodeURIComponent(lessonId)}/sessions/${options.includeInactive ? "admin" : "student"}`;
+  return readPedagogicalLocalFirst(options.cacheContext, resource, async () => {
+    let request = supabase
+      .from("lesson_sessions")
+      .select("id,lesson_id,title,description,content,display_order,is_active")
+      .eq("lesson_id", lessonId);
+    if (!options.includeInactive) request = request.eq("is_active", true);
+    const { data, error } = await request.order("display_order", { ascending: true });
+    if (error) throw new Error(messageFrom(error));
+    return (data ?? []).map((session: any) => ({
+      id: session.id,
+      lessonId: session.lesson_id,
+      title: session.title,
+      description: session.description,
+      content: session.content,
+      displayOrder: session.display_order,
+      isActive: Boolean(session.is_active),
+    }));
+  });
 }

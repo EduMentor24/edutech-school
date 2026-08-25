@@ -12,6 +12,7 @@ import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { CourseLesson, getLesson, getLessonsForChapter } from "@/lib/courses/course-service";
 import { getLessonSessions, type LessonSession } from "@/lib/courses/lesson-session-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 import { ExerciseCatalogItem, getExerciseCatalog } from "@/lib/exercises/exercise-service";
 import { downloadLessonPdf, printLessonPdf } from "@/lib/lessons/lesson-pdf-service";
 import { completeLesson, getLearningProgress, progressForLesson, recordLessonView, setLessonFavorite, type LessonProgressStatus } from "@/lib/progress/learning-progress-service";
@@ -21,7 +22,7 @@ export default function LessonReaderScreen() {
   const { lessonId } = useLocalSearchParams<{ lessonId: string }>();
   const router = useRouter();
   const { colors } = useEduTheme();
-  const { profile, isAdmin } = useSupabaseAuth();
+  const { profile, isAdmin } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile);
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [lesson, setLesson] = useState<CourseLesson | null>(null);
@@ -45,11 +46,11 @@ export default function LessonReaderScreen() {
     setError(null);
     setTrackingError(null);
     try {
-      const nextLesson = await getLesson(lessonId, { includeInactive: isAdmin });
+      const nextLesson = await getLesson(lessonId, { includeInactive: isAdmin, cacheContext });
       const [nextChapterLessons, nextSessions] = nextLesson
         ? await Promise.all([
-          getLessonsForChapter(nextLesson.chapterId, { includeInactive: isAdmin }),
-          getLessonSessions(nextLesson.id, { includeInactive: isAdmin }),
+          getLessonsForChapter(nextLesson.chapterId, { includeInactive: isAdmin, cacheContext }),
+          getLessonSessions(nextLesson.id, { includeInactive: isAdmin, cacheContext }),
         ])
         : [[], []] as [CourseLesson[], LessonSession[]];
       setLesson(nextLesson);
@@ -70,7 +71,7 @@ export default function LessonReaderScreen() {
           setTrackingError(cause instanceof Error ? cause.message : "La consultation n’a pas pu être enregistrée.");
         }
         try {
-          const [exercises, quizzes] = await Promise.all([getExerciseCatalog({ lessonId: nextLesson.id }), getQuizCatalog({ lessonId: nextLesson.id })]);
+          const [exercises, quizzes] = await Promise.all([getExerciseCatalog({ lessonId: nextLesson.id, cacheContext }), getQuizCatalog({ lessonId: nextLesson.id, cacheContext })]);
           setLessonExercises(exercises);
           setLessonQuizzes(quizzes);
         } catch (cause) {
@@ -85,7 +86,7 @@ export default function LessonReaderScreen() {
     } finally {
       setLoading(false);
     }
-  }, [isAdmin, lessonId, profile?.role]);
+  }, [cacheContext, isAdmin, lessonId, profile?.role]);
 
   useEffect(() => { void load(); }, [load]);
 

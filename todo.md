@@ -603,3 +603,16 @@
 - [x] Créer les exercices corrigés et quiz interactifs séparés pour les huit leçons de méthodologie en brouillon.
 - [x] Vérifier la complétude puis publier et activer immédiatement les cours, chapitres, exercices et quiz validés.
 - [x] Réauditer les statuts, valider RLS, TypeScript, lint, tests et export Android, puis créer le checkpoint de livraison.
+- [x] Inventorier l’architecture et les modules audités sans modifier l’application.
+- [x] Auditer en lecture seule les contenus Terminale, la suspension de Première et les rattachements pédagogiques.
+- [x] Auditer en lecture seule l’authentification, le stockage local, la synchronisation, le mentor IA et les parcours élève.
+- [x] Auditer en lecture seule bulletin, profil, notifications, administration, RLS, navigation, performance et compatibilité Android.
+- [x] Produire le rapport d’audit structuré sans correction automatique.
+- [x] Cartographier les caches, files locales, dépendances réseau et conflits existants avant évolution.
+- [x] Mettre en place un cache pédagogique versionné par utilisateur, niveau, série et contenu pour les lectures hors ligne.
+- [x] Ajouter une file de synchronisation idempotente pour la progression, les complétions et les résultats élève, avec reprise et gestion de conflit.
+- [x] Finaliser l’administration des utilisateurs, des décisions de passage et des années scolaires avec confirmations et données réelles.
+- [ ] Vérifier puis renforcer les autorisations RLS/RPC sensibles sans affaiblir les protections existantes.
+- [x] Ajouter les tests automatisés de cache, synchronisation, administration et sécurité, puis préparer le protocole de tests réels.
+- [ ] Revalider Terminale A1/A2/C/D, Première suspendue, coefficients et Mentor IA, puis produire le rapport final de la commande 18.
+- [x] Documenter le blocage temporaire de restriction EXECUTE des RPC après trois échecs du connecteur Supabase, sans le présenter comme corrigé.

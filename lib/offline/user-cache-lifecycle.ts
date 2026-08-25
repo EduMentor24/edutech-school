@@ -2,6 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { clearCachedProfileContext } from "@/lib/auth/profile-context-cache";
 import { clearNotificationInboxCache } from "@/lib/notifications/notification-offline-store";
+import { clearPedagogicalCache } from "@/lib/offline/pedagogical-cache";
+import { clearLearningSyncData } from "@/lib/offline/learning-sync-store";
 
 /** Efface uniquement les caches privés d’un compte après sa déconnexion locale. */
 export async function clearUserOfflineCache(userId: string) {
@@ -19,6 +21,8 @@ export async function clearUserOfflineCache(userId: string) {
   await Promise.allSettled([
     clearCachedProfileContext(userId),
     clearNotificationInboxCache(userId),
+    clearPedagogicalCache(userId),
+    clearLearningSyncData(userId),
     AsyncStorage.multiRemove([...exactKeys, ...userKeys]),
   ]);
 }

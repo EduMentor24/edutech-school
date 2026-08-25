@@ -9,14 +9,16 @@ import { ProgressSummary } from "@/components/edutech/learning-progress";
 import { PageHeader } from "@/components/edutech/page-header";
 import { CourseChapter, CourseOffering, getChaptersForOffering, getCourseOffering } from "@/lib/courses/course-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 import { getLearningProgress, progressForChapter, progressForOffering, type LearningProgressDashboard } from "@/lib/progress/learning-progress-service";
+import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 
 const emptyDashboard: LearningProgressDashboard = { subjects: [], completedLessons: 0, totalLessons: 0, percentage: 0 };
 
 export default function SubjectScreen() {
-  const { offeringId } = useLocalSearchParams<{ offeringId: string }>(); const router = useRouter(); const { colors } = useEduTheme();
+  const { offeringId } = useLocalSearchParams<{ offeringId: string }>(); const router = useRouter(); const { colors } = useEduTheme(); const { profile } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile);
   const [offering, setOffering] = useState<CourseOffering | null>(null); const [chapters, setChapters] = useState<CourseChapter[]>([]); const [dashboard, setDashboard] = useState<LearningProgressDashboard>(emptyDashboard); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null); const styles = useMemo(() => createStyles(colors), [colors]);
-  const load = useCallback(async () => { if (!offeringId) return; setLoading(true); setError(null); try { const [nextOffering, nextChapters, progress] = await Promise.all([getCourseOffering(offeringId), getChaptersForOffering(offeringId), getLearningProgress()]); setOffering(nextOffering); setChapters(nextChapters); setDashboard(progress); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [offeringId]);
+  const load = useCallback(async () => { if (!offeringId) return; setLoading(true); setError(null); try { const [nextOffering, nextChapters, progress] = await Promise.all([getCourseOffering(offeringId, { cacheContext }), getChaptersForOffering(offeringId, { cacheContext }), getLearningProgress()]); setOffering(nextOffering); setChapters(nextChapters); setDashboard(progress); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [cacheContext, offeringId]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   if (loading) return <AppScreen><CourseLoading label="Chargement des chapitres" /></AppScreen>;
   if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;

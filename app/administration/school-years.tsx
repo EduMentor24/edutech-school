@@ -1,50 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View, Alert, ActivityIndicator } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+
 import { ScreenContainer } from "@/components/screen-container";
-import { fetchSchoolYears, SchoolYear } from "@/lib/admin/school-administration-service";
+import { activateSchoolYear, archiveSchoolYear, closeSchoolYear, createSchoolYear, fetchSchoolYears, type SchoolYear } from "@/lib/admin/school-administration-service";
 
 export default function SchoolYearsScreen() {
   const [years, setYears] = useState<SchoolYear[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [name, setName] = useState("");
+  const [startsOn, setStartsOn] = useState("");
+  const [endsOn, setEndsOn] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchSchoolYears();
-      setYears(data);
-    } catch (e: any) {
-      Alert.alert("Erreur", e.message || "Impossible de charger les années scolaires");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const load = useCallback(async () => { try { setLoading(true); setYears(await fetchSchoolYears()); } catch (cause) { Alert.alert("Erreur", cause instanceof Error ? cause.message : "Impossible de charger les années scolaires."); } finally { setLoading(false); } }, []);
+  useEffect(() => { void load(); }, [load]);
 
-  useEffect(() => { void loadData(); }, []);
+  const create = useCallback(async () => {
+    if (!/^\d{4}-\d{4}$/.test(name)) { Alert.alert("Format requis", "Saisissez une année au format AAAA-AAAA, par exemple 2026-2027."); return; }
+    try { setSaving(true); await createSchoolYear(name, startsOn || null, endsOn || null, notes || null); setName(""); setStartsOn(""); setEndsOn(""); setNotes(""); await load(); Alert.alert("Année créée", "L’année est créée en brouillon. Activez-la seulement lorsque l’année active actuelle est clôturée."); }
+    catch (cause) { Alert.alert("Création refusée", cause instanceof Error ? cause.message : "La création de l’année a échoué."); }
+    finally { setSaving(false); }
+  }, [endsOn, load, name, notes, startsOn]);
 
-  return (
-    <ScreenContainer className="p-4 bg-background">
-      <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
-        <Text className="text-2xl font-bold text-foreground mb-4">Années scolaires</Text>
-        <Text className="text-sm text-muted mb-4">Gestion, activation, clôture et archivage des années scolaires.</Text>
+  const confirmAction = useCallback((year: SchoolYear, action: "activate" | "close" | "archive") => {
+    const text = action === "activate" ? "Activer" : action === "close" ? "Clôturer" : "Archiver";
+    const detail = action === "activate" ? "Une seule année peut être active. L’activation sera refusée si une autre année reste active." : action === "close" ? "Les historiques de cette année seront conservés et marqués archivés." : "Une année archivée ne peut plus être réactivée.";
+    Alert.alert(`${text} ${year.name}`, detail, [{ text: "Annuler", style: "cancel" }, { text, style: action === "archive" ? "destructive" : "default", onPress: () => void (async () => { try { setSaving(true); if (action === "activate") await activateSchoolYear(year.id); if (action === "close") await closeSchoolYear(year.id); if (action === "archive") await archiveSchoolYear(year.id); await load(); Alert.alert("Action enregistrée", `L’année ${year.name} a été mise à jour.`); } catch (cause) { Alert.alert("Action refusée", cause instanceof Error ? cause.message : "La mise à jour a échoué."); } finally { setSaving(false); } })() }]);
+  }, [load]);
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#0a7ea4" className="my-8" />
-        ) : (
-          <View className="gap-4">
-            {years.map(y => (
-              <View key={y.id} className="bg-surface border border-border rounded-xl p-4 gap-2">
-                <View className="flex-row justify-between items-center">
-                  <Text className="text-lg font-bold text-foreground">{y.name}</Text>
-                  <Text className={`text-xs font-semibold px-2.5 py-1 rounded-full ${y.is_active ? "bg-success/20 text-success" : "bg-muted/20 text-muted"}`}>
-                    {y.is_active ? "Active" : y.status}
-                  </Text>
-                </View>
-                <Text className="text-xs text-muted">Du {y.start_date ?? "date non renseignée"} au {y.end_date ?? "date non renseignée"}</Text>
-              </View>
-            ))}
-          </View>
-        )}
-      </ScrollView>
-    </ScreenContainer>
-  );
+  return <ScreenContainer className="p-4 bg-background"><ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"><Text className="text-2xl font-bold text-foreground">Années scolaires</Text><Text className="text-sm text-muted mt-1">Création, activation, clôture et archivage sans suppression des historiques.</Text><View style={styles.form}><Text style={styles.formTitle}>Nouvelle année</Text><TextInput style={styles.input} placeholder="2026-2027" placeholderTextColor="#687076" value={name} onChangeText={setName} /><TextInput style={styles.input} placeholder="Début (AAAA-MM-JJ, facultatif)" placeholderTextColor="#687076" value={startsOn} onChangeText={setStartsOn} /><TextInput style={styles.input} placeholder="Fin (AAAA-MM-JJ, facultatif)" placeholderTextColor="#687076" value={endsOn} onChangeText={setEndsOn} /><TextInput style={[styles.input, styles.notes]} placeholder="Notes administratives (facultatif)" placeholderTextColor="#687076" value={notes} onChangeText={setNotes} multiline /><Pressable disabled={saving} onPress={() => void create()} style={({ pressed }) => [styles.primary, saving && styles.disabled, pressed && !saving && styles.pressed]}><Text style={styles.primaryText}>{saving ? "Enregistrement…" : "Créer le brouillon"}</Text></Pressable></View>{loading ? <ActivityIndicator size="large" color="#0a7ea4" style={styles.loader} /> : <View style={styles.list}>{years.map((year) => <View key={year.id} style={styles.card}><View style={styles.header}><Text style={styles.name}>{year.name}</Text><Text style={[styles.badge, year.status === "active" ? styles.active : styles.neutral]}>{year.status === "active" ? "Active" : year.status}</Text></View><Text style={styles.meta}>Du {year.start_date ?? "date non renseignée"} au {year.end_date ?? "date non renseignée"}</Text><View style={styles.actions}>{year.status === "draft" ? <Action label="Activer" disabled={saving} onPress={() => confirmAction(year, "activate")} /> : null}{year.status === "active" ? <Action label="Clôturer" disabled={saving} onPress={() => confirmAction(year, "close")} destructive /> : null}{year.status === "closed" ? <Action label="Archiver" disabled={saving} onPress={() => confirmAction(year, "archive")} destructive /> : null}</View></View>)}</View>}</ScrollView></ScreenContainer>;
 }
+
+function Action({ label, onPress, disabled, destructive }: { label: string; onPress: () => void; disabled?: boolean; destructive?: boolean }) { return <Pressable disabled={disabled} onPress={onPress} style={({ pressed }) => [styles.action, destructive && styles.actionDestructive, disabled && styles.disabled, pressed && !disabled && styles.pressed]}><Text style={[styles.actionText, destructive && styles.actionTextDestructive]}>{label}</Text></Pressable>; }
+const styles = StyleSheet.create({ content: { paddingBottom: 30, gap: 14 }, form: { gap: 9, padding: 14, borderRadius: 16, borderWidth: 1, borderColor: "#B9E2F3", backgroundColor: "#E6F4FE", marginTop: 2 }, formTitle: { color: "#11181C", fontSize: 14, fontWeight: "900" }, input: { minHeight: 44, borderWidth: 1, borderColor: "#E5E7EB", borderRadius: 11, paddingHorizontal: 11, backgroundColor: "#fff", color: "#11181C", fontSize: 13 }, notes: { minHeight: 76, paddingTop: 10, textAlignVertical: "top" }, primary: { minHeight: 44, borderRadius: 11, justifyContent: "center", alignItems: "center", backgroundColor: "#0a7ea4" }, primaryText: { color: "#fff", fontSize: 13, fontWeight: "900" }, loader: { marginVertical: 32 }, list: { gap: 10 }, card: { gap: 8, padding: 14, borderRadius: 16, borderWidth: 1, borderColor: "#E5E7EB", backgroundColor: "#F5F5F5" }, header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 10 }, name: { color: "#11181C", fontSize: 16, fontWeight: "900" }, badge: { overflow: "hidden", paddingHorizontal: 8, paddingVertical: 4, borderRadius: 99, fontSize: 10, fontWeight: "900" }, active: { color: "#166534", backgroundColor: "#DCFCE7" }, neutral: { color: "#475467", backgroundColor: "#EAECF0" }, meta: { color: "#687076", fontSize: 11 }, actions: { flexDirection: "row", gap: 8 }, action: { minHeight: 36, justifyContent: "center", paddingHorizontal: 11, borderRadius: 10, borderWidth: 1, borderColor: "#0a7ea4", backgroundColor: "#E6F4FE" }, actionDestructive: { borderColor: "#D92D20", backgroundColor: "#FEF3F2" }, actionText: { color: "#0a7ea4", fontSize: 11, fontWeight: "900" }, actionTextDestructive: { color: "#D92D20" }, disabled: { opacity: 0.5 }, pressed: { opacity: 0.72 } });

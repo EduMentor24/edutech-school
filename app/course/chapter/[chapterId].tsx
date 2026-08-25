@@ -9,14 +9,16 @@ import { LessonStatusBadge, ProgressSummary } from "@/components/edutech/learnin
 import { PageHeader } from "@/components/edutech/page-header";
 import { CourseChapter, CourseLesson, getChapter, getLessonsForChapter } from "@/lib/courses/course-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 import { getLearningProgress, progressForChapter, progressForLesson, type LearningProgressDashboard } from "@/lib/progress/learning-progress-service";
 
 const emptyDashboard: LearningProgressDashboard = { subjects: [], completedLessons: 0, totalLessons: 0, percentage: 0 };
 
 export default function ChapterScreen() {
-  const { chapterId } = useLocalSearchParams<{ chapterId: string }>(); const router = useRouter(); const { colors } = useEduTheme();
+  const { chapterId } = useLocalSearchParams<{ chapterId: string }>(); const router = useRouter(); const { colors } = useEduTheme(); const { profile } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile);
   const [chapter, setChapter] = useState<CourseChapter | null>(null); const [lessons, setLessons] = useState<CourseLesson[]>([]); const [dashboard, setDashboard] = useState<LearningProgressDashboard>(emptyDashboard); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null); const styles = useMemo(() => createStyles(colors), [colors]);
-  const load = useCallback(async () => { if (!chapterId) return; setLoading(true); setError(null); try { const [nextChapter, nextLessons, progress] = await Promise.all([getChapter(chapterId), getLessonsForChapter(chapterId), getLearningProgress()]); setChapter(nextChapter); setLessons(nextLessons); setDashboard(progress); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [chapterId]);
+  const load = useCallback(async () => { if (!chapterId) return; setLoading(true); setError(null); try { const [nextChapter, nextLessons, progress] = await Promise.all([getChapter(chapterId, { cacheContext }), getLessonsForChapter(chapterId, { cacheContext }), getLearningProgress()]); setChapter(nextChapter); setLessons(nextLessons); setDashboard(progress); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [cacheContext, chapterId]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   if (loading) return <AppScreen><CourseLoading label="Chargement des leçons" /></AppScreen>;
   if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;

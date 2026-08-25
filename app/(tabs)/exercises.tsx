@@ -6,16 +6,18 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { AppScreen } from "@/components/edutech/app-screen";
 import { CourseEmpty, CourseError, CourseLoading } from "@/components/edutech/course-feedback";
 import { PageHeader } from "@/components/edutech/page-header";
+import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { ExerciseCatalogItem, ExerciseDifficulty, getExerciseCatalog, humanDifficulty, humanExerciseType, resultLabel, visibleCatalogItems } from "@/lib/exercises/exercise-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 
 type FilterState = { subjectId: string | null; chapterId: string | null; lessonId: string | null; difficulty: ExerciseDifficulty | null };
 const emptyFilters: FilterState = { subjectId: null, chapterId: null, lessonId: null, difficulty: null };
 
 export default function ExercisesScreen() {
-  const router = useRouter(); const { lessonId: requestedLessonId } = useLocalSearchParams<{ lessonId?: string }>(); const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]);
+  const router = useRouter(); const { lessonId: requestedLessonId } = useLocalSearchParams<{ lessonId?: string }>(); const { colors } = useEduTheme(); const { profile } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile); const styles = useMemo(() => createStyles(colors), [colors]);
   const [items, setItems] = useState<ExerciseCatalogItem[]>([]); const [filters, setFilters] = useState<FilterState>(emptyFilters); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
-  const load = useCallback(async () => { setLoading(true); setError(null); try { setItems(await getExerciseCatalog()); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, []);
+  const load = useCallback(async () => { setLoading(true); setError(null); try { setItems(await getExerciseCatalog({ cacheContext })); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [cacheContext]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   useEffect(() => { if (requestedLessonId) setFilters((current) => ({ ...current, lessonId: requestedLessonId })); }, [requestedLessonId]);
   const filtered = useMemo(() => visibleCatalogItems(items, filters), [filters, items]);

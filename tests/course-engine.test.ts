@@ -29,14 +29,14 @@ describe("moteur de cours progressif", () => {
   });
 
   it("prévoit la lecture et la navigation entre les leçons du même chapitre", () => {
-    expect(reader).toContain("getLesson(lessonId, { includeInactive: isAdmin })");
+    expect(reader).toContain("getLesson(lessonId, { includeInactive: isAdmin, cacheContext })");
     expect(reader).toContain("getLessonsForChapter");
     expect(reader).toContain("Leçon précédente");
     expect(reader).toContain("Leçon suivante");
   });
 
   it("autorise seulement le parcours administrateur à demander une leçon inactive", () => {
-    expect(service).toContain("options: { includeInactive?: boolean } = {}");
+    expect(service).toContain("includeInactive?: boolean");
     expect(service).toContain('if (!options.includeInactive) request = request.eq("is_active", true);');
     expect(reader).toContain("const { profile, isAdmin } = useSupabaseAuth()");
     expect(reader).toContain("Aperçu administrateur : cette leçon est inactive");

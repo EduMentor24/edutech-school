@@ -28,3 +28,17 @@ export async function fetchSchoolYears(): Promise<SchoolYear[]> {
     updated_at: row.updated_at,
   }));
 }
+
+async function callYearAction(functionName: "admin_activate_school_year" | "admin_close_school_year" | "admin_archive_school_year", schoolYearId: string) {
+  const { error } = await supabase.rpc(functionName, { p_school_year_id: schoolYearId });
+  if (error) throw new Error(error.message);
+}
+
+export async function createSchoolYear(name: string, startsOn: string | null, endsOn: string | null, notes: string | null) {
+  const { error } = await supabase.rpc("admin_create_school_year", { p_name: name.trim(), p_starts_on: startsOn || null, p_ends_on: endsOn || null, p_notes: notes?.trim() || null });
+  if (error) throw new Error(error.message);
+}
+
+export async function activateSchoolYear(schoolYearId: string) { await callYearAction("admin_activate_school_year", schoolYearId); }
+export async function closeSchoolYear(schoolYearId: string) { await callYearAction("admin_close_school_year", schoolYearId); }
+export async function archiveSchoolYear(schoolYearId: string) { await callYearAction("admin_archive_school_year", schoolYearId); }

@@ -6,16 +6,18 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { AppScreen } from "@/components/edutech/app-screen";
 import { CourseEmpty, CourseError, CourseLoading } from "@/components/edutech/course-feedback";
 import { PageHeader } from "@/components/edutech/page-header";
+import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { QuizCatalogItem, QuizDifficulty, getQuizCatalog, humanQuizDifficulty, quizResultLabel } from "@/lib/quizzes/quiz-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 
 type FilterState = { subjectId: string | null; chapterId: string | null; lessonId: string | null; difficulty: QuizDifficulty | null };
 const emptyFilters: FilterState = { subjectId: null, chapterId: null, lessonId: null, difficulty: null };
 
 export default function QuizzesScreen() {
-  const router = useRouter(); const { lessonId: requestedLessonId } = useLocalSearchParams<{ lessonId?: string }>(); const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]);
+  const router = useRouter(); const { lessonId: requestedLessonId } = useLocalSearchParams<{ lessonId?: string }>(); const { colors } = useEduTheme(); const { profile } = useSupabaseAuth(); const cacheContext = pedagogicalCacheContextFromProfile(profile); const styles = useMemo(() => createStyles(colors), [colors]);
   const [items, setItems] = useState<QuizCatalogItem[]>([]); const [filters, setFilters] = useState<FilterState>(emptyFilters); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
-  const load = useCallback(async () => { setLoading(true); setError(null); try { setItems(await getQuizCatalog()); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, []);
+  const load = useCallback(async () => { setLoading(true); setError(null); try { setItems(await getQuizCatalog({ cacheContext })); } catch (cause) { setError(cause instanceof Error ? cause.message : "Une erreur inattendue est survenue."); } finally { setLoading(false); } }, [cacheContext]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   useEffect(() => { if (requestedLessonId) setFilters((current) => ({ ...current, lessonId: requestedLessonId })); }, [requestedLessonId]);
   const filtered = useMemo(() => items.filter((item) => (!filters.subjectId || item.subjectId === filters.subjectId) && (!filters.chapterId || item.chapterId === filters.chapterId) && (!filters.lessonId || item.lessonId === filters.lessonId) && (!filters.difficulty || item.difficulty === filters.difficulty)), [filters, items]);
