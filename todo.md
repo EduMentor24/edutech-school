@@ -760,3 +760,10 @@ Le 25 août 2026 — autorisation reçue de dériver exactement les ressources A
 - [x] Créer les ressources d’icône Android à partir du symbole `menu-book` et des couleurs déjà utilisées par BrandMark.
 - [x] Remplacer uniquement les références d’icône Expo/Android devenues génériques.
 - [x] Comparer visuellement l’icône créée au Brand Mark et valider Expo, EAS, TypeScript, lint et tests sans build.
+
+Le 25 août 2026 — build APK de validation demandée pour le commit `06f39d2`, sans changement supplémentaire.
+
+- [x] Vérifier que le commit local cible inclut les corrections local-first et d’icône Android.
+- [x] Rejouer TypeScript, lint, tests et la validation Expo/EAS sans modifier le code.
+- [x] Soumettre et suivre uniquement la build EAS Android du profil APK interne.
+- [x] Vérifier et livrer l’APK avec son identifiant, sa version, sa taille et son commit source.
