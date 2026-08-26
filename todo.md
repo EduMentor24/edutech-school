@@ -782,3 +782,31 @@ Le 26 août 2026 — correction du préchargement local complet demandée dans `
 - [x] Exposer un état de synchronisation réactif, non bloquant, et reprendre au retour réseau ou premier plan.
 - [x] Ajouter les tests de complétion, interruption, reprise, versionnement, isolation et non-régression Bulletin/Mentor.
 - [x] Exécuter les validations TypeScript, lint et tests, analyser la taille de cache, synchroniser GitHub et livrer le rapport sans APK.
+
+Le 26 août 2026 — audit du backend demandé dans `pasted_content_13.txt`, strictement en lecture seule, sans déploiement ni build APK.
+- [x] Cartographier les services backend, leurs routes et les appels réellement utilisés par l’application.
+- [x] Vérifier l’origine et le caractère temporaire ou permanent des URLs HTTPS et des dépendances Manus.
+- [x] Évaluer la compatibilité avec une APK de test, le Mentor IA, la synchronisation et une exploitation durable.
+- [x] Produire le rapport de production/migration et arrêter sans modifier le projet.
+
+Le 26 août 2026 — audit Render Free et solution IA demandé dans `pasted_content_14.txt`, strictement en lecture seule, sans compte, clé, déploiement, URL ni build APK.
+- [x] Cartographier le serveur Express actuel, ses routes actives et ses dépendances Manus à migrer.
+- [x] Vérifier les conditions actuelles de Render Free, dont limites de veille, ressources, HTTPS et exploitation.
+- [x] Vérifier les offres, quotas, conditions et contraintes des solutions IA gratuites ou à quota gratuit pertinentes.
+- [x] Évaluer les coûts, risques, sécurité, compatibilité Supabase/EAS et effort de migration sans implémentation.
+- [x] Produire le verdict d’architecture et arrêter sans modifier le projet.
+
+Le 26 août 2026 — recherche approfondie d’un backend permanent à 0 FCFA demandée dans `pasted_content_15.txt`, strictement en lecture seule, sans compte, clé, URL, déploiement ou build APK.
+- [x] Cartographier les routes Express, le Mentor IA, l’authentification Supabase et le stockage Manus réellement utilisés.
+- [x] Vérifier les conditions officielles de Cloudflare Workers, Workers AI, Supabase Edge Functions, Koyeb, Render et alternatives pertinentes.
+- [x] Comparer les quotas, capacité théorique, confidentialité, sécurité, risques de free tier et compatibilité d’hébergement.
+- [x] Évaluer précisément l’effort de migration vers Workers / Edge Functions sans réécrire ni déployer.
+- [x] Produire le classement, l’architecture recommandée à 0 FCFA et arrêter sans modification.
+
+Le 26 août 2026 — préparation Cloudflare Workers demandée dans `pasted_content_16.txt`, sans déploiement, URL, secret réel, changement EAS, Supabase, APK ou retrait du backend Manus.
+- [x] Auditer les routes Express, les consommateurs Android, les middlewares et les dépendances Manus/Node incompatibles avec Workers.
+- [x] Ajouter la configuration Wrangler et le squelette Worker parallèles, sans liaison à l’APK actuelle.
+- [x] Isoler un contrat Mentor et un fournisseur Workers AI futur, sans modifier la route Manus ni supprimer `invokeLLM`.
+- [x] Ajouter les garde-fous Worker, les tests locaux mockés et les commandes de build non déployantes.
+- [ ] Exécuter TypeScript, lint, tests et build Worker local, puis synchroniser GitHub sans déployer.
+- [ ] Produire le rapport final de préparation et arrêter sans exécuter `wrangler deploy`.

@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars only for local Worker tests. Never commit .dev.vars.
+# Values are intentionally omitted. No AI provider key is required: Workers AI uses the AI binding.
+SUPABASE_URL=
+SUPABASE_PUBLISHABLE_KEY=
+ALLOWED_ORIGINS=

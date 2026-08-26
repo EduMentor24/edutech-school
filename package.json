@@ -13,6 +13,8 @@
     "lint": "expo lint",
     "format": "prettier --write .",
     "test": "vitest run",
+    "worker:check": "tsc -p tsconfig.worker.json --noEmit",
+    "worker:dev": "wrangler dev --local --config wrangler.jsonc --port 8787",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -97,7 +99,8 @@
     "tailwindcss": "^3.4.17",
     "tsx": "^4.21.0",
     "typescript": "~5.9.3",
-    "vitest": "^2.1.9"
+    "vitest": "^2.1.9",
+    "wrangler": "4.44.0"
   },
   "packageManager": "pnpm@9.12.0"
 }
