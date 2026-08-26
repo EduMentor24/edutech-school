@@ -46,6 +46,20 @@ describe("Worker Mentor — préparation Cloudflare", () => {
     expect((await payload(denied)).code).toBe("FORBIDDEN");
   });
 
+  it("utilise uniquement le fallback d’aperçu explicite si la variable CORS runtime est absente", async () => {
+    const allowed = await worker.fetch(request("/api/mentor/message", {
+      method: "OPTIONS",
+      headers: { Origin: "https://8081-i64j5eb8a047ys22xd3lo-6ca2d9dd.us3.manus.computer" },
+    }), { ...baseEnv, ALLOWED_ORIGINS: undefined });
+    const denied = await worker.fetch(request("/api/health", {
+      headers: { Origin: "https://unknown.example" },
+    }), { ...baseEnv, ALLOWED_ORIGINS: undefined });
+
+    expect(allowed.status).toBe(204);
+    expect(allowed.headers.get("Access-Control-Allow-Origin")).toBe("https://8081-i64j5eb8a047ys22xd3lo-6ca2d9dd.us3.manus.computer");
+    expect(denied.status).toBe(403);
+  });
+
   it("refuse un appel Mentor sans JWT Supabase", async () => {
     const response = await worker.fetch(request("/api/mentor/message", {
       method: "POST",

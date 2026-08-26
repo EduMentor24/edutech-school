@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "edutech-school-mentor",
+  "name": "edutech-school",
   "main": "worker/src/index.ts",
   "compatibility_date": "2025-10-11",
   "workers_dev": true,

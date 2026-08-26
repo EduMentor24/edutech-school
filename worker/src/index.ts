@@ -3,11 +3,15 @@ import { answerMentor, authenticateSupabase } from "./mentor-service";
 import type { Env } from "./types";
 
 const MAX_MENTOR_BODY_BYTES = 1_000_000;
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://8081-i64j5eb8a047ys22xd3lo-6ca2d9dd.us3.manus.computer",
+];
 
 function corsHeaders(request: Request, env: Env): { allowed: boolean; headers: HeadersInit } {
   const origin = request.headers.get("origin");
   if (!origin) return { allowed: true, headers: {} };
-  const origins = (env.ALLOWED_ORIGINS ?? "").split(",").map((item) => item.trim()).filter(Boolean);
+  const runtimeOrigins = (env.ALLOWED_ORIGINS ?? "").split(",").map((item) => item.trim()).filter(Boolean);
+  const origins = runtimeOrigins.length > 0 ? runtimeOrigins : DEFAULT_ALLOWED_ORIGINS;
   if (!origins.includes(origin)) return { allowed: false, headers: {} };
   return {
     allowed: true,

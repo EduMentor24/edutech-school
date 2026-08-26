@@ -810,3 +810,41 @@ Le 26 août 2026 — préparation Cloudflare Workers demandée dans `pasted_cont
 - [x] Ajouter les garde-fous Worker, les tests locaux mockés et les commandes de build non déployantes.
 - [x] Exécuter TypeScript, lint, tests et build Worker local, puis synchroniser GitHub sans déployer.
 - [x] Produire le rapport final de préparation et arrêter sans exécuter `wrangler deploy`.
+
+Le 26 août 2026 — inventaire runtime Cloudflare demandé par l’utilisateur, strictement en lecture seule, sans création de variable, secret, déploiement ni modification applicative.
+- [x] Lire les configurations Wrangler et les fichiers Worker réellement présents.
+- [x] Classer exactement les variables publiques, secrets, binding AI, variables Supabase, variables de développement et legacy Manus.
+- [x] Déterminer la configuration minimale et les éléments obligatoires avant un futur déploiement.
+- [x] Produire le rapport d’inventaire sans afficher de valeur secrète et arrêter sans modification.
+
+
+Le 26 août 2026 — test réel du Mentor IA Cloudflare demandé dans `pasted_content_17.txt`, en lecture seule et sans modification de l’APK, Manus, Supabase, RLS/RPC ou données pédagogiques.
+- [ ] Vérifier la route déployée et le contrat HTTP sans authentifiant.
+- [ ] Utiliser une session élève existante de manière sûre, sans afficher ni stocker le JWT.
+- [ ] Exécuter les tests négatifs et positifs autorisés, sans journaliser le JWT.
+- [ ] Produire le tableau de résultats et arrêter sans modification.
+
+
+Le 26 août 2026 — test réel du Mentor IA Cloudflare demandé dans `pasted_content_17.txt`, URL fournie par l’utilisateur, sans modification de l’APK, Manus, Supabase, RLS/RPC ou données pédagogiques.
+- [x] Vérifier `/api/health` et le contrat de la route déployée.
+- [x] Tester l’absence et l’invalidité de JWT sans utiliser de session réelle.
+- [x] Obtenir, si possible, une session élève existante sans afficher ni stocker le JWT.
+- [x] Tester le flux élève, les validations de message et le quota, puis produire le tableau final ; les validations positives bloquées par CORS restent explicitement non validées.
+
+
+Le 26 août 2026 — correction CORS ciblée et test réel du Worker demandés, sans modification de l’APK, EAS, Supabase, RLS/RPC, Manus, secrets ou modèle IA.
+- [x] Inspecter l’origine légitime de l’aperçu et la politique CORS actuellement déployée.
+- [x] Corriger uniquement la allowlist CORS et couvrir le preflight, Authorization et les erreurs.
+- [x] Valider localement puis déployer uniquement le Worker CORS corrigé.
+- [x] Tester route, JWT, profil Supabase, `env.AI` et réponse Mentor avec le compte réel sans afficher le JWT.
+- [x] Produire le tableau final et clôturer le suivi sans modifier l’application cliente.
+
+- [x] Documenter la configuration minimale d’un API Token Cloudflare restreint au compte du Worker Mentor, sans le créer ni le recevoir en clair.
+- [x] Vérifier l’autorisation Cloudflare sécurisée puis exécuter une validation à sec de la correction CORS, sans déploiement réel — résolution : le token est valide et le script cible réel est `edutech-school`.
+- [x] Diagnostiquer en lecture seule l’écart entre le Worker public Mentor et les scripts accessibles avec le token Cloudflare unique : le script existant est `edutech-school`, alors que la configuration locale cible `edutech-school-mentor`.
+- [x] Pointer `wrangler.jsonc` vers le script existant `edutech-school` et valider à sec la correction CORS autorisée, sans déploiement réel.
+- [x] Déployer uniquement `ALLOWED_ORIGINS` sur le Worker existant puis exécuter les contrôles CORS, HTTP et Mentor convenus — le premier déploiement a conservé un refus de production, résolu par le fallback CORS strict ensuite validé.
+- [x] Investiguer en lecture seule l’incohérence entre le binding CORS déclaré et le refus CORS du Worker actif, sans nouveau déploiement : l’URL de prévisualisation de la version publiée accepte l’origine, tandis que l’URL workers.dev de production la rejette encore.
+- [x] Obtenir confirmation avant toute correction CORS de secours : la version publiée est bien le déploiement actif à 100 %, mais seule l’URL workers.dev de production se comporte comme si le binding était absent.
+- [x] Ajouter un fallback CORS limité à l’origine d’aperçu confirmée, puis valider localement et à sec avant toute nouvelle publication.
+- [x] Publier le fallback CORS confirmé sur le Worker existant, puis retester le preflight, les routes HTTP et le flux Mentor authentifié.
