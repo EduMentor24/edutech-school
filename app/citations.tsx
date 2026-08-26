@@ -10,13 +10,16 @@ import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { citationMatches, citationNotionsForSubject, citationShareText, type Citation } from "@/lib/citations/citation-model";
 import { getCitations, getFavoriteCitationIds, toggleCitationFavorite } from "@/lib/citations/citation-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
+import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 
 const errorText = (error: unknown) => error instanceof Error ? error.message : "Les citations ne peuvent pas être chargées pour le moment.";
 
 export default function CitationsScreen() {
   const { colors } = useEduTheme(); const styles = useMemo(() => createStyles(colors), [colors]); const { user, profile, isReady, isProfileLoading } = useSupabaseAuth();
+  const { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole } = profile ?? {};
+  const cacheContext = useMemo(() => pedagogicalCacheContextFromProfile(profileId && schoolLevel && profileSeries && profileRole ? { id: profileId, school_level: schoolLevel, series: profileSeries, role: profileRole } : null), [profileId, schoolLevel, profileSeries, profileRole]);
   const [items, setItems] = useState<Citation[]>([]); const [favorites, setFavorites] = useState<Set<string>>(new Set()); const [search, setSearch] = useState(""); const [subject, setSubject] = useState<string | null>(null); const [theme, setTheme] = useState<string | null>(null); const [favoriteOnly, setFavoriteOnly] = useState(false); const [expanded, setExpanded] = useState<Set<string>>(new Set()); const [loading, setLoading] = useState(true); const [error, setError] = useState<string | null>(null);
-  const load = useCallback(async () => { if (!user?.id) { setLoading(false); return; } setLoading(true); try { const [citations, ids] = await Promise.all([getCitations(), getFavoriteCitationIds(user.id)]); setItems(citations); setFavorites(ids); setError(null); } catch (cause) { setError(errorText(cause)); } finally { setLoading(false); } }, [user?.id]);
+  const load = useCallback(async () => { if (!user?.id) { setLoading(false); return; } setLoading(true); try { const [citations, ids] = await Promise.all([getCitations({ cacheContext }), getFavoriteCitationIds(user.id)]); setItems(citations); setFavorites(ids); setError(null); } catch (cause) { setError(errorText(cause)); } finally { setLoading(false); } }, [cacheContext, user?.id]);
   useFocusEffect(useCallback(() => { void load(); }, [load]));
   const subjects = useMemo(() => Array.from(new Set(items.map((item) => item.subjectName))).sort((a, b) => a.localeCompare(b, "fr-FR")), [items]);
   const notions = useMemo(() => citationNotionsForSubject(items, subject), [items, subject]);

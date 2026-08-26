@@ -76,7 +76,7 @@ describe("Correction mode hors ligne réel", () => {
   it("précharge les détails nécessaires aux cours, exercices et quiz, puis le Bulletin lit l’identité locale", async () => {
     const [preloadSource, bulletinSource] = await Promise.all([
       readFile(
-        join(process.cwd(), "lib/offline/pedagogical-preload-context.tsx"),
+        join(process.cwd(), "lib/offline/pedagogical-preload-service.ts"),
         "utf8",
       ),
       readFile(join(process.cwd(), "lib/bulletin/bulletin-service.ts"), "utf8"),

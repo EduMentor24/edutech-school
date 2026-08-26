@@ -773,3 +773,12 @@ Le 26 août 2026 — diagnostic global du préchargement local demandé dans `pa
 - [x] Comparer les données accessibles au profil élève avec les données réellement préchargées dans AsyncStorage.
 - [x] Identifier les limites de pagination, d’interruption et d’actualisation du préchargement.
 - [x] Produire le diagnostic global et l’architecture de correction recommandée sans modifier le code.
+
+Le 26 août 2026 — correction du préchargement local complet demandée dans `pasted_content_12.txt`, sans données Supabase, RLS/RPC, Bulletin, Mentor IA ni build APK.
+- [x] Cartographier les dépendances de préchargement, les cache keys et les contrats de lecture local-first existants.
+- [x] Créer un manifeste local versionné, isolé par utilisateur/niveau/série, avec état, compteurs et erreurs par domaine.
+- [x] Rendre le préchargement Cours, Exercices, Quiz et Progression reprenable par ressource, sans re-téléchargement inutile.
+- [x] Ajouter un cache local-first ciblé pour Citations, relations thématiques et favoris.
+- [x] Exposer un état de synchronisation réactif, non bloquant, et reprendre au retour réseau ou premier plan.
+- [x] Ajouter les tests de complétion, interruption, reprise, versionnement, isolation et non-régression Bulletin/Mentor.
+- [x] Exécuter les validations TypeScript, lint et tests, analyser la taille de cache, synchroniser GitHub et livrer le rapport sans APK.

@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { clearCachedProfileContext } from "@/lib/auth/profile-context-cache";
+import { clearCitationOfflineData } from "@/lib/citations/citation-service";
 import { clearNotificationInboxCache } from "@/lib/notifications/notification-offline-store";
 import { clearPedagogicalCache } from "@/lib/offline/pedagogical-cache";
 import { clearLearningSyncData } from "@/lib/offline/learning-sync-store";
@@ -20,6 +21,7 @@ export async function clearUserOfflineCache(userId: string) {
   const userKeys = knownKeys.filter((key) => key.startsWith(messagePrefix));
   await Promise.allSettled([
     clearCachedProfileContext(userId),
+    clearCitationOfflineData(userId),
     clearNotificationInboxCache(userId),
     clearPedagogicalCache(userId),
     clearLearningSyncData(userId),

@@ -7,6 +7,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 
 import {
@@ -14,146 +15,102 @@ import {
   type StudentProfile,
 } from "@/lib/auth/supabase-auth-provider";
 import {
-  getChapter,
-  getCourseOffering,
-  getChaptersForOffering,
-  getCoursesForProfile,
-  getLesson,
-  getLessonsForChapter,
-} from "@/lib/courses/course-service";
-import { getLessonSessions } from "@/lib/courses/lesson-session-service";
-import {
-  getExerciseCatalog,
-  getExerciseDetail,
-  type ExerciseCatalogItem,
-} from "@/lib/exercises/exercise-service";
-import {
   pedagogicalCacheContextFromProfile,
-  readPedagogicalCache,
-  writePedagogicalCache,
   type PedagogicalCacheContext,
 } from "@/lib/offline/pedagogical-cache";
-import { getLearningProgress } from "@/lib/progress/learning-progress-service";
 import {
-  getQuizCatalog,
-  getQuizDetail,
-  type QuizCatalogItem,
-} from "@/lib/quizzes/quiz-service";
+  isPreloadManifestFresh,
+  PRELOAD_DOMAINS,
+  preloadManifestSummary,
+  readPreloadManifest,
+  type PreloadDomain,
+  type PreloadDomainManifest,
+  type PreloadDomainState,
+  type PreloadManifestSummary,
+} from "@/lib/offline/preload-manifest";
+import {
+  preloadPedagogicalDomains,
+  type PedagogicalPreloadResult,
+} from "@/lib/offline/pedagogical-preload-service";
 
-type PreloadResult = {
-  courseCount: number;
-  lessonCount: number;
-  exerciseCount: number;
-  quizCount: number;
+export type PedagogicalPreloadState =
+  | "idle"
+  | "syncing"
+  | "interrupted"
+  | "partial"
+  | "ready"
+  | "error";
+
+export type PedagogicalPreloadContextValue = {
+  isPreloading: boolean;
+  state: PedagogicalPreloadState;
+  domains: Record<PreloadDomain, PreloadManifestSummary>;
+  lastResult: PedagogicalPreloadResult | null;
+  syncNow: () => Promise<void>;
 };
-type PreloadStatus = {
-  state: "ready";
-  completedAt: string;
-  result: PreloadResult;
-};
-type PedagogicalPreloadContextValue = { isPreloading: boolean };
 
-const PedagogicalPreloadContext = createContext<PedagogicalPreloadContextValue>(
-  { isPreloading: false },
-);
-const STATUS_RESOURCE = "preload/status";
+const emptySummary = (): PreloadManifestSummary => ({
+  state: "idle",
+  expectedCount: 0,
+  downloadedCount: 0,
+  succeededCount: 0,
+  errorCount: 0,
+  lastSyncAt: null,
+  error: null,
+});
+const emptyDomains = () =>
+  Object.fromEntries(
+    PRELOAD_DOMAINS.map((domain) => [domain, emptySummary()]),
+  ) as Record<PreloadDomain, PreloadManifestSummary>;
 
-async function runLimited<T>(
-  items: readonly T[],
-  worker: (item: T) => Promise<void>,
-  concurrency = 3,
+const PedagogicalPreloadContext =
+  createContext<PedagogicalPreloadContextValue>({
+    isPreloading: false,
+    state: "idle",
+    domains: emptyDomains(),
+    lastResult: null,
+    syncNow: async () => undefined,
+  });
+
+function stateFrom(domains: Record<PreloadDomain, PreloadManifestSummary>) {
+  const states = Object.values(domains).map((domain) => domain.state);
+  if (states.every((state) => state === "ready")) return "ready" as const;
+  if (states.some((state) => state === "syncing")) return "syncing" as const;
+  if (states.some((state) => state === "interrupted")) return "interrupted" as const;
+  if (states.some((state) => state === "error")) return "error" as const;
+  if (states.some((state) => state === "partial")) return "partial" as const;
+  return "idle" as const;
+}
+
+function networkCanSync(network: ReturnType<typeof Network.useNetworkState>) {
+  return network.isConnected !== false && network.isInternetReachable !== false;
+}
+
+async function manifestsFor(context: PedagogicalCacheContext) {
+  const entries = await Promise.all(
+    PRELOAD_DOMAINS.map(async (domain) => [
+      domain,
+      await readPreloadManifest(context, domain),
+    ] as const),
+  );
+  return Object.fromEntries(entries) as Record<
+    PreloadDomain,
+    PreloadDomainManifest | null
+  >;
+}
+
+function summariesFrom(
+  manifests: Record<PreloadDomain, PreloadDomainManifest | null>,
 ) {
-  let next = 0;
-  async function runner() {
-    while (next < items.length) {
-      const index = next++;
-      await worker(items[index]);
-    }
-  }
-  await Promise.all(
-    Array.from({ length: Math.min(concurrency, items.length) }, () => runner()),
-  );
+  return Object.fromEntries(
+    PRELOAD_DOMAINS.map((domain) => [
+      domain,
+      preloadManifestSummary(manifests[domain]),
+    ]),
+  ) as Record<PreloadDomain, PreloadManifestSummary>;
 }
 
-async function isReady(context: PedagogicalCacheContext) {
-  const cached = await readPedagogicalCache<PreloadStatus>(
-    context,
-    STATUS_RESOURCE,
-  );
-  return cached?.state === "synced" && cached.payload.state === "ready";
-}
-
-/** Précharge uniquement les contenus publiés autorisés par le profil élève actif, sans bloquer les écrans. */
-export async function preloadPedagogicalContent(
-  profile: StudentProfile,
-): Promise<PreloadResult> {
-  const context = pedagogicalCacheContextFromProfile(profile);
-  if (!context || profile.role !== "student")
-    return { courseCount: 0, lessonCount: 0, exerciseCount: 0, quizCount: 0 };
-
-  const courses = await getCoursesForProfile(profile, {
-    cacheContext: context,
-    forceRefresh: true,
-  });
-  let lessonCount = 0;
-  await runLimited(courses, async (course) => {
-    await getCourseOffering(course.offeringId, {
-      cacheContext: context,
-      forceRefresh: true,
-    });
-    const chapters = await getChaptersForOffering(course.offeringId, {
-      cacheContext: context,
-      forceRefresh: true,
-    });
-    await runLimited(chapters, async (chapter) => {
-      await getChapter(chapter.id, {
-        cacheContext: context,
-        forceRefresh: true,
-      });
-      const lessons = await getLessonsForChapter(chapter.id, {
-        cacheContext: context,
-        forceRefresh: true,
-      });
-      lessonCount += lessons.length;
-      await runLimited(lessons, async (lesson) => {
-        await getLesson(lesson.id, {
-          cacheContext: context,
-          forceRefresh: true,
-        });
-        await getLessonSessions(lesson.id, {
-          cacheContext: context,
-          forceRefresh: true,
-        });
-      });
-    });
-  });
-
-  const [exercises, quizzes] = await Promise.all([
-    getExerciseCatalog({ cacheContext: context, forceRefresh: true }),
-    getQuizCatalog({ cacheContext: context, forceRefresh: true }),
-  ]);
-  await runLimited(exercises as ExerciseCatalogItem[], async (exercise) => {
-    await getExerciseDetail(exercise.exerciseId, context, true);
-  });
-  await runLimited(quizzes as QuizCatalogItem[], async (quiz) => {
-    await getQuizDetail(quiz.quizId, context, true);
-  });
-  await getLearningProgress({ forceRefresh: true });
-
-  const result = {
-    courseCount: courses.length,
-    lessonCount,
-    exerciseCount: exercises.length,
-    quizCount: quizzes.length,
-  };
-  await writePedagogicalCache(context, STATUS_RESOURCE, {
-    state: "ready",
-    completedAt: new Date().toISOString(),
-    result,
-  } satisfies PreloadStatus);
-  return result;
-}
-
+/** Déclenche et expose une synchronisation sans bloquer l’interface élève. */
 export function PedagogicalPreloadProvider({
   children,
 }: {
@@ -162,45 +119,91 @@ export function PedagogicalPreloadProvider({
   const { profile, isAuthenticated } = useSupabaseAuth();
   const network = Network.useNetworkState();
   const running = useRef(false);
-  const isOnline = network.isInternetReachable === true;
+  const [domains, setDomains] = useState<Record<
+    PreloadDomain,
+    PreloadManifestSummary
+  >>(emptyDomains);
+  const [state, setState] = useState<PedagogicalPreloadState>("idle");
+  const [lastResult, setLastResult] = useState<PedagogicalPreloadResult | null>(
+    null,
+  );
   const profileKey = profile
     ? `${profile.id}/${profile.school_level ?? ""}/${profile.series ?? ""}/${profile.role}`
     : "";
 
-  const preload = useCallback(async () => {
+  const updateDomain = useCallback((manifest: PreloadDomainManifest | null) => {
+    if (!manifest) return;
+    setDomains((current) => {
+      const next = {
+        ...current,
+        [manifest.domain]: preloadManifestSummary(manifest),
+      };
+      setState(stateFrom(next));
+      return next;
+    });
+  }, []);
+
+  const syncNow = useCallback(async () => {
     if (
       !profile ||
       !isAuthenticated ||
       profile.role !== "student" ||
-      !isOnline ||
-      running.current
+      running.current ||
+      !networkCanSync(network)
     )
       return;
     const context = pedagogicalCacheContextFromProfile(profile);
-    if (!context || (await isReady(context))) return;
+    if (!context) return;
     running.current = true;
     try {
-      await preloadPedagogicalContent(profile);
+      const before = await manifestsFor(context);
+      const beforeSummaries = summariesFrom(before);
+      setDomains(beforeSummaries);
+      const targets = PRELOAD_DOMAINS.filter(
+        (domain) => !isPreloadManifestFresh(before[domain]),
+      );
+      if (!targets.length) {
+        setState("ready");
+        return;
+      }
+      setState("syncing");
+      const result = await preloadPedagogicalDomains(profile, {
+        domains: targets,
+        revalidate: targets.some((domain) => before[domain]?.state === "ready"),
+        onDomainChange: updateDomain,
+      });
+      setLastResult(result);
+      const after = summariesFrom(await manifestsFor(context));
+      setDomains(after);
+      setState(stateFrom(after));
     } catch {
-      /* Le cache existant reste lisible ; la reprise aura lieu lors d’un prochain retour réseau. */
+      const after = summariesFrom(await manifestsFor(context));
+      setDomains(after);
+      setState(stateFrom(after));
     } finally {
       running.current = false;
     }
-  }, [isAuthenticated, isOnline, profile, profileKey]);
+  }, [isAuthenticated, network.isConnected, network.isInternetReachable, profile, profileKey, updateDomain]);
 
   useEffect(() => {
-    void preload();
-  }, [preload]);
+    void syncNow();
+  }, [syncNow]);
   useEffect(() => {
-    const subscription = AppState.addEventListener("change", (state) => {
-      if (state === "active") void preload();
+    const subscription = AppState.addEventListener("change", (next) => {
+      if (next === "active") void syncNow();
     });
     return () => subscription.remove();
-  }, [preload]);
+  }, [syncNow]);
 
   const value = useMemo(
-    () => ({ isPreloading: running.current }),
-    [profileKey],
+    () => ({
+      isPreloading: state === "syncing",
+      state,
+      domains,
+      lastResult,
+      syncNow,
+    }),
+    [domains, lastResult, state, syncNow],
   );
   return (
     <PedagogicalPreloadContext.Provider value={value}>
@@ -212,3 +215,5 @@ export function PedagogicalPreloadProvider({
 export function usePedagogicalPreload() {
   return useContext(PedagogicalPreloadContext);
 }
+
+export { preloadPedagogicalDomains as preloadPedagogicalContent };
