@@ -10,6 +10,12 @@
       "android": {
         "buildType": "apk"
       }
+    },
+    "apk-cloudflare": {
+      "extends": "apk",
+      "env": {
+        "EXPO_PUBLIC_API_BASE_URL": "https://edutech-school.louamoisegognin.workers.dev"
+      }
     }
   }
 }

@@ -848,3 +848,10 @@ Le 26 août 2026 — correction CORS ciblée et test réel du Worker demandés, 
 - [x] Obtenir confirmation avant toute correction CORS de secours : la version publiée est bien le déploiement actif à 100 %, mais seule l’URL workers.dev de production se comporte comme si le binding était absent.
 - [x] Ajouter un fallback CORS limité à l’origine d’aperçu confirmée, puis valider localement et à sec avant toute nouvelle publication.
 - [x] Publier le fallback CORS confirmé sur le Worker existant, puis retester le preflight, les routes HTTP et le flux Mentor authentifié.
+
+Le 26 août 2026 — migration contrôlée de l’APK de validation vers le Worker Cloudflare, limitée à `EXPO_PUBLIC_API_BASE_URL` dans un profil EAS Android dédié.
+- [x] Auditer la configuration API, Expo et EAS effectivement utilisée par les profils Android.
+- [x] Configurer uniquement un profil EAS Android de validation injectant l’URL HTTPS Cloudflare sans `/api`.
+- [x] Vérifier l’absence de l’URL Manus dans la configuration du profil, puis exécuter TypeScript, lint et les tests existants.
+- [ ] Déclencher la build APK de validation depuis la publication du checkpoint, puis relever son identifiant, son état et son artefact.
+- [ ] Produire le rapport de build sans prétendre à une validation sur appareil réel avant installation.
