@@ -767,3 +767,9 @@ Le 25 août 2026 — build APK de validation demandée pour le commit `06f39d2`,
 - [x] Rejouer TypeScript, lint, tests et la validation Expo/EAS sans modifier le code.
 - [x] Soumettre et suivre uniquement la build EAS Android du profil APK interne.
 - [x] Vérifier et livrer l’APK avec son identifiant, sa version, sa taille et son commit source.
+
+Le 26 août 2026 — diagnostic global du préchargement local demandé dans `pasted_content_11.txt`, sans modification ni build.
+- [x] Cartographier les déclencheurs, caches et données locales des Cours, Exercices, Quiz, Citations et données élève.
+- [x] Comparer les données accessibles au profil élève avec les données réellement préchargées dans AsyncStorage.
+- [x] Identifier les limites de pagination, d’interruption et d’actualisation du préchargement.
+- [x] Produire le diagnostic global et l’architecture de correction recommandée sans modifier le code.
