@@ -808,5 +808,5 @@ Le 26 août 2026 — préparation Cloudflare Workers demandée dans `pasted_cont
 - [x] Ajouter la configuration Wrangler et le squelette Worker parallèles, sans liaison à l’APK actuelle.
 - [x] Isoler un contrat Mentor et un fournisseur Workers AI futur, sans modifier la route Manus ni supprimer `invokeLLM`.
 - [x] Ajouter les garde-fous Worker, les tests locaux mockés et les commandes de build non déployantes.
-- [ ] Exécuter TypeScript, lint, tests et build Worker local, puis synchroniser GitHub sans déployer.
-- [ ] Produire le rapport final de préparation et arrêter sans exécuter `wrangler deploy`.
+- [x] Exécuter TypeScript, lint, tests et build Worker local, puis synchroniser GitHub sans déployer.
+- [x] Produire le rapport final de préparation et arrêter sans exécuter `wrangler deploy`.
