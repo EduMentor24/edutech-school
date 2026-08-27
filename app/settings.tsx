@@ -1,6 +1,17 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import {
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 import { AppScreen } from "@/components/edutech/app-screen";
 import { PageHeader } from "@/components/edutech/page-header";
@@ -10,7 +21,9 @@ import { useEduTheme } from "@/lib/edutech/theme-context";
 import {
   disableSchoolReminders,
   enableSchoolReminders,
+  formatSchoolReminderTime,
   getSchoolReminderSettings,
+  setSchoolReminderTime,
 } from "@/lib/notifications/school-reminder-service";
 
 export default function SettingsScreen() {
@@ -18,26 +31,45 @@ export default function SettingsScreen() {
   const { colors, mode, setMode } = useEduTheme();
   const { signOut } = useSupabaseAuth();
   const [remindersEnabled, setRemindersEnabled] = useState(false);
+  const [reminderHour, setReminderHour] = useState(18);
+  const [reminderMinute, setReminderMinute] = useState(0);
   const [remindersLoading, setRemindersLoading] = useState(true);
   const [remindersSaving, setRemindersSaving] = useState(false);
+  const [timeEditorVisible, setTimeEditorVisible] = useState(false);
+  const [timeDraft, setTimeDraft] = useState("18:00");
   const styles = useMemo(() => createStyles(colors), [colors]);
   const explain = (title: string, message: string) =>
     Alert.alert(title, message, [{ text: "Compris" }]);
 
   useEffect(() => {
     void getSchoolReminderSettings()
-      .then((settings) => setRemindersEnabled(settings.enabled))
+      .then((settings) => {
+        setRemindersEnabled(settings.enabled);
+        setReminderHour(settings.hour);
+        setReminderMinute(settings.minute);
+      })
       .finally(() => setRemindersLoading(false));
   }, []);
+
+  const applySettings = (settings: {
+    enabled: boolean;
+    hour: number;
+    minute: number;
+  }) => {
+    setRemindersEnabled(settings.enabled);
+    setReminderHour(settings.hour);
+    setReminderMinute(settings.minute);
+  };
 
   const toggleReminders = async () => {
     if (remindersLoading || remindersSaving) return;
     setRemindersSaving(true);
     try {
-      const settings = remindersEnabled
-        ? await disableSchoolReminders()
-        : await enableSchoolReminders();
-      setRemindersEnabled(settings.enabled);
+      applySettings(
+        remindersEnabled
+          ? await disableSchoolReminders()
+          : await enableSchoolReminders(),
+      );
     } catch (cause) {
       Alert.alert(
         "Notifications non activées",
@@ -50,17 +82,57 @@ export default function SettingsScreen() {
     }
   };
 
+  const openTimeEditor = () => {
+    if (remindersLoading || remindersSaving) return;
+    setTimeDraft(formatSchoolReminderTime(reminderHour, reminderMinute));
+    setTimeEditorVisible(true);
+  };
+
+  const saveReminderTime = async () => {
+    const match = /^(?:[01]\d|2[0-3]):[0-5]\d$/.exec(timeDraft.trim());
+    if (!match) {
+      Alert.alert(
+        "Heure invalide",
+        "Saisissez l’heure au format HH:MM, par exemple 07:30.",
+      );
+      return;
+    }
+    setRemindersSaving(true);
+    try {
+      applySettings(
+        await setSchoolReminderTime(
+          Number(match[0].slice(0, 2)),
+          Number(match[0].slice(3, 5)),
+        ),
+      );
+      setTimeEditorVisible(false);
+    } catch (cause) {
+      Alert.alert(
+        "Heure non enregistrée",
+        cause instanceof Error
+          ? cause.message
+          : "Le rappel ne peut pas être reprogrammé pour le moment.",
+      );
+    } finally {
+      setRemindersSaving(false);
+    }
+  };
+
+  const scheduledTime = formatSchoolReminderTime(reminderHour, reminderMinute);
   const reminderSubtitle = remindersLoading
     ? "Vérification de vos rappels scolaires…"
     : remindersSaving
       ? "Mise à jour de vos rappels scolaires…"
       : remindersEnabled
-        ? "Rappel quotidien activé à 18 h"
+        ? `Rappel quotidien activé à ${scheduledTime}`
         : "Activez un rappel quotidien pour reprendre vos apprentissages";
 
   return (
     <AppScreen withPadding={false} edges={["top", "bottom", "left", "right"]}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scroll}
+      >
         <View style={styles.content}>
           <PageHeader
             title="Paramètres"
@@ -100,6 +172,13 @@ export default function SettingsScreen() {
               }
             />
             <SettingsRow
+              icon="schedule"
+              title="Heure du rappel"
+              subtitle={`Tous les jours à ${scheduledTime}`}
+              onPress={openTimeEditor}
+              accessory={<MaterialIcons name="chevron-right" size={22} color={colors.muted} />}
+            />
+            <SettingsRow
               icon="language"
               title="Langue"
               subtitle="Français"
@@ -129,6 +208,55 @@ export default function SettingsScreen() {
           </View>
         </View>
       </ScrollView>
+      <Modal
+        transparent
+        visible={timeEditorVisible}
+        animationType="fade"
+        onRequestClose={() => setTimeEditorVisible(false)}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>Heure du rappel</Text>
+            <Text style={styles.modalBody}>
+              Choisissez l’heure exacte de votre rappel quotidien, au format HH:MM.
+            </Text>
+            <TextInput
+              value={timeDraft}
+              onChangeText={setTimeDraft}
+              keyboardType="numbers-and-punctuation"
+              maxLength={5}
+              placeholder="18:00"
+              placeholderTextColor={colors.muted}
+              selectTextOnFocus
+              style={styles.timeInput}
+              accessibilityLabel="Heure du rappel au format HH:MM"
+            />
+            <View style={styles.modalActions}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => setTimeEditorVisible(false)}
+                style={({ pressed }) => [styles.cancelButton, pressed && styles.pressed]}
+              >
+                <Text style={styles.cancelLabel}>Annuler</Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                disabled={remindersSaving}
+                onPress={() => void saveReminderTime()}
+                style={({ pressed }) => [
+                  styles.saveButton,
+                  remindersSaving && styles.disabled,
+                  pressed && !remindersSaving && styles.pressed,
+                ]}
+              >
+                <Text style={styles.saveLabel}>
+                  {remindersSaving ? "Enregistrement…" : "Enregistrer"}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </AppScreen>
   );
 }
@@ -151,4 +279,37 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) =>
       borderWidth: 1,
       borderColor: colors.border,
     },
+    modalBackdrop: {
+      flex: 1,
+      justifyContent: "center",
+      padding: 24,
+      backgroundColor: "rgba(15, 23, 42, 0.48)",
+    },
+    modalCard: {
+      gap: 12,
+      padding: 20,
+      borderRadius: 22,
+      backgroundColor: colors.surface,
+    },
+    modalTitle: { color: colors.text, fontSize: 19, lineHeight: 25, fontWeight: "900" },
+    modalBody: { color: colors.muted, fontSize: 13, lineHeight: 19 },
+    timeInput: {
+      minHeight: 50,
+      borderWidth: 1,
+      borderColor: colors.primary,
+      borderRadius: 13,
+      color: colors.text,
+      backgroundColor: colors.background,
+      fontSize: 18,
+      fontWeight: "800",
+      textAlign: "center",
+      letterSpacing: 1,
+    },
+    modalActions: { flexDirection: "row", gap: 10, marginTop: 4 },
+    cancelButton: { flex: 1, minHeight: 45, justifyContent: "center", alignItems: "center", borderRadius: 13, borderWidth: 1, borderColor: colors.border },
+    saveButton: { flex: 1, minHeight: 45, justifyContent: "center", alignItems: "center", borderRadius: 13, backgroundColor: colors.primary },
+    cancelLabel: { color: colors.text, fontSize: 13, fontWeight: "800" },
+    saveLabel: { color: colors.surface, fontSize: 13, fontWeight: "900" },
+    disabled: { opacity: 0.55 },
+    pressed: { opacity: 0.72 },
   });

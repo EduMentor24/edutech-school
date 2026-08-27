@@ -8,12 +8,36 @@ const CHANNEL_ID = "school-reminders";
 export type SchoolReminderSettings = {
   enabled: boolean;
   notificationId: string | null;
+  hour: number;
+  minute: number;
 };
 
 const disabledSettings: SchoolReminderSettings = {
   enabled: false,
   notificationId: null,
+  hour: 18,
+  minute: 0,
 };
+
+function validTime(hour: number, minute: number) {
+  return (
+    Number.isInteger(hour) &&
+    Number.isInteger(minute) &&
+    hour >= 0 &&
+    hour <= 23 &&
+    minute >= 0 &&
+    minute <= 59
+  );
+}
+
+function savedTime(value: unknown, fallback: number) {
+  const parsed = typeof value === "number" ? value : Number(value);
+  return Number.isInteger(parsed) ? parsed : fallback;
+}
+
+export function formatSchoolReminderTime(hour: number, minute: number) {
+  return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+}
 
 function isNativeNotificationsAvailable() {
   return Platform.OS === "android" || Platform.OS === "ios";
@@ -33,6 +57,12 @@ export async function getSchoolReminderSettings(): Promise<SchoolReminderSetting
       enabled: parsed.enabled === true,
       notificationId:
         typeof parsed.notificationId === "string" ? parsed.notificationId : null,
+      hour: validTime(savedTime(parsed.hour, 18), savedTime(parsed.minute, 0))
+        ? savedTime(parsed.hour, 18)
+        : 18,
+      minute: validTime(savedTime(parsed.hour, 18), savedTime(parsed.minute, 0))
+        ? savedTime(parsed.minute, 0)
+        : 0,
     };
   } catch {
     return disabledSettings;
@@ -76,6 +106,21 @@ export async function initializeSchoolReminders() {
   await ensureAndroidChannel();
 }
 
+async function scheduleSchoolReminder(hour: number, minute: number) {
+  return Notifications.scheduleNotificationAsync({
+    content: {
+      title: "EduTech School",
+      body: "Prenez quelques minutes pour reprendre votre apprentissage du jour.",
+      data: { route: "/(tabs)/courses" },
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DAILY,
+      hour,
+      minute,
+    },
+  });
+}
+
 export async function enableSchoolReminders(): Promise<SchoolReminderSettings> {
   await ensurePermission();
   const previous = await getSchoolReminderSettings();
@@ -84,19 +129,32 @@ export async function enableSchoolReminders(): Promise<SchoolReminderSettings> {
       () => undefined,
     );
   }
-  const notificationId = await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "EduTech School",
-      body: "Prenez quelques minutes pour reprendre votre apprentissage du jour.",
-      data: { route: "/(tabs)/courses" },
-    },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.DAILY,
-      hour: 18,
-      minute: 0,
-    },
-  });
-  return persist({ enabled: true, notificationId });
+  const notificationId = await scheduleSchoolReminder(
+    previous.hour,
+    previous.minute,
+  );
+  return persist({ ...previous, enabled: true, notificationId });
+}
+
+export async function setSchoolReminderTime(
+  hour: number,
+  minute: number,
+): Promise<SchoolReminderSettings> {
+  if (!validTime(hour, minute)) {
+    throw new Error("Saisissez une heure valide au format HH:MM.");
+  }
+  const previous = await getSchoolReminderSettings();
+  if (!previous.enabled) {
+    return persist({ ...previous, hour, minute });
+  }
+  await ensurePermission();
+  if (previous.notificationId) {
+    await Notifications.cancelScheduledNotificationAsync(previous.notificationId).catch(
+      () => undefined,
+    );
+  }
+  const notificationId = await scheduleSchoolReminder(hour, minute);
+  return persist({ enabled: true, notificationId, hour, minute });
 }
 
 export async function disableSchoolReminders(): Promise<SchoolReminderSettings> {
@@ -106,5 +164,5 @@ export async function disableSchoolReminders(): Promise<SchoolReminderSettings> 
       () => undefined,
     );
   }
-  return persist(disabledSettings);
+  return persist({ ...previous, enabled: false, notificationId: null });
 }

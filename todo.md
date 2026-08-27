@@ -868,3 +868,9 @@ Le 27 août 2026 — réglage Notifications affiché comme préparatoire au lieu
 - [x] Auditer le réglage, le service de notifications et la configuration native existante.
 - [x] Activer des rappels scolaires locaux après consentement système, avec persistance du réglage utilisateur.
 - [x] Tester les permissions, l’activation, la désactivation et la planification locale sans modifier les notifications administratives.
+
+Le 27 août 2026 — personnalisation de l’heure du rappel scolaire quotidien et APK de test complète demandées.
+- [x] Ajouter un choix d’heure accessible pour le rappel scolaire et reprogrammer la notification existante.
+- [x] Valider la persistance de l’heure, le recalcul de la planification et les régressions Notifications/Progression.
+- [ ] Enregistrer le checkpoint puis générer une APK Android avec le profil `apk-cloudflare`.
+- [ ] Joindre l’APK terminée pour le test physique des notifications, de la progression et des activités récentes.
