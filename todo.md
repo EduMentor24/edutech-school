@@ -909,3 +909,18 @@ Le 27 août 2026 — production finale de la vidéo avec les huit captures réel
 - [x] Générer la nouvelle narration française et la musique instrumentale correspondant au scénario validé.
 - [x] Monter la présentation finale Full HD avec les écrans réels, les transitions fluides et la signature de l’équipe.
 - [x] Vérifier la confidentialité, les pistes audio, la résolution, la durée et livrer la vidéo finale.
+
+Le 27 août 2026 — audit lecture seule demandé : le compte administrateur voit environ cent citations, tandis qu’un compte élève n’en voit que quatre.
+- [x] Cartographier les requêtes, filtres de rôle, cache et préchargement du module Citations.
+- [x] Vérifier en lecture seule les politiques RLS, vues et fonctions Citations, ainsi que les volumes retournés selon le rôle.
+- [x] Comparer les comportements administrateur/élève et présenter la cause avec une correction minimale, sans rien appliquer.
+
+Le 27 août 2026 — diagnostic lecture seule demandé pour étendre le scope du corpus Citations aux séries A1, A2, C et D, sans publication ni modification avant approbation.
+- [x] Vérifier la structure des scopes Citations et la représentation des séries A1, A2, C et D.
+- [x] Mesurer la couverture actuelle des 284 citations et les ajouts de scopes nécessaires par série.
+- [x] Confirmer la compatibilité de la RLS et du préchargement, puis présenter la modification de données minimale à valider.
+
+Le 27 août 2026 — publication explicitement approuvée des citations en brouillon, sans changement de contenus, auteurs, œuvres, scopes ou RLS.
+- [x] Réidentifier les 280 citations non validées et inactives couvertes par les scopes Terminale A1, A2, C et D.
+- [x] Valider et activer uniquement ces 280 citations existantes.
+- [x] Vérifier la visibilité RLS attendue : 284 citations pour chacune des séries Terminale A1, A2, C et D, puis présenter le résultat.
