@@ -89,6 +89,12 @@ const config: ExpoConfig = {
   plugins: [
     "expo-router",
     [
+      "expo-notifications",
+      {
+        defaultChannel: "school-reminders",
+      },
+    ],
+    [
       "expo-asset",
       {
         assets: ["./assets/images/icon.png"],

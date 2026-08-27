@@ -28,6 +28,7 @@ import { BulletinSyncProvider } from "@/lib/bulletin/bulletin-sync-context";
 import { LearningSyncProvider } from "@/lib/offline/learning-sync-context";
 import { PedagogicalPreloadProvider } from "@/lib/offline/pedagogical-preload-context";
 import { NotificationSyncProvider } from "@/lib/notifications/notification-sync-context";
+import { initializeSchoolReminders } from "@/lib/notifications/school-reminder-service";
 import { AuthLoadingScreen } from "@/components/edutech/auth-loading-screen";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { createTRPCClient, trpc } from "@/lib/trpc";
@@ -94,6 +95,7 @@ export default function RootLayout() {
   const [frame, setFrame] = useState<Rect>(initialFrame);
   useEffect(() => {
     initManusRuntime();
+    void initializeSchoolReminders();
   }, []);
   const handleSafeAreaUpdate = useCallback((metrics: Metrics) => {
     setInsets((current) =>

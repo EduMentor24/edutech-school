@@ -863,3 +863,8 @@ Le 26 août 2026 — progression non mise à jour après lecture de cours, exerc
 - [x] Tracer les flux de persistance et d’affichage pour leçon, exercice et quiz.
 - [x] Reproduire le défaut et identifier la cause sans modifier de donnée existante.
 - [x] Corriger le seul maillon défaillant et valider les trois parcours de progression : Accueil et Cours se rafraîchissent après une mutation, et les évaluations soumises sont comptabilisées sans marquer artificiellement une leçon comme terminée.
+
+Le 27 août 2026 — réglage Notifications affiché comme préparatoire au lieu d’activer les rappels scolaires.
+- [x] Auditer le réglage, le service de notifications et la configuration native existante.
+- [x] Activer des rappels scolaires locaux après consentement système, avec persistance du réglage utilisateur.
+- [x] Tester les permissions, l’activation, la désactivation et la planification locale sans modifier les notifications administratives.
