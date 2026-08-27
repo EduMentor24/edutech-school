@@ -31,6 +31,19 @@ type ProgressMutationRow = {
 };
 type ProgressReadOptions = { forceRefresh?: boolean };
 const PROGRESS_CACHE_KEY = "edutech-learning-progress-v1";
+type LearningProgressListener = () => void;
+const learningProgressListeners = new Set<LearningProgressListener>();
+
+export function subscribeToLearningProgress(listener: LearningProgressListener) {
+  learningProgressListeners.add(listener);
+  return () => {
+    learningProgressListeners.delete(listener);
+  };
+}
+
+function notifyLearningProgressChanged() {
+  learningProgressListeners.forEach((listener) => listener());
+}
 
 function messageFrom(error: unknown) {
   if (
@@ -161,7 +174,10 @@ async function updateLocalProgress(
     PROGRESS_CACHE_KEY,
     userId,
   );
-  if (!cached) return;
+  if (!cached) {
+    notifyLearningProgressChanged();
+    return;
+  }
   const subjects = cached.subjects.map((subject) => ({
     ...subject,
     chapters: subject.chapters.map((chapter) => ({
@@ -179,6 +195,7 @@ async function updateLocalProgress(
     recalculateDashboard({ ...cached, subjects }),
     userId,
   );
+  notifyLearningProgressChanged();
 }
 
 function mutationLesson(

@@ -10,7 +10,7 @@ import { ProgressSummary } from "@/components/edutech/learning-progress";
 import { useSupabaseAuth } from "@/lib/auth/supabase-auth-provider";
 import { CourseSubject, getCoursesForProfile } from "@/lib/courses/course-service";
 import { useEduTheme } from "@/lib/edutech/theme-context";
-import { getLearningProgress, type LearningProgressDashboard, progressForOffering } from "@/lib/progress/learning-progress-service";
+import { getLearningProgress, subscribeToLearningProgress, type LearningProgressDashboard, progressForOffering } from "@/lib/progress/learning-progress-service";
 
 const emptyDashboard: LearningProgressDashboard = { subjects: [], completedLessons: 0, totalLessons: 0, percentage: 0 };
 
@@ -43,6 +43,15 @@ export default function CoursesScreen() {
     }
     if (!isProfileLoading) setLoading(false);
   }, [isProfileLoading, load, profile]);
+
+  useEffect(() => {
+    if (!profile) return;
+    return subscribeToLearningProgress(() => {
+      void getLearningProgress({ forceRefresh: true })
+        .then(setDashboard)
+        .catch(() => undefined);
+    });
+  }, [profile]);
   if (loading) return <AppScreen><CourseLoading label="Chargement de vos matières" /></AppScreen>;
   if (error) return <AppScreen><CourseError message={error} onRetry={() => void load()} /></AppScreen>;
   if (!profile?.school_level || !profile.series) return <AppScreen><CourseEmpty title="Profil scolaire incomplet" description="Renseignez votre niveau scolaire et votre série pour recevoir les cours qui vous sont destinés." actionLabel="Voir mon profil" onAction={() => router.push("/(tabs)/profile")} /></AppScreen>;

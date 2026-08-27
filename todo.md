@@ -853,5 +853,13 @@ Le 26 août 2026 — migration contrôlée de l’APK de validation vers le Work
 - [x] Auditer la configuration API, Expo et EAS effectivement utilisée par les profils Android.
 - [x] Configurer uniquement un profil EAS Android de validation injectant l’URL HTTPS Cloudflare sans `/api`.
 - [x] Vérifier l’absence de l’URL Manus dans la configuration du profil, puis exécuter TypeScript, lint et les tests existants.
-- [ ] Déclencher la build APK de validation depuis la publication du checkpoint, puis relever son identifiant, son état et son artefact.
-- [ ] Produire le rapport de build sans prétendre à une validation sur appareil réel avant installation.
+- [x] Déclencher la build APK de validation depuis la publication du checkpoint et relever son identifiant et son état ; artefact en attente de disponibilité EAS.
+- [x] Produire le rapport de lancement sans prétendre à une validation sur appareil réel avant installation.
+
+- [x] Déclencher uniquement la build Android EAS avec le profil `apk-cloudflare`, sans modifier le checkpoint ni ses variables.
+- [x] Récupérer l’APK générée par la build `apk-cloudflare` et la joindre directement pour le test sur appareil réel — artefact EAS terminé et disponible au téléchargement officiel.
+
+Le 26 août 2026 — progression non mise à jour après lecture de cours, exercice ou quiz signalée lors du test Android réel.
+- [x] Tracer les flux de persistance et d’affichage pour leçon, exercice et quiz.
+- [x] Reproduire le défaut et identifier la cause sans modifier de donnée existante.
+- [x] Corriger le seul maillon défaillant et valider les trois parcours de progression : Accueil et Cours se rafraîchissent après une mutation, et les évaluations soumises sont comptabilisées sans marquer artificiellement une leçon comme terminée.
