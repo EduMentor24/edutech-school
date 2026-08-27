@@ -885,5 +885,5 @@ Le 27 août 2026 — corrections approuvées : retrait temporaire PDF, fiabilisa
 - [x] Identifier puis désactiver seulement les actions d’impression/export PDF accessibles depuis les leçons.
 - [x] Reproduire et corriger l’envoi ou le rafraîchissement de progression après une leçon marquée comme lue.
 - [x] Appliquer la correction minimale des rappels Android : canal explicite, état de permission et accès aux réglages système.
-- [ ] Valider les corrections, enregistrer un checkpoint et générer une APK `apk-cloudflare`.
-- [ ] Joindre l’APK finale pour le test physique complet.
+- [x] Valider les corrections, enregistrer un checkpoint et générer une APK `apk-cloudflare`.
+- [x] Joindre l’APK finale pour le test physique complet.
