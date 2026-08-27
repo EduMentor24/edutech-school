@@ -887,3 +887,25 @@ Le 27 août 2026 — corrections approuvées : retrait temporaire PDF, fiabilisa
 - [x] Appliquer la correction minimale des rappels Android : canal explicite, état de permission et accès aux réglages système.
 - [x] Valider les corrections, enregistrer un checkpoint et générer une APK `apk-cloudflare`.
 - [x] Joindre l’APK finale pour le test physique complet.
+
+Le 27 août 2026 — vidéo de présentation professionnelle demandée pour faire connaître EduTech School auprès des élèves.
+- [x] Auditer les écrans et fonctionnalités réellement disponibles, sans modifier l’application ni présenter de fonctionnalité fictive.
+- [x] Préparer le scénario de dix scènes, la narration française et les textes courts de la présentation officielle.
+- [x] Produire une vidéo promotionnelle Full HD 16:9 de 90 à 120 secondes avec musique originale discrète et voix off professionnelle.
+- [x] Préparer une version verticale 9:16 complémentaire adaptée au téléphone, sans recadrer le contenu 16:9.
+- [x] Vérifier l’intégrité technique et livrer les vidéos finalisées.
+
+Le 27 août 2026 — lien de téléchargement de la présentation vidéo redirigé vers un aperçu temporaire devenu indisponible.
+- [x] Vérifier les URL directes des deux vidéos et isoler la redirection défaillante.
+- [x] Fournir des liens de téléchargement indépendants de l’aperçu temporaire.
+
+Le 27 août 2026 — préparation demandée d’un script de nouvelle présentation, intégrant les huit captures réelles reçues, sans démarrer la production.
+- [x] Recenser les écrans, fonctions et chiffres directement vérifiables dans les captures utilisateur.
+- [x] Vérifier les chiffres de contenu utilisables sans les présenter comme des totaux fictifs ou permanents.
+- [x] Rédiger et livrer le script détaillé avec l’ordre de montage et la mention « Loua Moïse. Space digital ».
+
+Le 27 août 2026 — production finale de la vidéo avec les huit captures réelles explicitement validée par l’utilisateur.
+- [x] Préparer les captures reçues pour le montage et protéger les données personnelles visibles sur le Bulletin.
+- [x] Générer la nouvelle narration française et la musique instrumentale correspondant au scénario validé.
+- [x] Monter la présentation finale Full HD avec les écrans réels, les transitions fluides et la signature de l’équipe.
+- [x] Vérifier la confidentialité, les pistes audio, la résolution, la durée et livrer la vidéo finale.
