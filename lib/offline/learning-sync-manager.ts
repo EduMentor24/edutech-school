@@ -9,7 +9,7 @@ const errorMessage = (cause: unknown) => cause instanceof Error ? cause.message 
 
 export async function isInternetReachable() {
   const state = await Network.getNetworkStateAsync();
-  return state.isInternetReachable === true;
+  return state.isConnected === true && state.isInternetReachable !== false;
 }
 
 async function syncOperation(operation: LearningSyncOperation): Promise<RemoteSyncResult> {

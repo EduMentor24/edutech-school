@@ -13,6 +13,9 @@ describe("rappels scolaires locaux", () => {
     expect(settings).toContain("Heure du rappel");
     expect(settings).toContain("formatSchoolReminderTime");
     expect(settings).toContain("setSchoolReminderTime");
+    expect(settings).toContain("getSchoolReminderPermission");
+    expect(settings).toContain("Linking.openSettings()");
+    expect(settings).toContain('Platform.OS === "android"');
   });
 
   it("demande la permission, programme un rappel quotidien et peut l’annuler", () => {
@@ -24,10 +27,13 @@ describe("rappels scolaires locaux", () => {
     expect(service).toContain("hour: number");
     expect(service).toContain("minute: number");
     expect(service).toContain("scheduleSchoolReminder(hour, minute)");
+    expect(service).toContain("channelId: CHANNEL_ID");
+    expect(service).toContain("getSchoolReminderPermission");
   });
 
   it("configure le plugin natif requis sans étendre les notifications distantes", () => {
     expect(config).toContain('"expo-notifications"');
     expect(config).toContain('defaultChannel: "school-reminders"');
+    expect(config).not.toContain('"SCHEDULE_EXACT_ALARM"');
   });
 });

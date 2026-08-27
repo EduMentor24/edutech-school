@@ -872,5 +872,18 @@ Le 27 août 2026 — réglage Notifications affiché comme préparatoire au lieu
 Le 27 août 2026 — personnalisation de l’heure du rappel scolaire quotidien et APK de test complète demandées.
 - [x] Ajouter un choix d’heure accessible pour le rappel scolaire et reprogrammer la notification existante.
 - [x] Valider la persistance de l’heure, le recalcul de la planification et les régressions Notifications/Progression.
-- [ ] Enregistrer le checkpoint puis générer une APK Android avec le profil `apk-cloudflare`.
-- [ ] Joindre l’APK terminée pour le test physique des notifications, de la progression et des activités récentes.
+- [x] Enregistrer le checkpoint puis générer une APK Android avec le profil `apk-cloudflare`.
+- [x] Joindre l’APK terminée pour le test physique des notifications, de la progression et des activités récentes.
+
+Le 27 août 2026 — diagnostic lecture seule requis avant toute correction des notifications Android 11+ et avant désactivation de l’export PDF.
+- [x] Auditer Expo, EAS et le manifeste Android pour les permissions et canaux de notification.
+- [x] Vérifier le planificateur de rappels, les notifications de publication et le mécanisme d’autorisation existant.
+- [x] Vérifier les journaux de progression et les tables Supabase des cours lus et scores de quiz en lecture seule.
+- [x] Produire les causes, lacunes Android 11/12/13+, correction minimale et fichiers concernés sans modification.
+
+Le 27 août 2026 — corrections approuvées : retrait temporaire PDF, fiabilisation de la progression et rappels Android, suivis d’une APK Cloudflare.
+- [x] Identifier puis désactiver seulement les actions d’impression/export PDF accessibles depuis les leçons.
+- [x] Reproduire et corriger l’envoi ou le rafraîchissement de progression après une leçon marquée comme lue.
+- [x] Appliquer la correction minimale des rappels Android : canal explicite, état de permission et accès aux réglages système.
+- [ ] Valider les corrections, enregistrer un checkpoint et générer une APK `apk-cloudflare`.
+- [ ] Joindre l’APK finale pour le test physique complet.

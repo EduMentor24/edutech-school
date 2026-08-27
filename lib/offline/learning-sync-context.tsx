@@ -14,7 +14,8 @@ export function LearningSyncProvider({ children }: { children: React.ReactNode }
   const [syncing, setSyncing] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
   const running = useRef(false);
-  const isOnline = network.isInternetReachable === true;
+  const isOnline =
+    network.isConnected === true && network.isInternetReachable !== false;
   const syncNow = useCallback(async () => {
     if (!profile?.id || !isAuthenticated || !isOnline || running.current) return;
     running.current = true;

@@ -29,10 +29,6 @@ import {
   getExerciseCatalog,
 } from "@/lib/exercises/exercise-service";
 import {
-  downloadLessonPdf,
-  printLessonPdf,
-} from "@/lib/lessons/lesson-pdf-service";
-import {
   completeLesson,
   getLearningProgress,
   progressForLesson,
@@ -81,8 +77,6 @@ export default function LessonReaderScreen() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [trackingError, setTrackingError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
-  const [exporting, setExporting] = useState(false);
-  const [exportError, setExportError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -175,11 +169,6 @@ export default function LessonReaderScreen() {
   const activeSession =
     sessions.find((session) => session.id === activeSessionId) ?? null;
   const displayedContent = activeSession?.content ?? lesson?.content ?? "";
-  const displayedTitle = activeSession
-    ? `${lesson?.title ?? "Leçon"} — ${activeSession.title}`
-    : (lesson?.title ?? "Leçon");
-  const displayedDescription =
-    activeSession?.description ?? lesson?.description ?? null;
 
   const handleComplete = useCallback(async () => {
     if (!lesson || profile?.role !== "student") return;
@@ -214,39 +203,6 @@ export default function LessonReaderScreen() {
       setSaving(false);
     }
   }, [isFavorite, lesson, profile?.role]);
-
-  const handlePdf = useCallback(
-    async (mode: "print" | "download") => {
-      if (!displayedContent || (!isAdmin && profile?.role !== "student"))
-        return;
-      setExporting(true);
-      setExportError(null);
-      try {
-        const input = {
-          title: displayedTitle,
-          description: displayedDescription,
-          content: displayedContent,
-        };
-        if (mode === "print") await printLessonPdf(input);
-        else await downloadLessonPdf(input);
-      } catch (cause) {
-        setExportError(
-          cause instanceof Error
-            ? cause.message
-            : "La création du PDF a échoué.",
-        );
-      } finally {
-        setExporting(false);
-      }
-    },
-    [
-      displayedContent,
-      displayedDescription,
-      displayedTitle,
-      isAdmin,
-      profile?.role,
-    ],
-  );
 
   if (loading)
     return (
@@ -300,65 +256,6 @@ export default function LessonReaderScreen() {
                 Aperçu administrateur : cette leçon est inactive et reste
                 invisible pour les élèves.
               </Text>
-            </View>
-          ) : null}
-          {displayedContent && (canTrack || isAdmin) ? (
-            <View style={styles.exportCard}>
-              <View style={styles.exportHeader}>
-                <MaterialIcons
-                  name="picture-as-pdf"
-                  size={20}
-                  color={colors.primary}
-                />
-                <View style={styles.exerciseCopy}>
-                  <Text style={styles.exerciseTitle}>Cours en PDF</Text>
-                  <Text style={styles.exerciseDescription}>
-                    Imprimez la séance consultée ou enregistrez son PDF avec ses
-                    définitions, encadrés et formules.
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.exportActions}>
-                <Pressable
-                  accessibilityRole="button"
-                  disabled={exporting}
-                  onPress={() => void handlePdf("print")}
-                  style={({ pressed }) => [
-                    styles.exportSecondaryButton,
-                    exporting && styles.disabled,
-                    pressed && !exporting && styles.pressed,
-                  ]}
-                >
-                  <MaterialIcons
-                    name="print"
-                    size={18}
-                    color={colors.primary}
-                  />
-                  <Text style={styles.exportSecondaryLabel}>Imprimer</Text>
-                </Pressable>
-                <Pressable
-                  accessibilityRole="button"
-                  disabled={exporting}
-                  onPress={() => void handlePdf("download")}
-                  style={({ pressed }) => [
-                    styles.exportPrimaryButton,
-                    exporting && styles.disabled,
-                    pressed && !exporting && styles.pressed,
-                  ]}
-                >
-                  <MaterialIcons
-                    name="file-download"
-                    size={18}
-                    color={colors.surface}
-                  />
-                  <Text style={styles.exportPrimaryLabel}>
-                    {exporting ? "Préparation…" : "PDF"}
-                  </Text>
-                </Pressable>
-              </View>
-              {exportError ? (
-                <Text style={styles.trackingError}>{exportError}</Text>
-              ) : null}
             </View>
           ) : null}
           {canTrack ? (

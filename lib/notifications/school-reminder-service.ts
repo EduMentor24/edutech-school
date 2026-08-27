@@ -12,6 +12,8 @@ export type SchoolReminderSettings = {
   minute: number;
 };
 
+export type SchoolReminderPermission = "granted" | "denied" | "unavailable";
+
 const disabledSettings: SchoolReminderSettings = {
   enabled: false,
   notificationId: null,
@@ -93,6 +95,13 @@ async function ensurePermission() {
   }
 }
 
+export async function getSchoolReminderPermission(): Promise<SchoolReminderPermission> {
+  if (!isNativeNotificationsAvailable()) return "unavailable";
+  await ensureAndroidChannel();
+  const current = await Notifications.getPermissionsAsync();
+  return current.granted ? "granted" : "denied";
+}
+
 export async function initializeSchoolReminders() {
   if (!isNativeNotificationsAvailable()) return;
   Notifications.setNotificationHandler({
@@ -117,6 +126,7 @@ async function scheduleSchoolReminder(hour: number, minute: number) {
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour,
       minute,
+      channelId: CHANNEL_ID,
     },
   });
 }

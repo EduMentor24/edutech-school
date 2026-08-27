@@ -3,7 +3,9 @@ import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import {
   Alert,
+  Linking,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -22,6 +24,7 @@ import {
   disableSchoolReminders,
   enableSchoolReminders,
   formatSchoolReminderTime,
+  getSchoolReminderPermission,
   getSchoolReminderSettings,
   setSchoolReminderTime,
 } from "@/lib/notifications/school-reminder-service";
@@ -35,6 +38,9 @@ export default function SettingsScreen() {
   const [reminderMinute, setReminderMinute] = useState(0);
   const [remindersLoading, setRemindersLoading] = useState(true);
   const [remindersSaving, setRemindersSaving] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState<
+    "granted" | "denied" | "unavailable"
+  >("unavailable");
   const [timeEditorVisible, setTimeEditorVisible] = useState(false);
   const [timeDraft, setTimeDraft] = useState("18:00");
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -42,11 +48,12 @@ export default function SettingsScreen() {
     Alert.alert(title, message, [{ text: "Compris" }]);
 
   useEffect(() => {
-    void getSchoolReminderSettings()
-      .then((settings) => {
+    void Promise.all([getSchoolReminderSettings(), getSchoolReminderPermission()])
+      .then(([settings, permission]) => {
         setRemindersEnabled(settings.enabled);
         setReminderHour(settings.hour);
         setReminderMinute(settings.minute);
+        setNotificationPermission(permission);
       })
       .finally(() => setRemindersLoading(false));
   }, []);
@@ -70,6 +77,7 @@ export default function SettingsScreen() {
           ? await disableSchoolReminders()
           : await enableSchoolReminders(),
       );
+      setNotificationPermission(await getSchoolReminderPermission());
     } catch (cause) {
       Alert.alert(
         "Notifications non activées",
@@ -126,6 +134,21 @@ export default function SettingsScreen() {
       : remindersEnabled
         ? `Rappel quotidien activé à ${scheduledTime}`
         : "Activez un rappel quotidien pour reprendre vos apprentissages";
+  const notificationSettingsSubtitle =
+    notificationPermission === "granted"
+      ? "Gérez les alertes et le canal Rappels scolaires"
+      : "Autorisez les notifications dans Android pour recevoir les rappels";
+
+  const openNotificationSettings = async () => {
+    try {
+      await Linking.openSettings();
+    } catch {
+      Alert.alert(
+        "Réglages Android indisponibles",
+        "Ouvrez les paramètres Android de l’application EduTech School, puis Notifications.",
+      );
+    }
+  };
 
   return (
     <AppScreen withPadding={false} edges={["top", "bottom", "left", "right"]}>
@@ -178,6 +201,15 @@ export default function SettingsScreen() {
               onPress={openTimeEditor}
               accessory={<MaterialIcons name="chevron-right" size={22} color={colors.muted} />}
             />
+            {Platform.OS === "android" ? (
+              <SettingsRow
+                icon="settings"
+                title="Gérer les notifications Android"
+                subtitle={notificationSettingsSubtitle}
+                onPress={() => void openNotificationSettings()}
+                accessory={<MaterialIcons name="open-in-new" size={20} color={colors.muted} />}
+              />
+            ) : null}
             <SettingsRow
               icon="language"
               title="Langue"
