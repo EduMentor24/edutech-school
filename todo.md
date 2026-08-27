@@ -924,3 +924,8 @@ Le 27 août 2026 — publication explicitement approuvée des citations en broui
 - [x] Réidentifier les 280 citations non validées et inactives couvertes par les scopes Terminale A1, A2, C et D.
 - [x] Valider et activer uniquement ces 280 citations existantes.
 - [x] Vérifier la visibilité RLS attendue : 284 citations pour chacune des séries Terminale A1, A2, C et D, puis présenter le résultat.
+
+Le 27 août 2026 — nouvelle APK Android de test demandée après publication du corpus Citations.
+- [x] Vérifier l’état du projet, les validations techniques et le profil EAS `apk-cloudflare` sans modifier le code : TypeScript, lint, 426 tests réussis / 1 ignoré, Expo et diff validés.
+- [ ] Enregistrer le checkpoint de build et lancer la compilation APK Android avec `apk-cloudflare`.
+- [ ] Vérifier l’artefact EAS et le fournir pour le test réel des citations et fonctionnalités existantes.
