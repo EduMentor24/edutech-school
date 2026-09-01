@@ -929,3 +929,10 @@ Le 27 août 2026 — nouvelle APK Android de test demandée après publication d
 - [x] Vérifier l’état du projet, les validations techniques et le profil EAS `apk-cloudflare` sans modifier le code : TypeScript, lint, 426 tests réussis / 1 ignoré, Expo et diff validés.
 - [ ] Enregistrer le checkpoint de build et lancer la compilation APK Android avec `apk-cloudflare`.
 - [ ] Vérifier l’artefact EAS et le fournir pour le test réel des citations et fonctionnalités existantes.
+
+
+Le 31 août 2026 — étape 2 du module Dictionnaire reprise après réinitialisation, sans corpus massif ni modification des autres modules.
+- [x] Restaurer uniquement le socle de l’étape 1 nécessaire à la continuité, puis concevoir le modèle complet d’une fiche extensible.
+- [x] Implémenter l’affichage détaillé local hors connexion et la navigation depuis la recherche.
+- [x] Ajouter les tests du modèle et de l’affichage, puis vérifier TypeScript, lint et la suite complète.
+- [x] Livrer uniquement l’étape 2, sans générer les 5 000 mots, sans migration Supabase et sans APK.

@@ -25,6 +25,7 @@ const shortcuts = [
   { label: "Mentor IA", icon: "psychology", route: "/mentor" },
   { label: "Citations", icon: "format-quote", route: "/citations" },
   { label: "Bulletin", icon: "assessment", route: "/bulletin" },
+  { label: "Dictionnaire", icon: "menu-book", route: "/dictionary" },
 ] as const;
 
 const emptyDashboard: LearningProgressDashboard = {
