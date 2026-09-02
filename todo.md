@@ -944,3 +944,13 @@ Le 31 août 2026 — étape 3 du Dictionnaire : migration contrôlée de 50 entr
 - [x] Migrer et enrichir uniquement ces 50 fiches sans données artificielles ni doublons.
 - [x] Valider recherche, affichage, modes clair/sombre, hors connexion et non-régressions.
 - [x] Produire le rapport final et attendre avant toute migration des 2 112 entrées.
+
+
+Le 2 septembre 2026 — étape 4 du Dictionnaire : migration complète des 2 112 entrées du corpus maître.
+- [x] Auditer le corpus maître et vérifier son intégrité avant migration.
+- [x] Migrer exactement les 2 112 entrées dans le modèle validé, sans modifier la source.
+- [x] Enrichir uniquement les champs fiables et pertinents, sans données artificielles ni doublons.
+- [x] Raccorder le corpus complet au service local-first et préserver la recherche hors connexion.
+- [x] Valider TypeScript, lint, tests, recherche accentuée, affichage, thèmes et hors connexion.
+- [x] Produire le rapport final et confirmer qu’aucun autre module n’a été modifié.
+- [x] Créer le checkpoint de livraison de l’étape 4.
