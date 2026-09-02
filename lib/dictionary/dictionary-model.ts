@@ -33,6 +33,8 @@ export type DictionaryEntry = {
   associatedCourses?: DictionaryAssociatedCourse[];
   subject?: string;
   tags?: string[];
+  sourceEntryId?: string;
+  corpusVersion?: string;
 };
 
 export function normalizeDictionaryText(value: string): string {

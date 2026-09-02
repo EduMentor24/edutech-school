@@ -936,3 +936,11 @@ Le 31 août 2026 — étape 2 du module Dictionnaire reprise après réinitialis
 - [x] Implémenter l’affichage détaillé local hors connexion et la navigation depuis la recherche.
 - [x] Ajouter les tests du modèle et de l’affichage, puis vérifier TypeScript, lint et la suite complète.
 - [x] Livrer uniquement l’étape 2, sans générer les 5 000 mots, sans migration Supabase et sans APK.
+
+
+Le 31 août 2026 — étape 3 du Dictionnaire : migration contrôlée de 50 entrées représentatives depuis le corpus maître de 2 112 entrées.
+- [x] Lire et auditer intégralement le fichier maître et l’état actuel du Dictionnaire.
+- [x] Sélectionner exactement 50 entrées représentatives et documenter la sélection.
+- [x] Migrer et enrichir uniquement ces 50 fiches sans données artificielles ni doublons.
+- [x] Valider recherche, affichage, modes clair/sombre, hors connexion et non-régressions.
+- [x] Produire le rapport final et attendre avant toute migration des 2 112 entrées.
