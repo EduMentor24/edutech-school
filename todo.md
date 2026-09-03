@@ -954,3 +954,13 @@ Le 2 septembre 2026 — étape 4 du Dictionnaire : migration complète des 2 112
 - [x] Valider TypeScript, lint, tests, recherche accentuée, affichage, thèmes et hors connexion.
 - [x] Produire le rapport final et confirmer qu’aucun autre module n’a été modifié.
 - [x] Créer le checkpoint de livraison de l’étape 4.
+
+
+Le 3 septembre 2026 — étape 5 du Dictionnaire : premier lot de 200 nouvelles entrées.
+- [x] Auditer le corpus complet existant et établir une liste de 200 termes sans doublon.
+- [x] Rédiger 200 fiches utiles au vocabulaire général, scolaire et disciplinaire, sans données artificielles.
+- [x] Intégrer le lot séparément sans modifier les 2 112 fiches existantes.
+- [x] Préserver le service local-first, la recherche sans accents et le hors connexion.
+- [x] Valider TypeScript, lint, tests, recherche, affichage et non-régression.
+- [x] Produire le rapport des 200 mots, catégories et enrichissements.
+- [x] Créer le checkpoint de livraison et attendre la validation avant le prochain lot.
