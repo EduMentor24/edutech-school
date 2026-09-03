@@ -964,3 +964,13 @@ Le 3 septembre 2026 — étape 5 du Dictionnaire : premier lot de 200 nouvelles 
 - [x] Valider TypeScript, lint, tests, recherche, affichage et non-régression.
 - [x] Produire le rapport des 200 mots, catégories et enrichissements.
 - [x] Créer le checkpoint de livraison et attendre la validation avant le prochain lot.
+
+
+Le 3 septembre 2026 — lot suivant du Dictionnaire : 200 nouvelles entrées avec mot-témoin.
+- [x] Auditer les corpus existants et les lots précédents pour éviter les doublons.
+- [x] Rédiger exactement 200 fiches nouvelles, riches et pédagogiques, sans champs artificiels.
+- [x] Intégrer le lot séparément sans modifier les corpus antérieurs.
+- [x] Préserver le local-first, la recherche, la synchronisation future et le hors connexion.
+- [x] Valider le nombre, l’unicité, le mot-témoin, TypeScript, lint, tests, affichage et recherche.
+- [x] Vérifier l’intégrité des anciennes entrées et des autres modules.
+- [x] Produire le rapport final et créer un checkpoint sans APK.

@@ -3,8 +3,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { DictionaryEntry } from "./dictionary-model";
 import { DICTIONARY_FULL_CORPUS_V1 } from "./dictionary-full-corpus";
 import { DICTIONARY_VOCABULARY_LOT_200 } from "./dictionary-vocabulary-lot-200";
+import { DICTIONARY_VOCABULARY_LOT_200_B } from "./dictionary-vocabulary-lot-200-b";
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const CACHE_PREFIX = "edutech-dictionary-v1";
 
 export type DictionaryCacheContext = { profileId?: string | null; schoolLevel?: string | null; series?: string | null };
@@ -34,7 +35,7 @@ async function writeCache(context: DictionaryCacheContext, entries: DictionaryEn
 }
 
 async function fetchDictionaryCorpus(_context: DictionaryCacheContext): Promise<DictionaryEntry[]> {
-  return [...DICTIONARY_FULL_CORPUS_V1, ...DICTIONARY_VOCABULARY_LOT_200];
+  return [...DICTIONARY_FULL_CORPUS_V1, ...DICTIONARY_VOCABULARY_LOT_200, ...DICTIONARY_VOCABULARY_LOT_200_B];
 }
 
 export async function getDictionaryEntries(context: DictionaryCacheContext = {}, options: { forceRefresh?: boolean } = {}): Promise<DictionaryEntry[]> {
