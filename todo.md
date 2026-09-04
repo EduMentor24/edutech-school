@@ -974,3 +974,13 @@ Le 3 septembre 2026 — lot suivant du Dictionnaire : 200 nouvelles entrées ave
 - [x] Valider le nombre, l’unicité, le mot-témoin, TypeScript, lint, tests, affichage et recherche.
 - [x] Vérifier l’intégrité des anciennes entrées et des autres modules.
 - [x] Produire le rapport final et créer un checkpoint sans APK.
+
+
+Le 3 septembre 2026 — correction qualité du lot B : réexamen et enrichissement des 200 fiches existantes.
+- [x] Auditer les champs du modèle et les 200 fiches du lot B.
+- [x] Réexaminer chaque fiche et ajouter uniquement les informations lexicales fiables et pertinentes.
+- [x] Conserver les identifiants, les définitions et les exemples corrects sans créer ni supprimer d’entrée.
+- [x] Remplacer le lot B dans le service local-first sans toucher aux corpus antérieurs.
+- [x] Valider les 200 fiches, la recherche, l’affichage, le hors connexion, TypeScript, lint et les tests.
+- [x] Vérifier l’intégrité des entrées précédentes et choisir un mot-témoin réel.
+- [x] Produire le rapport final et créer un checkpoint sans APK.

@@ -21,8 +21,11 @@ describe("Dictionnaire — lot vocabulaire 200 B", () => {
     expect(new Set([...allPrior, ...DICTIONARY_VOCABULARY_LOT_200_B.map((entry) => normalize(entry.term))]).size).toBe(2512);
   });
 
-  it("contient une fiche pédagogique minimale complète pour chaque terme", () => {
+  it("contient une fiche pédagogique et lexicale enrichie pour chaque terme", () => {
     expect(DICTIONARY_VOCABULARY_LOT_200_B.every((entry) => entry.grammaticalNature && entry.generalDefinition.length > 40 && entry.generalExample && entry.tags?.includes("lot-200-b") === true)).toBe(true);
+    expect(DICTIONARY_VOCABULARY_LOT_200_B.filter((entry) => entry.etymology || entry.specializedSenses?.length || entry.synonyms?.length || entry.antonyms?.length || entry.wordFamily?.length || entry.expressions?.length || entry.translations?.length).length).toBe(200);
+    expect(DICTIONARY_VOCABULARY_LOT_200_B.find((entry) => entry.term === "Masse volumique")?.specializedSenses?.[0]?.definition).toContain("m/V");
+    expect(DICTIONARY_VOCABULARY_LOT_200_B.find((entry) => entry.term === "Masse volumique")?.translations?.map((item) => item.language)).toEqual(["en", "es", "de"]);
   });
 
   it("rend les nouveaux termes recherchables sans accents", () => {
