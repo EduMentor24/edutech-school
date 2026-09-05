@@ -984,3 +984,13 @@ Le 3 septembre 2026 — correction qualité du lot B : réexamen et enrichisseme
 - [x] Valider les 200 fiches, la recherche, l’affichage, le hors connexion, TypeScript, lint et les tests.
 - [x] Vérifier l’intégrité des entrées précédentes et choisir un mot-témoin réel.
 - [x] Produire le rapport final et créer un checkpoint sans APK.
+
+
+Le 4 septembre 2026 — nouveau lot du Dictionnaire : 200 fiches riches avec contrôle qualité strict.
+- [x] Auditer les 2 512 fiches existantes et sélectionner 200 candidats sans doublon.
+- [x] Construire et vérifier individuellement les 200 nouvelles fiches selon les 13 rubriques du modèle.
+- [x] Intégrer le lot séparément sans modifier les corpus antérieurs.
+- [x] Préserver le local-first, la recherche, la synchronisation future et le hors connexion.
+- [x] Valider le nombre, l’unicité, l’intégrité, TypeScript, lint, tests, affichage et recherche.
+- [x] Choisir un mot-témoin réel et produire le rapport final.
+- [x] Créer un checkpoint sans générer d’APK et attendre la validation.

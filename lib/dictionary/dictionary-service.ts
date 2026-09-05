@@ -4,8 +4,9 @@ import type { DictionaryEntry } from "./dictionary-model";
 import { DICTIONARY_FULL_CORPUS_V1 } from "./dictionary-full-corpus";
 import { DICTIONARY_VOCABULARY_LOT_200 } from "./dictionary-vocabulary-lot-200";
 import { DICTIONARY_VOCABULARY_LOT_200_B } from "./dictionary-vocabulary-lot-200-b";
+import { DICTIONARY_VOCABULARY_LOT_200_C } from "./dictionary-vocabulary-lot-200-c";
 
-const CACHE_VERSION = 4;
+const CACHE_VERSION = 5;
 const CACHE_PREFIX = "edutech-dictionary-v1";
 
 export type DictionaryCacheContext = { profileId?: string | null; schoolLevel?: string | null; series?: string | null };
@@ -35,7 +36,12 @@ async function writeCache(context: DictionaryCacheContext, entries: DictionaryEn
 }
 
 async function fetchDictionaryCorpus(_context: DictionaryCacheContext): Promise<DictionaryEntry[]> {
-  return [...DICTIONARY_FULL_CORPUS_V1, ...DICTIONARY_VOCABULARY_LOT_200, ...DICTIONARY_VOCABULARY_LOT_200_B];
+  return [
+    ...DICTIONARY_FULL_CORPUS_V1,
+    ...DICTIONARY_VOCABULARY_LOT_200,
+    ...DICTIONARY_VOCABULARY_LOT_200_B,
+    ...DICTIONARY_VOCABULARY_LOT_200_C,
+  ];
 }
 
 export async function getDictionaryEntries(context: DictionaryCacheContext = {}, options: { forceRefresh?: boolean } = {}): Promise<DictionaryEntry[]> {
