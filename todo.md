@@ -994,3 +994,13 @@ Le 4 septembre 2026 — nouveau lot du Dictionnaire : 200 fiches riches avec con
 - [x] Valider le nombre, l’unicité, l’intégrité, TypeScript, lint, tests, affichage et recherche.
 - [x] Choisir un mot-témoin réel et produire le rapport final.
 - [x] Créer un checkpoint sans générer d’APK et attendre la validation.
+
+
+Le 5 septembre 2026 — prochain lot du Dictionnaire : 300 fiches riches avec contrôle qualité strict.
+- [x] Auditer les 2 712 fiches existantes et sélectionner 300 candidats sans doublon.
+- [x] Construire et vérifier individuellement les 300 nouvelles fiches selon les rubriques du modèle.
+- [x] Intégrer le lot séparément sans modifier les corpus antérieurs.
+- [x] Préserver le local-first, la recherche, la synchronisation future et le hors connexion.
+- [x] Valider le nombre, l’unicité, l’intégrité, TypeScript, lint, tests, affichage et recherche.
+- [x] Choisir un mot-témoin réel et produire le rapport final.
+- [x] Créer un checkpoint sans générer d’APK et attendre la validation.
