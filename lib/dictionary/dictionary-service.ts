@@ -6,8 +6,9 @@ import { DICTIONARY_VOCABULARY_LOT_200 } from "./dictionary-vocabulary-lot-200";
 import { DICTIONARY_VOCABULARY_LOT_200_B } from "./dictionary-vocabulary-lot-200-b";
 import { DICTIONARY_VOCABULARY_LOT_200_C } from "./dictionary-vocabulary-lot-200-c";
 import { DICTIONARY_VOCABULARY_LOT_300_D } from "./dictionary-vocabulary-lot-300-d";
+import { DICTIONARY_VOCABULARY_LOT_300_E } from "./dictionary-vocabulary-lot-300-e";
 
-const CACHE_VERSION = 6;
+const CACHE_VERSION = 7;
 const CACHE_PREFIX = "edutech-dictionary-v1";
 
 export type DictionaryCacheContext = { profileId?: string | null; schoolLevel?: string | null; series?: string | null };
@@ -43,6 +44,7 @@ async function fetchDictionaryCorpus(_context: DictionaryCacheContext): Promise<
     ...DICTIONARY_VOCABULARY_LOT_200_B,
     ...DICTIONARY_VOCABULARY_LOT_200_C,
     ...DICTIONARY_VOCABULARY_LOT_300_D,
+    ...DICTIONARY_VOCABULARY_LOT_300_E,
   ];
 }
 
