@@ -22,6 +22,10 @@ import {
   getLessonSessions,
   type LessonSession,
 } from "@/lib/courses/lesson-session-service";
+import {
+  lessonSpeechText,
+  useLessonSpeech,
+} from "@/lib/courses/lesson-speech";
 import { useEduTheme } from "@/lib/edutech/theme-context";
 import { pedagogicalCacheContextFromProfile } from "@/lib/offline/pedagogical-cache";
 import {
@@ -169,6 +173,22 @@ export default function LessonReaderScreen() {
   const activeSession =
     sessions.find((session) => session.id === activeSessionId) ?? null;
   const displayedContent = activeSession?.content ?? lesson?.content ?? "";
+
+  const speechText = useMemo(
+    () => lessonSpeechText(displayedContent),
+    [displayedContent],
+  );
+  const {
+    state: speechState,
+    play: startSpeech,
+    pause: pauseSpeech,
+    resume: resumeSpeech,
+    stop: stopSpeech,
+  } = useLessonSpeech();
+
+  useEffect(() => {
+    stopSpeech();
+  }, [speechText, stopSpeech]);
 
   const handleComplete = useCallback(async () => {
     if (!lesson || profile?.role !== "student") return;
@@ -376,7 +396,123 @@ export default function LessonReaderScreen() {
               </>
             ) : null}
             {displayedContent ? (
-              <LessonMarkdown content={displayedContent} />
+              <>
+                <View style={styles.listenCard}>
+                  <View style={styles.listenHeader}>
+                    <MaterialIcons
+                      name="volume-up"
+                      size={20}
+                      color={colors.primary}
+                    />
+                    <Text style={styles.listenTitle}>Écouter la leçon</Text>
+                  </View>
+                  <Text style={styles.listenStatus}>
+                    {speechState === "playing" &&
+                      "Lecture en cours… Vous pouvez mettre en pause ou arrêter à tout moment."}
+                    {speechState === "paused" &&
+                      "Lecture en pause. Reprenez où vous en étiez ou arrêtez."}
+                    {speechState === "idle" &&
+                      "Lecture vocale du contenu réellement affiché, sans connexion nécessaire."}
+                  </Text>
+                  <View style={styles.listenActions}>
+                    {speechState === "idle" ? (
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Lire la leçon à voix haute"
+                        disabled={!speechText}
+                        onPress={() => startSpeech(speechText)}
+                        style={({ pressed }) => [
+                          styles.listenPrimaryButton,
+                          !speechText && styles.listenDisabled,
+                          pressed && speechText && styles.pressed,
+                        ]}
+                      >
+                        <MaterialIcons
+                          name="play-arrow"
+                          size={18}
+                          color={colors.surface}
+                        />
+                        <Text style={styles.listenPrimaryLabel}>Lire</Text>
+                      </Pressable>
+                    ) : null}
+                    {speechState === "playing" ? (
+                      <>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Mettre la lecture en pause"
+                          onPress={pauseSpeech}
+                          style={({ pressed }) => [
+                            styles.listenSecondaryButton,
+                            pressed && styles.pressed,
+                          ]}
+                        >
+                          <MaterialIcons
+                            name="pause"
+                            size={18}
+                            color={colors.primary}
+                          />
+                          <Text style={styles.listenSecondaryLabel}>Pause</Text>
+                        </Pressable>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Arrêter la lecture"
+                          onPress={stopSpeech}
+                          style={({ pressed }) => [
+                            styles.listenStopButton,
+                            pressed && styles.pressed,
+                          ]}
+                        >
+                          <MaterialIcons
+                            name="stop"
+                            size={18}
+                            color={colors.error}
+                          />
+                          <Text style={styles.listenStopLabel}>Arrêter</Text>
+                        </Pressable>
+                      </>
+                    ) : null}
+                    {speechState === "paused" ? (
+                      <>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Reprendre la lecture"
+                          onPress={resumeSpeech}
+                          style={({ pressed }) => [
+                            styles.listenPrimaryButton,
+                            pressed && styles.pressed,
+                          ]}
+                        >
+                          <MaterialIcons
+                            name="play-arrow"
+                            size={18}
+                            color={colors.surface}
+                          />
+                          <Text style={styles.listenPrimaryLabel}>
+                            Reprendre
+                          </Text>
+                        </Pressable>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Arrêter la lecture"
+                          onPress={stopSpeech}
+                          style={({ pressed }) => [
+                            styles.listenStopButton,
+                            pressed && styles.pressed,
+                          ]}
+                        >
+                          <MaterialIcons
+                            name="stop"
+                            size={18}
+                            color={colors.error}
+                          />
+                          <Text style={styles.listenStopLabel}>Arrêter</Text>
+                        </Pressable>
+                      </>
+                    ) : null}
+                  </View>
+                </View>
+                <LessonMarkdown content={displayedContent} />
+              </>
             ) : (
               <Text style={styles.emptyContent}>
                 Le contenu de cette leçon sera ajouté prochainement.
@@ -711,6 +847,73 @@ const createStyles = (colors: ReturnType<typeof useEduTheme>["colors"]) =>
       marginBottom: 14,
     },
     emptyContent: { color: colors.text, fontSize: 16, lineHeight: 26 },
+    listenCard: {
+      gap: 9,
+      padding: 14,
+      borderRadius: 16,
+      backgroundColor: colors.primarySoft,
+      borderWidth: 1,
+      borderColor: colors.primary,
+      marginBottom: 16,
+    },
+    listenHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 9,
+    },
+    listenTitle: { color: colors.primary, fontSize: 14, fontWeight: "900" },
+    listenStatus: { color: colors.muted, fontSize: 12, lineHeight: 18 },
+    listenActions: { flexDirection: "row", gap: 9 },
+    listenPrimaryButton: {
+      flex: 1,
+      minHeight: 42,
+      borderRadius: 12,
+      backgroundColor: colors.primary,
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "row",
+      gap: 6,
+    },
+    listenPrimaryLabel: {
+      color: colors.surface,
+      fontSize: 12,
+      fontWeight: "900",
+    },
+    listenSecondaryButton: {
+      flex: 1,
+      minHeight: 42,
+      borderRadius: 12,
+      backgroundColor: colors.surface,
+      borderWidth: 1,
+      borderColor: colors.primary,
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "row",
+      gap: 6,
+    },
+    listenSecondaryLabel: {
+      color: colors.primary,
+      fontSize: 12,
+      fontWeight: "900",
+    },
+    listenStopButton: {
+      minHeight: 42,
+      paddingHorizontal: 13,
+      borderRadius: 12,
+      backgroundColor: colors.surface,
+      borderWidth: 1,
+      borderColor: colors.error,
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "row",
+      gap: 6,
+    },
+    listenStopLabel: {
+      color: colors.error,
+      fontSize: 12,
+      fontWeight: "900",
+    },
+    listenDisabled: { opacity: 0.55 },
     exerciseCard: {
       marginTop: 18,
       gap: 13,
