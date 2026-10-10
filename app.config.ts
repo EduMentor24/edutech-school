@@ -66,6 +66,7 @@ const config: ExpoConfig = {
     predictiveBackGestureEnabled: false,
     package: env.androidPackage,
     versionCode: 1,
+    jsEngine: "hermes",
     permissions: ["POST_NOTIFICATIONS"],
     intentFilters: [
       {
