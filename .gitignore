@@ -71,3 +71,5 @@ artifacts/
 
 # Artifacts directory (audits, commands, queries, reports)
 artifacts/
+reference/*.pdf
+!reference/.gitkeep
