@@ -9,9 +9,9 @@ import { useEduTheme } from "@/lib/edutech/theme-context";
 type CalloutTone = "definition" | "method" | "warning" | "example" | "summary" | "default";
 
 const COMPUTER_VISUALS = {
-  hardware: "/manus-storage/computer-desktop-components_761a8e56.png",
-  ports: "/manus-storage/computer-ports-peripherals_4490b005.png",
-  workspace: "/manus-storage/computer-study-workspace_f3d1ceb8.png",
+  hardware: "/manus-storage/computer-desktop-components_761a8e56.webp",
+  ports: "/manus-storage/computer-ports-peripherals_4490b005.webp",
+  workspace: "/manus-storage/computer-study-workspace_f3d1ceb8.webp",
 } as const;
 
 const HARDWARE_COMPONENTS = [
