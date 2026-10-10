@@ -31,8 +31,8 @@ const env = {
   appName: "EduTech School",
   appSlug: "edutech-school",
   // S3 URL of the app logo - set this to the URL returned by generate_image when creating custom logo
-  // Leave empty to use the default icon from assets/images/icon.png
-  logoUrl: "/manus-storage/edutech-school-icon_8a8bf9c2.png",
+  // Leave empty to use the default icon from assets/images/icon.webp
+  logoUrl: "/manus-storage/edutech-school-icon_8a8bf9c2.webp",
   scheme: schemeFromBundleId,
   iosBundleId: bundleId,
   androidPackage: bundleId,
@@ -43,7 +43,7 @@ const config: ExpoConfig = {
   slug: env.appSlug,
   version: "1.0.0",
   orientation: "portrait",
-  icon: "./assets/images/icon.png",
+  icon: "./assets/images/icon.webp",
   scheme: env.scheme,
   userInterfaceStyle: "automatic",
   newArchEnabled: true,
@@ -55,12 +55,12 @@ const config: ExpoConfig = {
     },
   },
   android: {
-    icon: "./assets/images/icon.png",
+    icon: "./assets/images/icon.webp",
     adaptiveIcon: {
       backgroundColor: "#155EEF",
-      foregroundImage: "./assets/images/android-icon-foreground.png",
-      backgroundImage: "./assets/images/android-icon-background.png",
-      monochromeImage: "./assets/images/android-icon-monochrome.png",
+      foregroundImage: "./assets/images/android-icon-foreground.webp",
+      backgroundImage: "./assets/images/android-icon-background.webp",
+      monochromeImage: "./assets/images/android-icon-monochrome.webp",
     },
     edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
@@ -85,7 +85,7 @@ const config: ExpoConfig = {
   web: {
     bundler: "metro",
     output: "static",
-    favicon: "./assets/images/favicon.png",
+    favicon: "./assets/images/favicon.webp",
   },
   plugins: [
     "expo-router",
@@ -98,7 +98,13 @@ const config: ExpoConfig = {
     [
       "expo-asset",
       {
-        assets: ["./assets/images/icon.png"],
+        assets: ["./assets/images/icon.webp"],
+      },
+    ],
+    [
+      "expo-asset",
+      {
+        assets: ["./assets/images/icon.webp"],
       },
     ],
     [
@@ -124,7 +130,7 @@ const config: ExpoConfig = {
     [
       "expo-splash-screen",
       {
-        image: "./assets/images/splash-icon.png",
+        image: "./assets/images/splash-icon.webp",
         imageWidth: 200,
         resizeMode: "contain",
         backgroundColor: "#F5F8FF",
